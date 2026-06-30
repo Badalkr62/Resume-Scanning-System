@@ -1,28 +1,15 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
   <div class="container-fluid px-md-5">
+    
     <div class="d-flex align-items-center">
-      <i
-        class="fa-solid fa-file-invoice text-primary"
-        style="font-size: 35px"
-      ></i>
+      <i class="fa-solid fa-file-invoice text-primary" style="font-size: 35px"></i>
       <div class="ms-2">
-        <a
-          class="navbar-brand fw-bold text-primary mb-0 p-0 d-block"
-          href="/"
-          style="line-height: 1"
-          >Smart Resume</a
-        >
-        <small class="text-secondary d-block" style="font-size: 11px"
-          >Screening Platform</small
-        >
+        <a class="navbar-brand fw-bold text-primary mb-0 p-0 d-block" href="/" style="line-height: 1">Smart Resume</a>
+        <small class="text-secondary d-block" style="font-size: 11px">Screening Platform</small>
       </div>
     </div>
 
-    <button
-      class="navbar-toggler"
-      data-bs-toggle="collapse"
-      data-bs-target="#menu"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -33,71 +20,38 @@
           <span class="text-primary">{{ user.username }}</span>
         </span>
       </div>
+      
       <ul class="navbar-nav ms-auto align-items-center custom-nav">
-        <li class="nav-item"></li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold {% if request.path == '/about/' %}active{% endif %}" href="/about/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold {% if request.path == '/features/' %}active{% endif %}" href="/features/">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold {% if request.path == '/how-it-works/' %}active{% endif %}" href="/how-it-works/">How it Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold {% if request.path == '/contact/' %}active{% endif %}" href="/contact/">Contact</a>
+        </li>
 
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/' %}active{% endif %}"
-            href="/"
-            >Home</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/about/' %}active{% endif %}"
-            href="/about/"
-            >About</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/features/' %}active{% endif %}"
-            href="/features/"
-            >Features</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/how-it-works/' %}active{% endif %}"
-            href="/how-it-works/"
-            >How it Works</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/contact/' %}active{% endif %}"
-            href="/contact/"
-            >Contact</a
-          >
-        </li>
-        {% comment %} {% if user.is_authenticated %}
-
-        <li class="nav-item">
-          <a class="btn btn-danger" href="/accounts/logout/"> Logout </a>
-        </li>
-        {% endcomment %} 
         {% if user.is_authenticated %}
-
         <li class="nav-item">
           <a class="nav-link fw-bold" href="/dashboard/"> Dashboard </a>
         </li>
-
         <li class="nav-item">
-          <a class="btn btn-danger" href="/accounts/logout/"> Logout </a>
+          <a class="btn btn-danger text-white ms-2" href="/accounts/logout/"> Logout </a>
         </li>
-
-        {% comment %} {% endif %}  {% endcomment %}
         {% else %}
-
         <li class="nav-item">
-          <a class="btn btn-primary" href="/accounts/login/"> Login </a>
+          <a class="btn btn-primary text-white" href="/accounts/login/"> Login </a>
         </li>
-
         <li class="nav-item ms-2">
-          <a class="btn btn-success" href="/accounts/register/"> Register </a>
+          <a class="btn btn-success text-white" href="/accounts/register/"> Register </a>
         </li>
-
         {% endif %}
       </ul>
     </div>
@@ -111,7 +65,6 @@
     margin: 0 10px;
     transition: color 0.3s ease;
   }
-
   .custom-nav .nav-link.active::after,
   .custom-nav .nav-link:hover::after {
     content: "";
@@ -123,9 +76,7 @@
     background-color: #0d6efd;
     border-radius: 2px;
   }
-
   .custom-nav .nav-link.active {
     color: #0d6efd !important;
-    fw-bold: true;
   }
 </style>
