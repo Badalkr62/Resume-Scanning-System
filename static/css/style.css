@@ -2,7 +2,10 @@ body{
     background:linear-gradient(180deg,#f0f9ff,#ffffff,#eef6ff);
     font-family:'Poppins',sans-serif;
 }
-/* about*/
+/* =========================
+   HOME PAGE CSS
+========================= */
+
 /*================= ABOUT SECTION =================*/
 
 .about{
@@ -117,7 +120,7 @@ body{
     }
 
     50%{
-        transform:translateY(-15px);
+        transform:translateY(0px);
     }
 
     100%{
@@ -253,3 +256,4 @@ body{
     color:#fff;
 }
 /*contact*/
+

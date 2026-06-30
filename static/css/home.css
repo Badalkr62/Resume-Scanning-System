@@ -1,0 +1,176 @@
+
+body{
+    font-family: "Poppins", sans-serif;
+    background: #f8fbff;
+    color: #222;
+    background-color: aquamarine;
+}
+
+/* Hero Section */
+
+section{
+    padding-top:40px;
+    padding-bottom:40px;
+}
+
+.text-primary{
+    color:#0d6efd !important;
+}
+
+.bg-primary-subtle{
+    background:#e8f1ff !important;
+}
+
+.display-5{
+    line-height:1.2;
+}
+
+.lead{
+    color:#6c757d;
+    font-size:18px;
+    margin-top:20px;
+}
+
+/* Buttons */
+
+.btn-primary{
+    border-radius:50px;
+    padding:12px 28px;
+    box-shadow:0 10px 25px rgba(13,110,253,.2);
+}
+
+.btn-outline-primary{
+    border-radius:50px;
+    padding:12px 28px;
+}
+
+/* Hero Image */
+
+.col-lg-6 img.img-fluid{
+    width:100%;
+    height:auto;
+}
+
+/* Recruiter Images */
+
+.rounded-circle{
+    border-radius:50%;
+}
+
+/* ==========================
+   Feature Section
+========================== */
+
+footer{
+    background:#f8f9fa;
+}
+
+footer h6{
+    letter-spacing:2px;
+}
+
+footer h2{
+    margin-bottom:35px;
+}
+
+/* Feature Cards */
+
+.flex-shrink-0{
+    border-radius:18px;
+    border:1px solid #ececec;
+}
+
+.flex-shrink-0 h5{
+    font-size:20px;
+}
+
+.flex-shrink-0 p{
+    color:#666;
+    line-height:1.7;
+}
+
+/* CTA Banner */
+
+.bg-primary{
+    border-radius:20px;
+}
+
+.bg-primary h3{
+    letter-spacing:1px;
+}
+
+.bg-primary .btn{
+    border-radius:50px;
+}
+
+/* Hide Scrollbar */
+
+.hide-scrollbar::-webkit-scrollbar{
+    display:none;
+}
+
+.hide-scrollbar{
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+    .display-5{
+        font-size:42px;
+    }
+
+    .lead{
+        font-size:16px;
+    }
+
+    .text-nowrap{
+        margin-top:20px;
+    }
+
+    .col-lg-6{
+        text-align:center;
+    }
+
+    .d-flex.gap-4{
+        justify-content:center;
+    }
+}
+
+@media(max-width:768px){
+
+    .display-5{
+        font-size:34px;
+    }
+
+    .flex-shrink-0{
+        width:240px!important;
+    }
+
+    .rounded-circle{
+        width:60px!important;
+        height:60px!important;
+    }
+
+    .bg-primary h3{
+        font-size:24px;
+    }
+}
+
+@media(max-width:576px){
+
+    .display-5{
+        font-size:28px;
+    }
+
+    .lead{
+        font-size:15px;
+    }
+
+    .btn-lg{
+        font-size:15px;
+        padding:10px 20px;
+    }
+}

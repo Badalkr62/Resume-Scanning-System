@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 <section class="py-4">
   <div class="container-fluid px-md-5">
     <div class="row align-items-center">
@@ -209,4 +211,5 @@
     scrollbar-width: none;
   }
 </style>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
