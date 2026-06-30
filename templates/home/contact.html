@@ -1,17 +1,281 @@
-{% extends 'base.html' %} {% block content %}
 
-<div class="container py-5">
-  <h1>Contact Us</h1>
 
-  <form>
-    <input class="form-control mb-3" placeholder="Name" />
 
-    <input class="form-control mb-3" placeholder="Email" />
+{% extends 'base.html' %}
+{% load static %}
 
-    <textarea class="form-control mb-3"></textarea>
+{% block content %}
 
-    <button class="btn btn-primary">Send Message</button>
-  </form>
-</div>
+<!-- ================= HERO SECTION ================= -->
+
+<section class="contact-hero">
+
+    <div class="hero-left">
+
+        <span class="hero-tag">
+            CONTACT US
+        </span>
+
+        <h1>
+            We're Here to
+            <span>Help!</span>
+        </h1>
+
+        <p>
+            Have questions or need assistance? Our team is always
+            ready to help you with resume screening, hiring solutions,
+            and any support you need.
+        </p>
+
+    </div>
+
+    <div class="hero-right">
+
+        <img src="{% static '/media/rrt.jpeg' %}" alt="Contact">
+
+    </div>
+
+</section>
+
+<!-- ================= CONTACT SECTION ================= -->
+
+<section class="contact-section">
+
+    <!-- LEFT -->
+
+    <div class="contact-form">
+
+        <h2>Send Us a Message</h2>
+
+        <div class="title-line"></div>
+
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="input-box">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Your Name"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-regular fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        placeholder="Your Email"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="input-box full">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <input
+                    type="text"
+                    placeholder="Phone Number"
+                >
+
+            </div>
+
+            <div class="input-box full">
+
+                <i class="fa-solid fa-list"></i>
+
+                <select>
+
+                    <option>Select Subject</option>
+
+                    <option>Resume Screening</option>
+
+                    <option>Technical Support</option>
+
+                    <option>Business Inquiry</option>
+
+                    <option>General Question</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-box full textarea">
+
+                <i class="fa-regular fa-pen-to-square"></i>
+
+                <textarea
+                    rows="6"
+                    placeholder="Write your message..."
+                ></textarea>
+
+            </div>
+
+            <button class="send-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Send Message
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="contact-info">
+
+        <h2>Contact Information</h2>
+
+        <div class="title-line"></div>
+
+        <div class="info-box">
+
+            <div class="icon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+            <div>
+
+                <h4>Office Address</h4>
+
+                <p>
+                    Ranchi, Jharkhand,<br>
+                    India
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="info-box">
+
+            <div class="icon">
+
+                <i class="fa-solid fa-phone"></i>
+
+            </div>
+
+            <div>
+
+                <h4>Phone</h4>
+
+                <p>
+                    +91 9693591496
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="info-box">
+
+            <div class="icon">
+
+                <i class="fa-solid fa-envelope"></i>
+
+            </div>
+
+            <div>
+
+                <h4>Email</h4>
+
+                <p>
+                    amankumar19@gmail.com
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="info-box">
+
+            <div class="icon">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+            <div>
+
+                <h4>Working Hours</h4>
+
+                <p>
+                    Monday - Saturday <br>
+                    9:00 AM - 6:00 PM
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="social">
+
+            <a href="#">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= CTA ================= -->
+
+<section class="contact-cta">
+
+    <div>
+
+        <h2>Let's Work Together</h2>
+
+        <p>
+
+            Join thousands of recruiters using our
+            AI Resume Screening Platform.
+
+        </p>
+
+    </div>
+
+    <button
+        onclick="window.location.href='/accounts/login/'"
+    >
+
+        Create Free Account
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+</section>
 
 {% endblock %}
