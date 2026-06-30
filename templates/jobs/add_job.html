@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<div class="card shadow-lg border-0">
+
+<div class="card-header bg-primary text-white">
+
+<h2>
+
+<i class="fa-solid fa-briefcase"></i>
+
+Add New Job
+
+</h2>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Job Title</label>
+
+{{ form.title }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Company</label>
+
+{{ form.company }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Location</label>
+
+{{ form.location }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Salary</label>
+
+{{ form.salary }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Job Type</label>
+
+{{ form.job_type }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Deadline</label>
+
+{{ form.deadline }}
+
+</div>
+
+<div class="col-12 mb-3">
+
+<label>Skills</label>
+
+{{ form.skills }}
+
+</div>
+
+<div class="col-12 mb-3">
+
+<label>Description</label>
+
+{{ form.description }}
+
+</div>
+
+</div>
+
+<div class="text-end">
+
+<button class="btn btn-primary">
+
+Save Job
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

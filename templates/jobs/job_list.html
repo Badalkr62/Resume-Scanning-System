@@ -1,200 +1,156 @@
-
 {% extends 'base.html' %} {% block content %}
-<div class="container mt-5 py-3 text-white">
-  <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 header-fade"
-  >
-    <div>
-      <h2 class="fw-bold mb-1">
-        <i class="fa-solid fa-briefcase text-primary me-2"></i>Job Listings
-      </h2>
-      <p class="text-secondary mb-0">
-        Manage all your posted jobs and configurations from here.
-      </p>
+
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <div class="d-flex justify-content-between">
+        <h3>Job List</h3>
+
+        <a href="{% url 'add_job' %}" class="btn btn-light"> Add Job </a>
+      </div>
     </div>
 
-    <div class="mt-3 mt-md-0">
-      <a
-        href="{% url 'add_job' %}"
-        class="btn btn-primary fw-bold px-4 py-2 add-job-btn shadow-sm"
-      >
-        <i class="fa-solid fa-plus me-1"></i> Add New Job
-      </a>
-    </div>
-  </div>
+    <div class="card-body">
+      <form method="GET">
+        <div class="row mb-4">
+          <div class="col-md-5">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search Job..."
+              name="search"
+              value="{{ request.GET.search }}"
+            />
+          </div>
 
-  <div class="table-responsive table-card shadow-lg animate-table">
-    <table class="table table-dark table-hover mb-0 align-middle">
-      <thead>
-        <tr>
-          <th
-            class="ps-4 text-secondary text-uppercase tracking-wider small fw-bold"
-          >
-            Title
-          </th>
-          <th
-            class="text-secondary text-uppercase tracking-wider small fw-bold"
-          >
-            Company
-          </th>
-          <th
-            class="text-secondary text-uppercase tracking-wider small fw-bold"
-          >
-            Location
-          </th>
-          <th
-            class="text-secondary text-uppercase tracking-wider small fw-bold"
-          >
-            Experience
-          </th>
-          <th
-            class="text-end pe-4 text-secondary text-uppercase tracking-wider small fw-bold"
-          >
-            Action
-          </th>
-        </tr>
-      </thead>
+          <div class="col-md-3">
+            <select class="form-select" name="type">
+              <option value="">All Types</option>
 
-      <tbody>
-        {% for job in jobs %}
-        <tr class="job-row" style="--row-index: {{ forloop.counter }}">
-          <td class="ps-4 fw-bold text-white">{{ job.title }}</td>
-          <td>
-            <span
-              class="badge bg-secondary-subtle text-light px-2.5 py-1.5 fw-semibold fs-7 border border-secondary"
-            >
-              <i class="fa-solid fa-building me-1 opacity-75"></i> {{
-              job.company }}
-            </span>
-          </td>
-          <td>
-            <i class="fa-solid fa-location-dot text-secondary me-1"></i> {{
-            job.location }}
-          </td>
-          <td>
-            <i class="fa-solid fa-graduation-cap text-secondary me-1"></i> {{
-            job.experience }} Yrs
-          </td>
+              <option value="Full Time">Full Time</option>
 
-          <td class="text-end pe-4">
-            <div class="d-inline-flex gap-2">
+              <option value="Part Time">Part Time</option>
+
+              <option value="Internship">Internship</option>
+
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <button class="btn btn-success w-100">Search</button>
+          </div>
+
+          <div class="col-md-2">
+            <a href="{% url 'job_list' %}" class="btn btn-secondary w-100">
+              Reset
+            </a>
+          </div>
+        </div>
+      </form>
+
+      <table class="table table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+
+            <th>Title</th>
+
+            <th>Company</th>
+
+            <th>Location</th>
+
+            <th>Salary</th>
+
+            <th>Type</th>
+
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for job in jobs %}
+
+          <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ job.title }}</td>
+
+            <td>{{ job.company }}</td>
+
+            <td>{{ job.location }}</td>
+
+            <td>{{ job.salary }}</td>
+
+            <td>
+              <span class="badge bg-primary"> {{ job.job_type }} </span>
+            </td>
+
+            <td>
+              <a 
+              href="{% url 'view_job' job.id %}"
+               class="btn btn-info btn-sm"
+              >
+                <i class="fa fa-eye"></i>
+              </a>
+
               <a
                 href="{% url 'edit_job' job.id %}"
-                class="btn btn-outline-warning btn-sm px-3 fw-medium action-btn"
+                class="btn btn-warning btn-sm"
               >
-                <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                <i class="fa fa-edit"></i>
               </a>
+
               <a
                 href="{% url 'delete_job' job.id %}"
-                class="btn btn-outline-danger btn-sm px-3 fw-medium action-btn"
+                class="btn btn-danger btn-sm"
               >
-                <i class="fa-solid fa-trash me-1"></i> Delete
+                <i class="fa fa-trash"></i>
               </a>
-            </div>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="5" class="text-center py-5 text-secondary">
-            <i
-              class="fa-solid fa-folder-open d-block mb-3 display-6 opacity-50"
-            ></i>
-            No jobs found. Click "Add New Job" to start.
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+            </td>
+          </tr>
+
+          {% empty %}
+
+          <tr>
+            <td colspan="7" class="text-center">No Jobs Available</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+
+      <nav>
+        <ul class="pagination justify-content-center">
+          {% if jobs.has_previous %}
+
+          <li class="page-item">
+            <a class="page-link" href="?page={{ jobs.previous_page_number }}">
+              Previous
+            </a>
+          </li>
+
+          {% endif %}
+
+          <li class="page-item active">
+            <a class="page-link"> {{ jobs.number }} </a>
+          </li>
+
+          {% if jobs.has_next %}
+
+          <li class="page-item">
+            <a class="page-link" href="?page={{ jobs.next_page_number }}">
+              Next
+            </a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 
-<style>
-  body {
-    background-color: #0b0f19 !important; /* डीप डार्क नाइट ब्लू बैकग्राउंड */
-  }
-
-  /* 1. ऑटो-एनिमेशन: रो का एक-एक करके ऊपर आना (Staggered Animation) */
-  @keyframes rowEntrance {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* हेडर के लिए तुरंत लोड होने वाला एनिमेशन */
-  .header-fade {
-    animation: rowEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  /* टेबल कार्ड की डार्क ग्लास स्टाइल */
-  .table-card {
-    background-color: #111827 !important; /* गहरा चारकोल ग्रे */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  /* बूटस्ट्रैप टेबल को डार्क थीम में ढालना */
-  .table-dark {
-    --bs-table-bg: #111827 !important;
-    --bs-table-hover-bg: #1f2937 !important; /* होवर करने पर गहरा ग्रे */
-    border-color: #232d3d !important;
-  }
-
-  .table-dark th {
-    background-color: #161e2e !important; /* हेडर रो का बैकग्राउंड */
-    padding-top: 16px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #232d3d !important;
-  }
-
-  .table-dark td {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    transition: background-color 0.2s ease;
-  }
-
-  /* हर रो पर वेव एनिमेशन लागू करना */
-  .job-row {
-    opacity: 0;
-    animation: rowEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    /* Django के forloop.counter का उपयोग करके हर रो 0.06 सेकंड लेट खुलेगी */
-    animation-delay: calc(var(--row-index) * 0.06s);
-  }
-
-  /* 2. बटन होवर इफ़ेक्ट्स */
-  .add-job-btn {
-    background: linear-gradient(45deg, #0d6efd, #0056b3);
-    border: none;
-    transition: all 0.3s ease;
-  }
-  .add-job-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.4);
-  }
-
-  /* एडिट और डिलीट बटन्स के लिए स्मूथ आउटलाइन ग्लो */
-  .action-btn {
-    transition: all 0.2s ease;
-  }
-  .action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  /* बैज और छोटे फॉन्ट्स */
-  .bg-secondary-subtle {
-    background-color: rgba(55, 65, 81, 0.5) !important;
-  }
-  .fs-7 {
-    font-size: 0.85rem;
-  }
-  .tracking-wider {
-    letter-spacing: 0.05em;
-  }
-</style>
 {% endblock %}

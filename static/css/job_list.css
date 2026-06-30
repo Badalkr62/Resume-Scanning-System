@@ -1,0 +1,35 @@
+.table{
+
+border-radius:12px;
+
+overflow:hidden;
+
+}
+
+.card{
+
+border-radius:15px;
+
+}
+
+.table tbody tr:hover{
+
+background:#eef5ff;
+
+transition:.3s;
+
+}
+
+.btn{
+
+border-radius:8px;
+
+}
+
+.badge{
+
+font-size:13px;
+
+padding:8px 12px;
+
+}
