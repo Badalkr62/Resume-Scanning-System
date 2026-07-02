@@ -3,11 +3,6 @@
   background: #f8fbff;
 }
 
-.container {
-  max-width: 1400px;
-  margin: auto;
-}
-
 .heading {
   text-align: center;
   margin-bottom: 20px;
@@ -216,12 +211,6 @@
   color: #1f2937;
 }
 
-/* .step-card p {
-  font-size: 15px;
-  margin: auto;
-  
-} */
-
 .step-card h3 {
   margin: 18px 0 10px;
 }
@@ -410,7 +399,7 @@
 
 .cta-section {
   width: 90%;
-  margin: 80px auto;
+  margin: 16px auto;
   background: linear-gradient(135deg, #2563eb, #0f172a);
   color: #fff;
   border-radius: 20px;
@@ -583,8 +572,7 @@
   display: block;
 }
 
-
 .result-left img {
-  width: 300px;   /* yahan size bada ya chhota kar sakte ho */
-  height: auto;   /* aspect ratio maintain rahega */
+  width: 300px; /* yahan size bada ya chhota kar sakte ho */
+  height: auto; /* aspect ratio maintain rahega */
 }

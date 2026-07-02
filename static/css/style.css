@@ -330,11 +330,6 @@ body {
   border-radius: 10px;
 }
 
-.row {
-  display: flex;
-  gap: 20px;
-}
-
 .input-box {
   flex: 1;
   position: relative;

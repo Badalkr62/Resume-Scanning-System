@@ -8,11 +8,15 @@ body {
   text-align: center;
 }
 
+.container-box {
+  margin: 56px !important;
+}
+
 .hero-badge {
   display: inline-block;
   background: #eef5ff;
   color: #0d6efd;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   padding: 8px 20px;
   border-radius: 30px;
@@ -20,7 +24,7 @@ body {
 }
 
 .features-hero h1 {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
   color: #0b132a;
@@ -38,27 +42,17 @@ body {
   color: #6c757d;
   font-size: 12px;
   line-height: 1.6;
-}
-
-.features-section {
-  padding: 0px;
-  display: flex;
+  padding-bottom: 12px !important;
 }
 
 .feature-card {
   background: #fff;
-
   border-radius: 22px;
-
   align-items: center;
-  padding: 30px 25px;
-
+  padding: 2px 16px;
   height: 100%;
-
   border: 1px solid #ececec;
-
   transition: 0.35s;
-
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 }
 
@@ -69,22 +63,16 @@ body {
 }
 
 .feature-card h3 {
-  font-size: 28px;
-
-  font-weight: 700;
-
+  font-size: 20px;
+  font-weight: 600;
   color: #0b132a;
-
   margin-top: 20px;
 }
 
 .feature-card p {
-  color: #666;
-
-  line-height: 30px;
-
-  margin-top: 18px;
-
+  color: #100f0f;
+  line-height: 24px;
+  margin-top: 4px;
   margin-bottom: 25px;
 }
 
@@ -205,12 +193,9 @@ body {
 .download-box,
 .secure-box {
   background: #fff;
-
   border: 1px solid #ececec;
-
   border-radius: 16px;
-
-  padding: 18px;
+  padding: 4px;
 }
 
 .upload-box {
@@ -258,7 +243,7 @@ body {
 }
 
 .skills {
-  margin-top: 18px;
+  margin-top: 4px;
 }
 
 .skills span {
@@ -296,7 +281,7 @@ body {
   color: #7c3aed;
   font-size: 40px;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin-bottom: 4px;
 }
 
 .progress {
@@ -340,8 +325,7 @@ body {
 ==================================*/
 
 .filter-tags {
-  display: flex;
-  flex-wrap: wrap;
+  display: flexbox;
   gap: 10px;
 }
 
@@ -429,14 +413,6 @@ body {
   color: #444;
 
   font-weight: 600;
-}
-
-/*==================================
-        CTA SECTION
-==================================*/
-
-.cta-section {
-  padding: 90px 0;
 }
 
 .cta-box {
@@ -555,7 +531,7 @@ body {
   }
 
   .feature-card h3 {
-    font-size: 24px;
+    font-size: 16px;
   }
 
   .cta-content img {
@@ -584,7 +560,7 @@ body {
   }
 
   .feature-card {
-    border-radius: 18px;
+    border-radius: 4px;
   }
 
   .icon {
