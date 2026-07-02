@@ -23,14 +23,38 @@
     <link rel="stylesheet" href="{% static 'css/job.css' %}" />
     <link rel="stylesheet" href="{% static 'css/job_list.css' %}" />
     <link rel="stylesheet" href="{% static 'css/about.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/works.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/works.css' %}" />
   </head>
 
   <body>
-    {% include 'navbar.html' %} {% block content %} {% endblock %} {% comment %}
-    {% include 'footer.html' %} {% endcomment %}
+    {% include 'navbar.html' %}
 
+    <!-- ✅ Messages Popup -->
+    {% if messages %}
+    <div id="message-container">
+      {% for message in messages %}
+      <div class="popup-box alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% block content %}{% endblock %}
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ⏱ Auto close messages after 3 seconds -->
+    <script>
+      setTimeout(function () {
+        let alerts = document.querySelectorAll(".auto-hide");
+
+        alerts.forEach(function (alert) {
+          alert.classList.remove("show");
+          alert.classList.add("hide");
+
+          setTimeout(() => {
+            alert.remove();
+          }, 500);
+        });
+      }, 2000); // 3 seconds (change to 2000 for 2 sec)
+    </script>
   </body>
 </html>

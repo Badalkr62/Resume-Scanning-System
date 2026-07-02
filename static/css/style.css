@@ -608,8 +608,6 @@ body {
   white-space: nowrap;
 }
 
-
-
 .cta-button a {
   display: inline-flex;
   align-items: center;
@@ -641,5 +639,52 @@ body {
   transform: translateX(5px);
 }
 
+#message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+}
 
+.popup-box {
+  min-width: 320px;
+  max-width: 420px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.4s ease;
+  opacity: 1;
+}
 
+/* colors */
+.alert-success {
+  background: #28a745;
+}
+.alert-error,
+.alert-danger {
+  background: #dc3545;
+}
+.alert-warning {
+  background: #ffc107;
+  color: #000;
+}
+.alert-info {
+  background: #17a2b8;
+}
+
+/* animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
