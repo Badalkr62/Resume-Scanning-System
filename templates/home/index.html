@@ -267,22 +267,41 @@
           ></i>
         </div>
 
-        <div class="text-center text-md-start">
-          <h3 class="fw-bold mb-1 fs-2 text-uppercase">
-            Ready to find the best talent?
-          </h3>
-          <p class="mb-0 text-white-50 fs-6">
-            Join thousands of recruiters who are already using our platform.
-          </p>
+        <div class="cta-content">
+          <div
+            class="cta-left"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 30px;
+            "
+          >
+            <span class="cta-tag">JOIN OUR COMMUNITY</span>
+
+            <h2>
+              Hire Smarter with
+              <span>AI-Powered Screening</span>
+            </h2>
+
+            <p>
+              Join thousands of recruiters who trust our Smart Resume Screening
+              Platform to identify top talent, reduce hiring time, and make
+              faster hiring decisions.
+            </p>
+          </div>
+
+          <a href="{% url 'register' %}" class="cta-btn">
+            Create Free Account
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
 
-        <div class="ms-md-auto text-nowrap">
-          <a
-            href="/accounts/register/"
-            class="btn btn-white bg-white text-primary fw-bold btn-lg px-4 shadow"
-          >
-            Create Free Account &nbsp;
-            <i class="fa-solid fa-user-plus"></i>
+        <div class="cta-button"
+        >
+          <a href="{% url 'register' %}">
+            Create Free Account
+            <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -299,5 +318,5 @@
     scrollbar-width: none;
   }
 </style>
-<link rel="stylesheet" href="{% static 'css/.css' %}">
+<link rel="stylesheet" href="{% static 'css/.css' %}" />
 {% endblock %}

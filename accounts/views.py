@@ -39,7 +39,7 @@ def user_login(request):
 
             login(request, user)
 
-            return redirect('dashboard')
+            return redirect('/')
 
     return render(request, 'accounts/login.html')
 

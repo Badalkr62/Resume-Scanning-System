@@ -114,6 +114,9 @@ footer h2{
     -ms-overflow-style:none;
 }
 
+
+
+
 /* Responsive */
 
 @media(max-width:992px){
@@ -174,3 +177,5 @@ footer h2{
         padding:10px 20px;
     }
 }
+
+
