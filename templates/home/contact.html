@@ -1,281 +1,203 @@
-
-
-
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <!-- ================= HERO SECTION ================= -->
 
 <section class="contact-hero">
+  <div class="hero-left">
+    <span class="hero-tag"> CONTACT US </span>
 
-    <div class="hero-left">
+    <h1>
+      We're Here to
+      <span>Help!</span>
+    </h1>
 
-        <span class="hero-tag">
-            CONTACT US
-        </span>
+    <p>
+      Have questions or need assistance? Our team is always ready to help you
+      with resume screening, hiring solutions, and any support you need.
+    </p>
+  </div>
 
-        <h1>
-            We're Here to
-            <span>Help!</span>
-        </h1>
-
-        <p>
-            Have questions or need assistance? Our team is always
-            ready to help you with resume screening, hiring solutions,
-            and any support you need.
-        </p>
-
-    </div>
-
-    <div class="hero-right">
-
-        <img src="{% static '/media/rrt.jpeg' %}" alt="Contact">
-
-    </div>
-
+  <div class="hero-right">
+     <video src="/media/video.mp4" alt="video" autoplay muted loop playsinline>
+  </div>
 </section>
 
 <!-- ================= CONTACT SECTION ================= -->
 
 <section class="contact-section">
+  <!-- LEFT -->
 
-    <!-- LEFT -->
+  <div class="contact-form">
+    <h2>Send Us a Message</h2>
 
-    <div class="contact-form">
+    <div class="title-line"></div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+    <form action="" method="POST">
+      {% csrf_token %}
 
-        <h2>Send Us a Message</h2>
+      <div class="row">
+        <div class="input-box">
+          <i class="fa-regular fa-user"></i>
 
-        <div class="title-line"></div>
+          <input type="text" placeholder="Your Name" required />
+        </div>
 
-        <form action="" method="POST">
+        <div class="input-box">
+          <i class="fa-regular fa-envelope"></i>
 
-            {% csrf_token %}
+          <input type="email" placeholder="Your Email" required />
+        </div>
+      </div>
 
-            <div class="row">
+      <div class="input-box full">
+        <i class="fa-solid fa-phone"></i>
 
-                <div class="input-box">
+        <input type="text" placeholder="Phone Number" />
+      </div>
 
-                    <i class="fa-regular fa-user"></i>
+      <div class="input-box full">
+        <i class="fa-solid fa-list"></i>
 
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        required
-                    >
+        <select>
+          <option>Select Subject</option>
 
-                </div>
+          <option>Resume Screening</option>
 
-                <div class="input-box">
+          <option>Technical Support</option>
 
-                    <i class="fa-regular fa-envelope"></i>
+          <option>Business Inquiry</option>
 
-                    <input
-                        type="email"
-                        placeholder="Your Email"
-                        required
-                    >
+          <option>General Question</option>
+        </select>
+      </div>
 
-                </div>
+      <div class="input-box full textarea">
+        <i class="fa-regular fa-pen-to-square"></i>
 
-            </div>
+        <textarea rows="6" placeholder="Write your message..."></textarea>
+      </div>
 
-            <div class="input-box full">
+      <button class="send-btn">
+        <i class="fa-solid fa-paper-plane"></i>
 
-                <i class="fa-solid fa-phone"></i>
+        Send Message
+      </button>
+    </form>
+  </div>
 
-                <input
-                    type="text"
-                    placeholder="Phone Number"
-                >
+  <!-- RIGHT -->
 
-            </div>
+  <div class="contact-info">
+    <h2>Contact Information</h2>
 
-            <div class="input-box full">
+    <div class="title-line"></div>
 
-                <i class="fa-solid fa-list"></i>
+    <div class="info-box">
+      <div class="icon">
+        <i class="fa-solid fa-location-dot"></i>
+      </div>
 
-                <select>
+      <div>
+        <h4>Office Address</h4>
 
-                    <option>Select Subject</option>
-
-                    <option>Resume Screening</option>
-
-                    <option>Technical Support</option>
-
-                    <option>Business Inquiry</option>
-
-                    <option>General Question</option>
-
-                </select>
-
-            </div>
-
-            <div class="input-box full textarea">
-
-                <i class="fa-regular fa-pen-to-square"></i>
-
-                <textarea
-                    rows="6"
-                    placeholder="Write your message..."
-                ></textarea>
-
-            </div>
-
-            <button class="send-btn">
-
-                <i class="fa-solid fa-paper-plane"></i>
-
-                Send Message
-
-            </button>
-
-        </form>
-
+        <p>
+           Hazaribag ,Ranchi, Jharkhand,<br />
+          India
+        </p>
+      </div>
     </div>
 
-    <!-- RIGHT -->
+    <div class="info-box">
+      <div class="icon">
+        <i class="fa-solid fa-phone"></i>
+      </div>
 
-    <div class="contact-info">
+      <div>
+        <h4>Phone</h4>
 
-        <h2>Contact Information</h2>
-
-        <div class="title-line"></div>
-
-        <div class="info-box">
-
-            <div class="icon">
-
-                <i class="fa-solid fa-location-dot"></i>
-
-            </div>
-
-            <div>
-
-                <h4>Office Address</h4>
-
-                <p>
-                    Ranchi, Jharkhand,<br>
-                    India
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="info-box">
-
-            <div class="icon">
-
-                <i class="fa-solid fa-phone"></i>
-
-            </div>
-
-            <div>
-
-                <h4>Phone</h4>
-
-                <p>
-                    +91 9693591496
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="info-box">
-
-            <div class="icon">
-
-                <i class="fa-solid fa-envelope"></i>
-
-            </div>
-
-            <div>
-
-                <h4>Email</h4>
-
-                <p>
-                    amankumar19@gmail.com
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="info-box">
-
-            <div class="icon">
-
-                <i class="fa-solid fa-clock"></i>
-
-            </div>
-
-            <div>
-
-                <h4>Working Hours</h4>
-
-                <p>
-                    Monday - Saturday <br>
-                    9:00 AM - 6:00 PM
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="social">
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-
-        </div>
-
+        <p>+91 9693591496</p>
+      </div>
     </div>
 
+    <div class="info-box">
+      <div class="icon">
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+
+      <div>
+        <h4>Email</h4>
+
+        <p>amankumar7061@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="icon">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+
+      <div>
+        <h4>Working Hours</h4>
+
+        <p>
+          Monday - Saturday <br />
+          9:00 AM - 6:00 PM
+        </p>
+      </div>
+    </div>
+
+    <div class="social">
+      <a href="#">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+
+      <a href="#">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+
+      <a href="#">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a href="#">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- ================= CTA ================= -->
 
 <section class="contact-cta">
+  <div>
+    <h2>Let's Work Together</h2>
 
-    <div>
+    <p>Join thousands of recruiters using our AI Resume Screening Platform.</p>
+  </div>
 
-        <h2>Let's Work Together</h2>
+  <button onclick="window.location.href = '/accounts/login/'">
+    Create Free Account
 
-        <p>
-
-            Join thousands of recruiters using our
-            AI Resume Screening Platform.
-
-        </p>
-
-    </div>
-
-    <button
-        onclick="window.location.href='/accounts/login/'"
-    >
-
-        Create Free Account
-
-        <i class="fa-solid fa-arrow-right"></i>
-
-    </button>
-
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
 </section>
-
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
+<script>
+setTimeout(function () {
+    const alert = document.querySelector(".alert-success");
+    if (alert) {
+        alert.style.transition = "0.5s";
+        alert.style.opacity = "0";
+        setTimeout(() => {
+            alert.remove();
+        }, 500);
+    }
+}, 5000);
+</script>

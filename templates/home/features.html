@@ -1,26 +1,342 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5">
+<!-- ================= FEATURES HERO SECTION ================= -->
 
-<h1 class="text-center">
+<section class="features-hero">
 
-Features
+    <div class="container">
 
-</h1>
+        <!-- Badge -->
 
-<div class="row">
+        <div class="hero-badge">
+            FEATURES
+        </div>
 
-<div class="col-md-4">
+        <!-- Heading -->
 
-<div class="card">
+        <h1>
+            Powerful Features to Simplify 
+            Your <span>Hiring Process</span>
+        </h1>
 
-<div class="card-body">
+        <!-- Description -->
 
-<h4>Resume Upload</h4>
+        <p>
+            Smart Resume Screening Platform uses advanced AI and automation
+            to help you find, analyze and hire the best talent faster.
+        </p>
 
-<p>Upload PDF and DOCX resumes.</p>
+    </div>
+
+</section>
+
+
+
+<!-- ================= FEATURE CARDS START ================= -->
+
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="row g-4">
+<!-- Feature Card 1 -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon blue">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+        </div>
+
+        <h3>Resume Upload</h3>
+
+        <div class="line blue-line"></div>
+
+        <p>
+            Upload multiple resumes in PDF, DOCX format with
+            drag & drop support.
+        </p>
+
+        <!-- Upload Box -->
+
+        <div class="upload-box">
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <p>
+                Drag & Drop or <span>Browse</span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= Card 2 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon green">
+            <i class="fa-solid fa-file-lines"></i>
+        </div>
+
+        <h3>AI Resume Parsing</h3>
+
+        <div class="line green-line"></div>
+
+        <p>
+            Automatically extract key information like skills,
+            education, experience and more.
+        </p>
+
+        <div class="mini-card">
+
+            <div class="profile">
+
+                <div>
+                    <h5>John Doe</h5>
+                    <small>Software Engineer</small>
+                </div>
+
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+
+            </div>
+
+            <div class="skills">
+
+                <span>Python</span>
+                <span>Django</span>
+                <span>SQL</span>
+                <span>AWS</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Card 3 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon purple">
+            <i class="fa-solid fa-bullseye"></i>
+        </div>
+
+        <h3>Smart Matching</h3>
+
+        <div class="line purple-line"></div>
+
+        <p>
+            Match resumes with job descriptions using AI
+            and calculate accurate match scores.
+        </p>
+
+        <div class="score-box">
+
+            <small>Match Score</small>
+
+            <h2>87%</h2>
+
+            <div class="progress">
+
+                <div class="progress-bar"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Card 4 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon orange">
+            <i class="fa-solid fa-chart-column"></i>
+        </div>
+
+        <h3>Candidate Ranking</h3>
+
+        <div class="line orange-line"></div>
+
+        <p>
+            Automatically rank candidates based on
+            match score and relevance.
+        </p>
+
+        <div class="ranking-box">
+
+            <div class="rank-item">
+                <span>1&nbsp;&nbsp; Rahul Sharma</span>
+                <strong class="text-success">95%</strong>
+            </div>
+
+            <div class="rank-item">
+                <span>2&nbsp;&nbsp; Aman Singh</span>
+                <strong class="text-success">91%</strong>
+            </div>
+
+            <div class="rank-item">
+                <span>3&nbsp;&nbsp; Priya Verma</span>
+                <strong class="text-warning">86%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= Card 5 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon cyan">
+            <i class="fa-solid fa-filter"></i>
+        </div>
+
+        <h3>Advanced Filtering</h3>
+
+        <div class="line cyan-line"></div>
+
+        <p>
+            Filter candidates by skills, experience,
+            location, education and more.
+        </p>
+
+        <div class="filter-tags">
+
+            <span>Python ✕</span>
+            <span>Django ✕</span>
+            <span>2+ Years ✕</span>
+            <span>Location ▼</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Card 6 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon pink">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+
+        <h3>Reports & Analytics</h3>
+
+        <div class="line pink-line"></div>
+
+        <p>
+            Get detailed insights and analytics
+            to make data-driven hiring decisions.
+        </p>
+
+        <div class="chart-box">
+
+            <div class="graph">
+                📈
+            </div>
+
+            <div class="pie">
+                🟢 🔵 🟣
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Card 7 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon yellow">
+            <i class="fa-solid fa-download"></i>
+        </div>
+
+        <h3>Export & Download</h3>
+
+        <div class="line yellow-line"></div>
+
+        <p>
+            Download shortlisted candidates,
+            reports and resumes in one click.
+        </p>
+
+        <div class="download-box">
+
+            <span>Download Report</span>
+
+            <i class="fa-solid fa-download"></i>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Card 8 ================= -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="feature-card">
+
+        <div class="icon violet">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <h3>Secure & Reliable</h3>
+
+        <div class="line violet-line"></div>
+
+        <p>
+            Your data is encrypted and stored
+            securely with role-based access control.
+        </p>
+
+        <div class="secure-box">
+
+            <i class="fa-solid fa-shield-check"></i>
+
+            <span>100% Data Secure</span>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -28,40 +344,61 @@ Features
 
 </div>
 
-<div class="col-md-4">
+</section>
 
-<div class="card">
 
-<div class="card-body">
 
-<h4>AI Parsing</h4>
+<!-- ================= CTA SECTION ================= -->
 
-<p>Extract skills automatically.</p>
+<section class="cta-section">
 
-</div>
+    <div class="container">
 
-</div>
+        <div class="cta-box">
 
-</div>
+            <div class="row align-items-center">
 
-<div class="col-md-4">
+                <div class="col-lg-7">
 
-<div class="card">
+                    <div class="cta-content">
 
-<div class="card-body">
+  <img src="/media/ty.jpg" alt="about">
 
-<h4>Candidate Ranking</h4>
+                        <div>
 
-<p>Rank candidates based on score.</p>
+                            <h2>
+                                Ready to simplify your hiring process?
+                            </h2>
 
-</div>
+                            <p>
+                                Join thousands of recruiters who are already hiring
+                                better with Smart Resume Screening Platform.
+                            </p>
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</div>
+                <div class="col-lg-5 text-lg-end">
 
+                    <a href="#" class="btn btn-primary btn-lg me-3">
+                        Get Started Free
+                    </a>
+
+                    <a href="#" class="btn btn-outline-primary btn-lg">
+                        Request Demo
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<link rel="stylesheet" href="{% static 'css/features.css' %}">
 {% endblock %}

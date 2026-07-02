@@ -2,7 +2,10 @@ body{
     background:linear-gradient(180deg,#f0f9ff,#ffffff,#eef6ff);
     font-family:'Poppins',sans-serif;
 }
-/* about*/
+/* =========================
+   HOME PAGE CSS
+========================= */
+
 /*================= ABOUT SECTION =================*/
 
 .about{
@@ -117,7 +120,7 @@ body{
     }
 
     50%{
-        transform:translateY(-15px);
+        transform:translateY(0px);
     }
 
     100%{
@@ -206,7 +209,7 @@ body{
 
 .box h3{
     margin:20px 0;
-    color:#1e3a8a;
+    color:black;
 }
 
 .box p{
@@ -216,7 +219,7 @@ body{
 .cta{
     width:90%;
     margin:80px auto;
-    background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6);
+    background:linear-gradient(135deg,#2563eb,#0f172a);
     color:#fff;
     padding:50px;
     border-radius:20px;
@@ -253,8 +256,8 @@ body{
     color:#fff;
 }
 /*contact*/
-/* ================= GOOGLE FONT ================= */
 
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
@@ -652,3 +655,5 @@ body{
 
 
 
+=======
+>>>>>>> aa90746c15127334bb36a5d6670ce97baf92b787

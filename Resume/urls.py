@@ -27,7 +27,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('jobs/', include('jobs.urls')),
     path('resume/', include('resumes.urls')),
-    # path('contact/', include('contact.urls')),
+    path('contact/', include('contact.urls')),
 ]
 
 urlpatterns += static(
