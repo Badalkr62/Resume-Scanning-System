@@ -3,75 +3,82 @@
 <!-- ================= HERO SECTION ================= -->
 
 <section class="contact-hero">
-  <div class="hero-left">
-    <span class="hero-tag"> CONTACT US </span>
+  <div class="container">
+    <div class="hero-content">
+      <!-- Left -->
 
-    <h1>
-      We're Here to
-      <span>Help!</span>
-    </h1>
+      <div class="hero-left">
+        <span class="hero-tag">
+          <i class="fa-solid fa-envelope"></i> Contact Us
+        </span>
 
-    <p>
-      Have questions or need assistance? Our team is always ready to help you
-      with resume screening, hiring solutions, and any support you need.
-    </p>
-  </div>
+        <h1>
+          We're Here to
+          <span>Help!</span>
+        </h1>
 
-  <div class="hero-right">
-     <video src="/media/video.mp4" alt="video" autoplay muted loop playsinline>
+        <p>
+          Have questions or need assistance? Our team is always ready to help
+          you with resume screening, hiring solutions, and any support you need.
+        </p>
+
+        <div class="hero-btns">
+          <a href="/accounts/register/" class="btn-primary"> Get Started </a>
+
+          <a href="/about/" class="btn-outline"> Learn More </a>
+        </div>
+      </div>
+
+      <!-- Right -->
+
+      <div class="hero-right">
+        <video autoplay muted loop playsinline>
+          <source src="/media/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
   </div>
 </section>
 
-
 <section class="contact-section">
-  <!-- LEFT -->
-
+  <!-- Contact Form -->
   <div class="contact-form">
     <h2>Send Us a Message</h2>
-
     <div class="title-line"></div>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
-    <form action="" method="POST">
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert-success">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <form method="POST">
       {% csrf_token %}
 
       <div class="row">
         <div class="input-box">
           <i class="fa-regular fa-user"></i>
-
-          <input type="text" placeholder="Your Name" required />
+          <input type="text" name="name" placeholder="Your Name" required />
         </div>
 
         <div class="input-box">
           <i class="fa-regular fa-envelope"></i>
-
-          <input type="email" placeholder="Your Email" required />
+          <input type="email" name="email" placeholder="Your Email" required />
         </div>
       </div>
 
       <div class="input-box full">
         <i class="fa-solid fa-phone"></i>
-
-        <input type="text" placeholder="Phone Number" />
+        <input type="text" name="phone" placeholder="Phone Number" />
       </div>
 
       <div class="input-box full">
         <i class="fa-solid fa-list"></i>
 
-        <select>
-          <option>Select Subject</option>
-
+        <select name="subject">
+          <option value="">Select Subject</option>
           <option>Resume Screening</option>
-
           <option>Technical Support</option>
-
           <option>Business Inquiry</option>
-
           <option>General Question</option>
         </select>
       </div>
@@ -79,22 +86,24 @@
       <div class="input-box full textarea">
         <i class="fa-regular fa-pen-to-square"></i>
 
-        <textarea rows="6" placeholder="Write your message..."></textarea>
+        <textarea
+          name="message"
+          rows="6"
+          placeholder="Write your message..."
+          required
+        ></textarea>
       </div>
 
-      <button class="send-btn">
+      <button type="submit" class="send-btn">
         <i class="fa-solid fa-paper-plane"></i>
-
         Send Message
       </button>
     </form>
   </div>
 
-  <!-- RIGHT -->
-
+  <!-- Contact Info -->
   <div class="contact-info">
     <h2>Contact Information</h2>
-
     <div class="title-line"></div>
 
     <div class="info-box">
@@ -102,13 +111,9 @@
         <i class="fa-solid fa-location-dot"></i>
       </div>
 
-      <div>
+      <div class="info-content">
         <h4>Office Address</h4>
-
-        <p>
-           Hazaribag ,Ranchi, Jharkhand,<br />
-          India
-        </p>
+        <p>Hazaribagh, Jharkhand, India</p>
       </div>
     </div>
 
@@ -117,9 +122,8 @@
         <i class="fa-solid fa-phone"></i>
       </div>
 
-      <div>
+      <div class="info-content">
         <h4>Phone</h4>
-
         <p>+91 9693591496</p>
       </div>
     </div>
@@ -129,9 +133,8 @@
         <i class="fa-solid fa-envelope"></i>
       </div>
 
-      <div>
+      <div class="info-content">
         <h4>Email</h4>
-
         <p>amankumar7061@gmail.com</p>
       </div>
     </div>
@@ -141,61 +144,49 @@
         <i class="fa-solid fa-clock"></i>
       </div>
 
-      <div>
+      <div class="info-content">
         <h4>Working Hours</h4>
-
-        <p>
-          Monday - Saturday <br />
-          9:00 AM - 6:00 PM
-        </p>
+        <p>Monday - Saturday</p>
+        <p>9:00 AM - 6:00 PM</p>
       </div>
     </div>
-
-    <div class="social">
-      <a href="#">
-        <i class="fa-brands fa-facebook-f"></i>
-      </a>
-
-      <a href="#">
-        <i class="fa-brands fa-linkedin-in"></i>
-      </a>
-
-      <a href="#">
-        <i class="fa-brands fa-instagram"></i>
-      </a>
-
-      <a href="#">
-        <i class="fa-brands fa-x-twitter"></i>
-      </a>
-    </div>
   </div>
 </section>
-
 
 <section class="contact-cta">
-  <div>
-    <h2>Let's Work Together</h2>
 
-    <p>Join thousands of recruiters using our AI Resume Screening Platform.</p>
-  </div>
+    <div class="cta-content">
 
-  <button onclick="window.location.href = '/accounts/login/'">
-    Create Free Account
+        <h2>Let's Work Together</h2>
 
-    <i class="fa-solid fa-arrow-right"></i>
-  </button>
+        <p>
+            Join thousands of recruiters using our AI Resume Screening Platform
+            and simplify your hiring process with AI-powered resume screening.
+        </p>
+
+    </div>
+
+    <div class="cta-btn">
+
+        <a href="/accounts/register/" class="create-btn">
+            Create Free Account
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
 </section>
-<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+<link rel="stylesheet" href="{% static 'css/contact.css' %}" />
 {% endblock %}
 <script>
-setTimeout(function () {
+  setTimeout(function () {
     const alert = document.querySelector(".alert-success");
     if (alert) {
-        alert.style.transition = "0.5s";
-        alert.style.opacity = "0";
-        setTimeout(() => {
-            alert.remove();
-        }, 500);
+      alert.style.transition = "0.5s";
+      alert.style.opacity = "0";
+      setTimeout(() => {
+        alert.remove();
+      }, 500);
     }
-}, 5000);
+  }, 5000);
 </script>

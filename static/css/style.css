@@ -250,7 +250,7 @@ body {
 .contact-hero {
   width: 100%;
   min-height: 420px;
-  padding: 70px 8%;
+  padding: 16px 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -410,21 +410,7 @@ body {
   color: #0f172a;
 }
 
-.info-box {
-  display: flex;
-  gap: 18px;
-  margin: 28px 0;
-}
 
-.info-box h4 {
-  color: #0f172a;
-  margin-bottom: 8px;
-}
-
-.info-box p {
-  color: #64748b;
-  line-height: 1.7;
-}
 
 /* ================= SOCIAL ================= */
 
@@ -454,26 +440,14 @@ body {
 
 /* ================= CTA ================= */
 
-.contact-cta {
-  width: 90%;
-  margin: 50px auto 80px;
-  padding: 40px 50px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #e8f1ff, #dbeafe);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 
 .contact-cta h2 {
   font-size: 38px;
   color: #0f172a;
 }
 
-.contact-cta p {
-  margin-top: 10px;
-  color: #475569;
-}
+
 
 .contact-cta button {
   padding: 18px 35px;

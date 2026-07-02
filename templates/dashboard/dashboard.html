@@ -1,198 +1,258 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="dashboard-wrapper">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3 class="logo" style="font-size: 30px">Smart Recruiters</h3>
+    <a href="/dashboard/" class="active">
+      <i class="fa-solid fa-gauge-high"></i>Dashboard
+    </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+    <a href="/jobs/add/"> 
+       <i class="fa-solid fa-briefcase"></i>
 
-        <h3 class="logo">Dashboard</h3>
+    </i>&nbsp;&nbsp;Jobs </a>
 
-        <a href="/dashboard/" class="active">
-            <i class="fa-solid fa-house"></i> Dashboard
-        </a>
+    <a href="/jobs/">
+      <i class="fa-solid fa-users"></i>&nbsp;&nbsp;Applications
+    </a>
 
-        <a href="/jobs/add/">
-            <i class="fa-solid fa-plus"></i> Add Job
-        </a>
+    <a href="/resume/upload/">
+      <i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;Resume Scanning
+    </a>
 
-        <a href="/jobs/">
-            <i class="fa-solid fa-list"></i> Job List
-        </a>
+    <a href="/resume/">
+      <i class="fa-solid fa-list-check"></i>&nbsp;&nbsp; Shortlisted
+    </a>
 
-        <a href="/resume/upload/">
-            <i class="fa-solid fa-upload"></i> Upload Resume
-        </a>
+    <a href="/resume/">
+      <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp; Interviews
+    </a>
+    <a href="/resume/"> 
+        <i class="fa-solid fa-file-contract"></i>
+        &nbsp;&nbsp; Offers </a>
+    <a href="/resume/">
+      <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp; Messages
+    </a>
+    <a href="/resume/">
+      <i class="fa-solid fa-chart-line"></i>&nbsp;&nbsp; Reports
+    </a>
+    <a href="/resume/">
+      <i class="fa-solid fa-gear"></i>&nbsp;&nbsp; Setting
+    </a>
+    <a href="/accounts/logout/">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp; Logout
+    </a>
+  </div>
 
-        <a href="/resume/">
-            <i class="fa-solid fa-file"></i> Resume List
-        </a>
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2 class="dashboard-title">Dashboard</h2>
 
-        <a href="#">
-            <i class="fa-solid fa-users"></i> Candidates
-        </a>
+    <h3 class="welcome-title">
+        Welcome Back, Recruiter 👋
+        
+    </h3>
+    <!-- Cards -->
+    <div class="row g-4">
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon blue">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
 
-        <a href="#">
-            <i class="fa-solid fa-robot"></i> AI Screening
-        </a>
+            <div class="stats-info">
+                <h2>25</h2>
+                <p>Total Jobs</p>
+            </div>
+        </div>
+    </div>
 
-        <a href="#">
-            <i class="fa-solid fa-chart-line"></i> Reports
-        </a>
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon green">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div class="stats-info">
+                <h2>128</h2>
+                <p>Total Applicants</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon purple">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+
+            <div class="stats-info">
+                <h2>32</h2>
+                <p>Shortlisted</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon orange">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+
+            <div class="stats-info">
+                <h2>10</h2>
+                <p>Interviews Today</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- Recent Jobs -->
+    <div class="dashboard-grid">
+        
+        <!-- PART 1: Recent Applications (Left Box) -->
+        <div class="dashboard-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="card-title mb-0">Recent Applications</h5>
+                <a href="#" class="view-all-link text-decoration-none">View All</a>
+            </div>
+            
+            <div class="applications-list">
+                <div class="applicant-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-css bg-green me-3">J</div>
+                        <div>
+                            <h6 class="applicant-name mb-0">John Doe</h6>
+                            <small class="text-muted">Python Developer</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center right-info">
+                        <span class="text-muted small me-4">2 min ago</span>
+                        <span class="percentage-badge">92%</span>
+                    </div>
+                </div>
+
+                <div class="applicant-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-css bg-blue me-3">A</div>
+                        <div>
+                            <h6 class="applicant-name mb-0">Alice Smith</h6>
+                            <small class="text-muted">Django Developer</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center right-info">
+                        <span class="text-muted small me-4">15 min ago</span>
+                        <span class="percentage-badge">85%</span>
+                    </div>
+                </div>
+
+                <div class="applicant-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-css bg-purple me-3">R</div>
+                        <div>
+                            <h6 class="applicant-name mb-0">Robert Brown</h6>
+                            <small class="text-muted">Data Analyst</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center right-info">
+                        <span class="text-muted small me-4">1 hour ago</span>
+                        <span class="percentage-badge">78%</span>
+                    </div>
+                </div>
+
+                <div class="applicant-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-css bg-orange me-3">E</div>
+                        <div>
+                            <h6 class="applicant-name mb-0">Emily Davis</h6>
+                            <small class="text-muted">Frontend Developer</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center right-info">
+                        <span class="text-muted small me-4">2 hour ago</span>
+                        <span class="percentage-badge">88%</span>
+                    </div>
+                </div>
+
+                <div class="applicant-item">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-css bg-red me-3">M</div>
+                        <div>
+                            <h6 class="applicant-name mb-0">Michael Lee</h6>
+                            <small class="text-muted">Machine Learning Engineer</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center right-info">
+                        <span class="text-muted small me-4">3 hour ago</span>
+                        <span class="percentage-badge">90%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PART 2: Applicants Overview Graph (Right Box) -->
+        <div class="dashboard-card">
+            <h5 class="card-title mb-4">Applicants Overview</h5>
+            <!-- Graph Rendering Container -->
+            <div class="chart-container">
+                <canvas id="overviewChart"></canvas>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('overviewChart').getContext('2d');
+        
+        const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)'); 
+        gradient.addColorStop(1, 'rgba(59, 130, 246, 0.00)'); 
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    data: [21, 31.5, 23.5, 45, 25.5, 27, 27.5], 
+                    borderColor: '#2563eb', 
+                    borderWidth: 2,
+                    pointBackgroundColor: '#2563eb',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true,
+                    backgroundColor: gradient,
+                    tension: 0.1 
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false } 
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 50,
+                        ticks: { stepSize: 10, color: '#94a3b8', font: { family: 'Segoe UI' } },
+                        grid: { color: '#f1f5f9' } 
+                    },
+                    x: {
+                        ticks: { color: '#94a3b8', font: { family: 'Segoe UI' } },
+                        grid: { display: false } 
+                    }
+                }
+            }
+        });
+    </script>
 
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-
-        <h2 class="fw-bold mb-4">
-            Welcome {{ user.username }} 👋
-        </h2>
-
-        <!-- Cards -->
-        <div class="row">
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card shadow card-box">
-                    <div class="card-body text-center">
-                        <i class="fa-solid fa-briefcase fa-3x text-primary"></i>
-                        <h2 class="mt-3">15</h2>
-                        <p>Total Jobs</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card shadow card-box">
-                    <div class="card-body text-center">
-                        <i class="fa-solid fa-file-lines fa-3x text-success"></i>
-                        <h2 class="mt-3">56</h2>
-                        <p>Total Resume</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card shadow card-box">
-                    <div class="card-body text-center">
-                        <i class="fa-solid fa-user-check fa-3x text-warning"></i>
-                        <h2 class="mt-3">25</h2>
-                        <p>Shortlisted</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card shadow card-box">
-                    <div class="card-body text-center">
-                        <i class="fa-solid fa-clock fa-3x text-danger"></i>
-                        <h2 class="mt-3">12</h2>
-                        <p>Pending Review</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Recent Jobs -->
-        <div class="card shadow mb-4">
-
-            <div class="card-header bg-primary text-white">
-                Recent Jobs
-            </div>
-
-            <div class="card-body">
-
-                <table class="table table-hover">
-
-                    <thead>
-                        <tr>
-                            <th>Job Title</th>
-                            <th>Company</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>Python Developer</td>
-                            <td>Google</td>
-                            <td>Bangalore</td>
-                            <td><span class="badge bg-success">Active</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>React Developer</td>
-                            <td>Amazon</td>
-                            <td>Hyderabad</td>
-                            <td><span class="badge bg-warning">Pending</span></td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-        <!-- Bottom Cards -->
-        <div class="row">
-
-            <div class="col-lg-6 mb-4">
-
-                <div class="card shadow">
-
-                    <div class="card-header bg-success text-white">
-                        Candidate Ranking
-                    </div>
-
-                    <div class="card-body">
-
-                        <ol>
-                            <li>Rahul Kumar - 95%</li>
-                            <li>Priya Singh - 92%</li>
-                            <li>Amit Kumar - 88%</li>
-                            <li>Riya Sharma - 84%</li>
-                        </ol>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <div class="card shadow">
-
-                    <div class="card-header bg-dark text-white">
-                        Recent Activity
-                    </div>
-
-                    <div class="card-body">
-
-                        <ul>
-                            <li>New Resume Uploaded</li>
-                            <li>2 Candidates Shortlisted</li>
-                            <li>Python Job Created</li>
-                            <li>AI Screening Completed</li>
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
+    <!-- Bottom Cards -->
+    
+  </div>
 </div>
 
 {% endblock %}
