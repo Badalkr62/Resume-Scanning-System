@@ -209,7 +209,7 @@ body{
 
 .box h3{
     margin:20px 0;
-    color:#1e3a8a;
+    color:black;
 }
 
 .box p{
@@ -219,7 +219,7 @@ body{
 .cta{
     width:90%;
     margin:80px auto;
-    background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6);
+    background:linear-gradient(135deg,#2563eb,#0f172a);
     color:#fff;
     padding:50px;
     border-radius:20px;

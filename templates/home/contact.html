@@ -18,7 +18,7 @@
   </div>
 
   <div class="hero-right">
-    <img src="{% static '/media/akash.jpeg' %}" alt="image" />
+     <video src="/media/video.mp4" alt="video" autoplay muted loop playsinline>
   </div>
 </section>
 
@@ -31,7 +31,13 @@
     <h2>Send Us a Message</h2>
 
     <div class="title-line"></div>
-
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
     <form action="" method="POST">
       {% csrf_token %}
 
@@ -101,7 +107,7 @@
         <h4>Office Address</h4>
 
         <p>
-          Ranchi, Jharkhand,<br />
+           Hazaribag ,Ranchi, Jharkhand,<br />
           India
         </p>
       </div>
@@ -127,7 +133,7 @@
       <div>
         <h4>Email</h4>
 
-        <p>amankumar19@gmail.com</p>
+        <p>amankumar7061@gmail.com</p>
       </div>
     </div>
 
@@ -181,5 +187,17 @@
     <i class="fa-solid fa-arrow-right"></i>
   </button>
 </section>
-
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
+<script>
+setTimeout(function () {
+    const alert = document.querySelector(".alert-success");
+    if (alert) {
+        alert.style.transition = "0.5s";
+        alert.style.opacity = "0";
+        setTimeout(() => {
+            alert.remove();
+        }, 500);
+    }
+}, 5000);
+</script>

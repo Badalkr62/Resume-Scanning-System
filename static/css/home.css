@@ -1,7 +1,7 @@
 
 body{
     font-family: "Poppins", sans-serif;
-    background: #f8fbff;
+    background: #0c1118;
     color: #222;
     background-color: aquamarine;
 }
@@ -36,7 +36,7 @@ section{
 .btn-primary{
     border-radius:50px;
     padding:12px 28px;
-    box-shadow:0 10px 25px rgba(13,110,253,.2);
+    box-shadow:0 10px 25px rgba(87, 217, 100, 0.2);
 }
 
 .btn-outline-primary{
