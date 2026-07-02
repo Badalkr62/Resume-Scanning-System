@@ -43,18 +43,20 @@
 
     <!-- ⏱ Auto close messages after 3 seconds -->
     <script>
-      setTimeout(function () {
-        let alerts = document.querySelectorAll(".auto-hide");
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          const popups = document.querySelectorAll(".popup-box");
 
-        alerts.forEach(function (alert) {
-          alert.classList.remove("show");
-          alert.classList.add("hide");
+          popups.forEach(function (popup) {
+            popup.style.transition = "opacity 0.5s ease";
+            popup.style.opacity = "0";
 
-          setTimeout(() => {
-            alert.remove();
-          }, 500);
-        });
-      }, 2000); // 3 seconds (change to 2000 for 2 sec)
+            setTimeout(function () {
+              popup.remove();
+            }, 500);
+          });
+        }, 2000); // 2 seconds
+      });
     </script>
   </body>
 </html>
