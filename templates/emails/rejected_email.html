@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 30px;
+        background: #f4f6f9;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #dcdcdc;
+      }
+
+      .header {
+        background: #003366;
+        color: white;
+        text-align: center;
+        padding: 28px;
+      }
+
+      .header h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .content {
+        padding: 35px;
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .info-box {
+        margin: 25px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-left: 5px solid #dc3545;
+      }
+
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .info-table td {
+        padding: 8px 0;
+      }
+
+      .label {
+        width: 180px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 25px;
+        background: #003366;
+        color: white !important;
+        text-decoration: none;
+        padding: 14px 28px;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .footer {
+        background: #f5f5f5;
+        padding: 20px;
+        font-size: 13px;
+        color: #666;
+        line-height: 1.6;
+        border-top: 1px solid #ddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Application Status Update</h2>
+      </div>
+
+      <div class="content">
+        <p>Dear <strong>{{ candidate }}</strong>,</p>
+
+        <p>Greetings from <strong>Smart Resume ATS</strong>.</p>
+
+        <p>
+          We thank you for your interest in our career opportunities and for
+          participating in our recruitment process.
+        </p>
+
+        <div class="info-box">
+          <table class="info-table">
+            <tr>
+              <td class="label">Job Position</td>
+              <td>{{ job }}</td>
+            </tr>
+
+            <tr>
+              <td class="label">Company</td>
+              <td>{{ company }}</td>
+            </tr>
+
+            <tr>
+              <td class="label">Application Status</td>
+              <td><strong>Not Selected</strong></td>
+            </tr>
+          </table>
+        </div>
+
+        <p>
+          We sincerely appreciate the time, effort, and enthusiasm you
+          demonstrated throughout the recruitment process.
+        </p>
+
+        <p>
+          After carefully reviewing your application and interview performance,
+          we regret to inform you that you have not been selected to move
+          forward in the current hiring process.
+        </p>
+
+        <p>
+          This decision does not diminish your abilities or potential. We
+          encourage you to continue developing your technical skills and
+          professional experience, and we hope you will consider applying for
+          future opportunities that match your profile.
+        </p>
+
+        <p>
+          Your profile will remain in our talent database, and our recruitment
+          team may contact you if a suitable opportunity becomes available.
+        </p>
+
+        <p>
+          We appreciate your interest in our organization and wish you every
+          success in your future career.
+        </p>
+
+        <div class="center">
+          <a href="{{ careers_link }}" class="btn"> Explore More Jobs </a>
+        </div>
+
+        <br />
+
+        <p>
+          Best Regards,
+
+          <br /><br />
+
+          <strong> Talent Acquisition Team </strong>
+
+          <br />
+
+          Smart Resume ATS
+        </p>
+      </div>
+
+      <div class="footer">
+        <strong>Notice:</strong>
+
+        The information contained in this email and any attachments may contain
+        confidential or privileged information intended solely for the
+        recipient. If you are not the intended recipient, please notify the
+        sender immediately and permanently delete this email. Any unauthorized
+        review, use, disclosure, distribution, printing, or copying of this
+        communication is strictly prohibited.
+      </div>
+    </div>
+  </body>
+</html>

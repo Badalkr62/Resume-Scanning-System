@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'home',
-    'jobs',
     'resumes',
     'screening',
     'contact',
     'dashboard',
+    'applications',
+    'job',
+    'recruiter',
+    'ai_resume',
+    "candidate",
 ]
 
 MIDDLEWARE = [
@@ -53,8 +57,11 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'accounts.middleware.LastSeenMiddleware',
+    "accounts.middleware.UpdateLastSeenMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Resume.urls'
@@ -141,3 +148,18 @@ LOGOUT_REDIRECT_URL = '/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "badal454157@gmail.com"
+
+EMAIL_HOST_PASSWORD = "sbij vtmj wsqs drad"
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

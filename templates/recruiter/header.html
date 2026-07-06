@@ -1,0 +1,19 @@
+<div class="topbar bg-white shadow-sm px-4 d-flex justify-content-between align-items-center" style="height: 70px;">
+  <div class="d-flex align-items-center gap-2">
+    <button class="menu-toggle btn d-lg-none p-0 border-0 fs-4 me-2">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <h5 class="m-0 fw-bold text-dark">Recruiter Dashboard</h5>
+  </div>
+
+  <div class="d-flex align-items-center gap-3">
+    <i class="fa-solid fa-bell fs-5 text-secondary" style="cursor: pointer;"></i>
+
+    <div
+      class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center fw-bold"
+      style="width: 40px; height: 40px; font-size: 14px;"
+    >
+      {{ request.user.username|slice:":1"|upper }}
+    </div>
+  </div>
+</div>

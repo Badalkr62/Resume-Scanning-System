@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!doctype html>
 <html>
   <head>
@@ -20,14 +21,18 @@
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/job.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/job_list.css' %}" />
+    {% comment %} <link rel="stylesheet" href="{% static 'css/job.css' %}" /> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="{% static 'css/job_list.css' %}" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/about.css' %}" />
     <link rel="stylesheet" href="{% static 'css/works.css' %}" />
+    {% comment %} <link rel="stylesheet" href="{% static 'css/recruiter.css' %}" /> {% endcomment %}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+    {% load static %}
+
+    {% comment %} <link rel="stylesheet" href="{% static 'css/available_jobs.css' %}" /> {% endcomment %}
   </head>
 
   <body>

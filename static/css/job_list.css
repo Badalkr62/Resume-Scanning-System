@@ -1,35 +1,24 @@
-.table{
-
-border-radius:12px;
-
-overflow:hidden;
-
+.content{
+    padding:30px;
 }
 
 .card{
-
-border-radius:15px;
-
+    border-radius:15px;
 }
 
-.table tbody tr:hover{
-
-background:#eef5ff;
-
-transition:.3s;
-
+.table th{
+    white-space: nowrap;
 }
 
-.btn{
+.table td{
+    vertical-align: middle;
+}
 
-border-radius:8px;
-
+.btn-sm{
+    margin-right:5px;
 }
 
 .badge{
-
-font-size:13px;
-
-padding:8px 12px;
-
+    font-size:13px;
+    padding:8px 12px;
 }

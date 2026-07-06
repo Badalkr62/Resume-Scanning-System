@@ -1,0 +1,77 @@
+<div class="dashboard-wrapper">
+  <div class="sidebar" id="sidebar">
+    <div class="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="logo">Smart Recruiter</div>
+
+    <ul>
+      <li>
+        <a href="{% url 'dashboard' %}">
+          <i class="fa-solid fa-gauge"></i>
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url 'add_job' %}">
+          <i class="fa-solid fa-briefcase"></i>
+          Add Job
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url 'job_list' %}">
+          <i class="fa-solid fa-briefcase"></i>
+          Job list
+        </a>
+      </li>
+
+      {% comment %}
+      <li>
+        <a href="{% url 'application_list' %}">
+          <i class="fa-solid fa-file-lines"></i>
+          Applications
+        </a>
+      </li>
+      {% endcomment %}
+      <li>
+        
+      <a href="{% url 'application_list' %}">
+        <i class="fa-solid fa-file-lines"></i>
+        Applications
+      </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa-solid fa-file-lines"></i>
+          AI Resume Scanning
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa-solid fa-file-lines"></i>
+          Analytics
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/accounts/logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">{% block content %} {% endblock %}</div>
+</div>

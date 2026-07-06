@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card shadow border-0">
+        <div class="card-body">
+          <h2>{{ job.title }}</h2>
+
+          <h4 class="text-primary">{{ job.company }}</h4>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-md-6">
+              <p>📍 <b>Location:</b> {{ job.location }}</p>
+
+              <p>🏢 <b>Work Mode:</b> {{ job.work_mode }}</p>
+
+              <p>💼 <b>Job Type:</b> {{ job.job_type }}</p>
+
+              <p>👨‍💻 <b>Experience:</b> {{ job.experience }}</p>
+            </div>
+
+            <div class="col-md-6">
+              <p>💰 <b>Salary:</b> {{ job.salary }}</p>
+
+              <p>🎓 <b>Education:</b> {{ job.education }}</p>
+
+              <p>👥 <b>Openings:</b> {{ job.openings }}</p>
+
+              <p>📅 <b>Deadline:</b> {{ job.deadline }}</p>
+            </div>
+          </div>
+
+          <hr />
+
+          <h4>Description</h4>
+
+          <p>{{ job.description }}</p>
+
+          <hr />
+
+          <h4>Responsibilities</h4>
+
+          <p>{{ job.responsibilities }}</p>
+
+          <hr />
+
+          <h4>Requirements</h4>
+
+          <p>{{ job.requirements }}</p>
+
+          <hr />
+
+          <h4>Required Skills</h4>
+
+          <div class="mb-3">
+            {% for skill in job.skills.split %}
+
+            <span class="badge bg-primary m-1"> {{ skill }} </span>
+
+            {% endfor %}
+          </div>
+
+          <hr />
+
+          <h4>Benefits</h4>
+
+          <p>{{ job.benefits }}</p>
+
+          <a href="#" class="btn btn-success btn-lg"> 🚀 Apply Now </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white">Job Summary</div>
+
+        <div class="card-body">
+          <p>
+            <b>Company</b>
+
+            <br />
+
+            {{ job.company }}
+          </p>
+
+          <hr />
+
+          <p>
+            <b>Salary</b>
+
+            <br />
+
+            {{ job.salary }}
+          </p>
+
+          <hr />
+
+          <p>
+            <b>Experience</b>
+
+            <br />
+
+            {{ job.experience }}
+          </p>
+
+          <hr />
+
+          <p>
+            <b>Openings</b>
+
+            <br />
+
+            {{ job.openings }}
+          </p>
+
+          <hr />
+
+          <p>
+            <b>Status</b>
+
+            <br />
+
+            <span class="badge bg-success"> {{ job.status }} </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

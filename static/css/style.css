@@ -410,8 +410,6 @@ body {
   color: #0f172a;
 }
 
-
-
 /* ================= SOCIAL ================= */
 
 .social {
@@ -440,14 +438,10 @@ body {
 
 /* ================= CTA ================= */
 
-
-
 .contact-cta h2 {
   font-size: 38px;
   color: #0f172a;
 }
-
-
 
 .contact-cta button {
   padding: 18px 35px;
@@ -644,6 +638,24 @@ body {
 }
 .alert-info {
   background: #17a2b8;
+}
+
+.form-select {
+  background-color: #1f2937 !important;
+  color: white !important;
+  border-color: #374151 !important;
+}
+
+.form-select:focus {
+  background-color: #1f2937 !important;
+  color: white !important;
+  border-color: #0d6efd !important;
+  box-shadow: none;
+}
+
+.form-select option {
+  background-color: #1f2937;
+  color: white;
 }
 
 /* animation */

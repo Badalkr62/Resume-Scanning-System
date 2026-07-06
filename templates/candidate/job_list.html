@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Sidebar -->
+
+    <div class="col-lg-3">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">🔍 Search Jobs</h5>
+        </div>
+
+        <div class="card-body">
+          <form method="GET">
+            <input
+              type="text"
+              name="search"
+              value="{{ search }}"
+              class="form-control mb-3"
+              placeholder="Job title"
+            />
+
+            <button class="btn btn-primary w-100">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs -->
+
+    <div class="col-lg-9">
+      {% for job in jobs %}
+
+      <div class="card shadow border-0 mb-4">
+        <div class="card-body">
+          <div class="justify-content-between">
+            <div>
+              <h3>{{ job.title }}</h3>
+
+              <h5 class="text-primary">{{ job.company }}</h5>
+            </div>
+
+            <span class="badge bg-success"> {{ job.status }} </span>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-md-6">
+              <p>📍 {{ job.location }}</p>
+
+              <p>🏢 {{ job.work_mode }}</p>
+
+              <p>💼 {{ job.job_type }}</p>
+
+              <p>🎓 {{ job.education }}</p>
+            </div>
+
+            <div class="col-md-6">
+              <p>💰 {{ job.salary }}</p>
+
+              <p>👨‍💻 {{ job.experience }}</p>
+
+              <p>👥 {{ job.openings }} Openings</p>
+
+              <p>📅 Last Date {{ job.deadline }}</p>
+            </div>
+          </div>
+
+          <hr />
+
+          <p>
+            <strong>Skills Required</strong>
+          </p>
+
+          <p>{{ job.skills }}</p>
+          
+
+          <div class="mt-3">
+            <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">
+              View Details
+            </a>
+
+            <a
+              href="{% url 'apply_job' job.id %}"
+              class="btn btn-success btn-lg"
+            >
+              🚀 Apply Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+
+      <div class="alert alert-warning">No Jobs Available</div>
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

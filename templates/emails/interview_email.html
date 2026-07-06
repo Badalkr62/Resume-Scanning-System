@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="header">
+    <h2>📅 Interview Invitation</h2>
+  </div>
+
+  <div class="content">
+    <h3>Dear {{ candidate }},</h3>
+
+    <p class="intro-text">
+      Greetings from
+      <strong>Smart Resume ATS - Talent Acquisition Team</strong>.
+    </p>
+
+    <p class="intro-text">
+      Congratulations! We are pleased to inform you that based on your
+      application, resume screening, and assessment results, you have been
+      shortlisted for the next stage of our recruitment process.
+    </p>
+
+    <p class="intro-text">
+      Your interview has been scheduled as per the details below. We are
+      committed to providing you with a smooth interview experience. Kindly
+      review the following information carefully.
+    </p>
+
+    <div class="info-card">
+      <table class="info-table">
+        <tr>
+          <td class="label">💼 Job Position</td>
+          <td class="value">{{ job }}</td>
+        </tr>
+
+        <tr>
+          <td class="label">📅 Interview Date</td>
+          <td class="value">{{ date }}</td>
+        </tr>
+
+        <tr>
+          <td class="label">⏰ Reporting Time</td>
+          <td class="value">{{ time }}</td>
+        </tr>
+
+        <tr>
+          <td class="label">💻 Interview Mode</td>
+          <td class="value">{{ mode }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <h4 style="color: #0d6efd">Instructions for the Interview</h4>
+
+    <ul style="line-height: 1.9; color: #475569">
+      <li>
+        Please join the interview 10-15 minutes before the scheduled time.
+      </li>
+
+      <li>
+        Keep your Resume, Government ID Proof and Academic Documents ready.
+      </li>
+
+      <li>Ensure a stable internet connection and a quiet environment.</li>
+
+      <li>Keep your camera and microphone enabled during the interview.</li>
+
+      <li>
+        Failure to attend the interview on time may affect your candidature.
+      </li>
+    </ul>
+
+    <div class="btn-wrapper">
+      <a href="{{ link }}" class="btn"> Join Interview </a>
+    </div>
+
+    <p class="intro-text" style="margin-top: 30px">
+      We look forward to meeting you and learning more about your experience and
+      career aspirations.
+    </p>
+
+    <p class="intro-text">We wish you all the very best for your interview.</p>
+
+    <br />
+
+    <strong>
+      Best Regards,
+
+      <br />
+
+      Talent Acquisition Team
+
+      <br />
+
+      Smart Resume ATS
+    </strong>
+  </div>
+
+  <div class="footer">
+    <strong>Notice:</strong>
+
+    The information contained in this email and any attachments may contain
+    confidential information intended solely for the recipient. If you are not
+    the intended recipient, please notify the sender immediately and delete this
+    email. Any unauthorized use, copying, disclosure, or distribution is
+    strictly prohibited.
+  </div>
+</div>

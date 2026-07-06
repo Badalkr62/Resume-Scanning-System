@@ -25,9 +25,14 @@ urlpatterns = [
     path('', include('home.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('jobs/', include('jobs.urls')),
     path('resume/', include('resumes.urls')),
     path('contact/', include('contact.urls')),
+    path('recruiter/', include('recruiter.urls')),
+    path('job/', include('job.urls')),
+    path("", include("candidate.urls")),
+    path("applications/", include("applications.urls")),
+
+    # path('candidate/', include('candidates.urls')),
 ]
 
 urlpatterns += static(

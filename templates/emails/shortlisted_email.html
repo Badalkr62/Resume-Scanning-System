@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 30px;
+        color: #333;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: auto;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+      }
+
+      .header {
+        background: #0056b3;
+        color: white;
+        text-align: center;
+        padding: 25px;
+      }
+
+      .header h2 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .content {
+        padding: 35px;
+        line-height: 1.8;
+      }
+
+      .info-box {
+        background: #f8f9fa;
+        border-left: 5px solid #28a745;
+        padding: 18px;
+        margin: 25px 0;
+      }
+
+      .info-box table {
+        width: 100%;
+      }
+
+      .info-box td {
+        padding: 8px 0;
+      }
+
+      .label {
+        font-weight: bold;
+        width: 180px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #007bff;
+        color: white !important;
+        text-decoration: none;
+        padding: 14px 28px;
+        border-radius: 5px;
+        margin-top: 25px;
+        font-weight: bold;
+      }
+
+      .footer {
+        background: #f1f1f1;
+        padding: 20px;
+        font-size: 13px;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .signature {
+        margin-top: 35px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Congratulations!</h2>
+        <p>Your Application Has Been Shortlisted</p>
+      </div>
+
+      <div class="content">
+        <p>Dear <strong>{{ candidate }}</strong>,</p>
+
+        <p>Greetings from <strong>Smart Resume ATS</strong>.</p>
+
+        <p>We hope you are doing well.</p>
+
+        <p>
+          Congratulations! We are pleased to inform you that based on the review
+          of your application and resume, you have been
+          <strong>shortlisted</strong> for the next stage of our recruitment
+          process.
+        </p>
+
+        <div class="info-box">
+          <table>
+            <tr>
+              <td class="label">Job Position</td>
+              <td>{{ job }}</td>
+            </tr>
+
+            <tr>
+              <td class="label">Company</td>
+              <td>{{ company }}</td>
+            </tr>
+
+            <tr>
+              <td class="label">Application Status</td>
+              <td><strong>Shortlisted</strong></td>
+            </tr>
+          </table>
+        </div>
+
+        <p>
+          Your interview will be scheduled shortly. Our recruitment team will
+          contact you with the interview date, time, and further instructions.
+        </p>
+
+        <p>
+          Please note that the interview invitation is subject to verification
+          of the information provided in your application and fulfillment of the
+          eligibility criteria.
+        </p>
+
+        <p>
+          We appreciate your interest in joining our organization and wish you
+          success in the upcoming stages of the recruitment process.
+        </p>
+
+        <center>
+          <a href="{{ dashboard_link }}" class="btn"> Candidate Dashboard </a>
+        </center>
+
+        <div class="signature">
+          <p>Best Regards,</p>
+
+          <strong> Talent Acquisition Team </strong>
+
+          <br />
+
+          Smart Resume ATS
+        </div>
+      </div>
+
+      <div class="footer">
+        <strong>Notice:</strong>
+
+        The information contained in this email and any attachments may be
+        confidential and intended solely for the recipient. If you have received
+        this email in error, please notify the sender immediately and
+        permanently delete this message. Unauthorized use, disclosure, or
+        distribution of this communication is strictly prohibited.
+      </div>
+    </div>
+  </body>
+</html>

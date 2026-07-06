@@ -1,38 +1,50 @@
 from django.shortcuts import render, redirect
 from .models import Resume
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def upload_resume(request):
 
     if request.method == "POST":
 
-        Resume.objects.create(
+        Resume.objects.update_or_create(
 
-            name=request.POST['name'],
+            user=request.user,
 
-            email=request.POST['email'],
+            defaults={
 
-            phone=request.POST['phone'],
+                "name": request.POST["name"],
+                "email": request.POST["email"],
+                "phone": request.POST["phone"],
+                "resume": request.FILES["resume"],
 
-            resume=request.FILES['resume']
+            }
 
         )
 
-        return redirect('resume_list')
+        return redirect("resume_list")
 
     return render(
         request,
-        'resumes/upload_resume.html'
+        "resumes/upload_resume.html"
     )
 
 
+@login_required(login_url="login")
 def resume_list(request):
 
-    resumes = Resume.objects.all()
+    resumes = Resume.objects.filter(user=request.user)
 
     return render(
         request,
-        'resumes/resume_list.html',
-        {'resumes': resumes}
+        "resumes/resume_list.html",
+        {
+            "resumes": resumes
+        }
     )
+
+
+

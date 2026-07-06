@@ -1,52 +1,58 @@
-from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import UserProfile
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
-
-
+# ==========================
+# Register
+# ==========================
 def register(request):
 
     if request.method == "POST":
 
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        role = request.POST.get("role")
 
-        # Check if username already exists
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists!")
             return redirect("register")
 
-        # Check if email already exists (optional but recommended)
         if User.objects.filter(email=email).exists():
-            messages.error(request, "Email already registered!")
+            messages.error(request, "Email already exists!")
             return redirect("register")
 
-        # Create new user
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        messages.success(request, "Registration successful! Please login.")
+        UserProfile.objects.create(
+            user=user,
+            role=role
+        )
+
+        messages.success(request, "Registration Successful.")
         return redirect("login")
 
-    return render(request, 'accounts/register.html')
+    return render(request, "accounts/register.html")
+
+# ==========================
+# Login
+# ==========================
 
 
 def user_login(request):
 
     if request.method == "POST":
 
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(
             request,
@@ -54,18 +60,42 @@ def user_login(request):
             password=password
         )
 
-        if user:
+        if user is not None:
+
             login(request, user)
-            messages.success(request, "Login successful 🎉")
-            return redirect('/')
+
+            profile, created = UserProfile.objects.get_or_create(
+                user=user,
+                defaults={"role": "candidate"}
+            )
+
+            if profile.role == "recruiter":
+                return redirect("choose_role")
+
+            return redirect("home")
 
         else:
-            messages.error(request, "Invalid username or password ❌")
+            messages.error(request, "Invalid username or password")
 
-    return render(request, 'accounts/login.html')
+    return render(request, "accounts/login.html")
+# Choose Role
+# ==========================
 
 
+@login_required
+def choose_role(request):
+
+    profile = UserProfile.objects.get(user=request.user)
+
+    return render(request, "accounts/choose_role.html", {
+        "profile": profile
+    })
+
+
+# ==========================
+# Logout
+# ==========================
 def user_logout(request):
     logout(request)
-    messages.success(request, "You have been logged out successfully!")
+    messages.success(request, "Logout Successfully")
     return redirect("login")

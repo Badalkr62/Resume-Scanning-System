@@ -14,3 +14,5 @@ def how_it_works(request):
 
 def contact(request):
     return render(request, 'home/contact.html')
+def user(request):
+    return render(request, 'user.html')
