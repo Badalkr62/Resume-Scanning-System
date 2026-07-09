@@ -1,139 +1,235 @@
-{% extends 'base.html' %} {% block content %}
-<div
-  class="d-flex align-items-center justify-content-center"
-  style="min-vh: 85vh"
->
-  <div
-    class="card login-card p-4 shadow-lg text-white"
-    style="width: 100%; max-width: 420px; border-radius: 16px"
-  >
-    <div class="text-center mb-4">
-      <div class="icon-box mb-2">
-        <i class="fa-solid fa-lock text-primary" style="font-size: 28px"></i>
-      </div>
-      <h2 class="fw-bold mb-1">Welcome Back</h2>
-      <p class="text-secondary small">Please enter your details to sign in</p>
-    </div>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
 
-    <form method="POST">
-      {% csrf_token %}
+<section class="login-section">
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="circle circle3"></div>
 
-      <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold"
-          >Username</label
-        >
-        <div class="input-group">
-          <span
-            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
-            ><i class="fa-solid fa-user"></i
-          ></span>
-          <input
-            type="text"
-            name="username"
-            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
-            placeholder="Enter username"
-            required
-          />
+  <div class="container-fluid">
+    <div class="row min-vh-100 align-items-center px-3 px-md-5">
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-content">
+          <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">
+            AI Powered Job Portal
+          </span>
+
+          <h1 class="hero-title">
+            Find The Job
+            <span>That Defines You 🚀</span>
+          </h1>
+
+          <p class="hero-text">
+            Search thousands of jobs, build your resume, connect with recruiters
+            and get hired faster.
+          </p>
+
+          <div class="feature-box">
+            <div class="feature-item">
+              <i class="fa-solid fa-briefcase"></i>
+              <span>10,000+ Jobs</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-building"></i>
+              <span>5,000+ Companies</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-robot"></i>
+              <span>AI Resume Match</span>
+            </div>
+          </div>
+
+          <div class="ai-card">
+            <div class="ai-icon">🤖</div>
+            <div>
+              <h4>AI Career Assistant</h4>
+              <p>Find your perfect job using Artificial Intelligence.</p>
+            </div>
+          </div>
+
+          <div class="stats-container">
+            <div class="stat-card">
+              <h2>25K+</h2>
+              <p>Active Jobs</p>
+            </div>
+            <div class="stat-card">
+              <h2>8K+</h2>
+              <p>Companies</p>
+            </div>
+            <div class="stat-card">
+              <h2>120K+</h2>
+              <p>Candidates</p>
+            </div>
+            <div class="stat-card">
+              <h2>96%</h2>
+              <p>Hiring Success</p>
+            </div>
+          </div>
+
+          <div class="live-time">
+            <i class="fa-solid fa-clock"></i>
+            <span id="clock">Loading...</span>
+          </div>
+
+          <div class="company-logos">
+            <span>Google</span>
+            <span>Amazon</span>
+            <span>TCS</span>
+            <span>Infosys</span>
+            <span>Microsoft</span>
+          </div>
         </div>
       </div>
 
-      <div class="form-group mb-4">
-        <label class="form-label small text-secondary fw-semibold"
-          >Password</label
-        >
-        <div class="input-group">
-          <span
-            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
-            ><i class="fa-solid fa-key"></i
-          ></span>
-          <input
-            type="password"
-            name="password"
-            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
-            placeholder="••••••••"
-            required
-          />
+      <div class="col-lg-6 col-12">
+        <div class="login-wrapper">
+          <div class="login-card">
+            <div class="text-center mb-4">
+              <div class="login-icon">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <h2 class="fw-bold mt-3" style="min-height: 40px">
+                <span id="typing"></span>
+              </h2>
+              <p class="text-muted small">
+                Login to continue your career journey
+              </p>
+            </div>
+
+            {% if messages %} {% for message in messages %}
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+            {% endfor %} {% endif %}
+
+            <form method="POST" autocomplete="off">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary">Username</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="username"
+                    placeholder="Username, Email or Phone"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-lock"></i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required
+                  />
+                  <button
+                    class="btn btn-outline-secondary toggle-pass-btn"
+                    type="button"
+                    id="togglePassword"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-4 small"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="remember"
+                    id="remember"
+                  />
+                  <label class="form-check-label text-muted" for="remember"
+                    >Remember Me</label
+                  >
+                </div>
+                <a
+                  href="{% url 'forgot_password' %}"
+                  class="text-decoration-none"
+                  >Forgot Password?</a
+                >
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary login-btn w-100 mb-3"
+              >
+                Login Now <i class="fa-solid fa-arrow-right ms-2 small"></i>
+              </button>
+
+              <div class="text-center mb-3">
+                <small
+                  class="text-muted d-flex justify-content-center gap-2 wrap text-nowrap small"
+                >
+                  <span>✔ Secure Login</span> | <span>✔ AI Verified</span> |
+                  <span>✔ Encrypted</span>
+                </small>
+              </div>
+            </form>
+
+            <div class="divider">
+              <span>OR</span>
+            </div>
+
+            <div class="social-buttons d-flex flex-column gap-2">
+              <a href="/accounts/google/login/" class="btn social-btn w-100">
+                <i class="fab fa-google me-2 text-danger"></i> Continue with
+                Google
+              </a>
+              <a href="#" class="btn social-btn w-100">
+                <i class="fab fa-linkedin me-2 text-primary"></i> Continue with
+                LinkedIn
+              </a>
+            </div>
+
+            <div class="text-center mt-4 border-top pt-3">
+              <p class="mb-0 text-muted small">
+                Don't have an account?
+                <a
+                  href="{% url 'register' %}"
+                  class="text-primary fw-bold text-decoration-none ms-1"
+                  >Sign Up</a
+                >
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <button
-        class="btn btn-primary w-100 fw-bold py-2.5 login-btn"
-        type="submit"
-      >
-        Sign In &nbsp;<i class="fa-solid fa-arrow-right-to-bracket"></i>
-      </button>
-    </form>
-
-    <div class="text-center mt-4">
-      <p class="small text-secondary mb-0">
-        Don't have an account?
-        <a
-          href="/accounts/register/"
-          class="text-primary text-decoration-none fw-semibold"
-          >Sign up</a
-        >
-      </p>
     </div>
   </div>
+</section>
+
+<div class="d-none d-lg-block">
+  <i class="floating fa-solid fa-briefcase"></i>
+  <i class="floating2 fa-solid fa-code"></i>
+  <i class="floating3 fa-solid fa-robot"></i>
+  <i class="floating4 fa-solid fa-building"></i>
 </div>
 
-<style>
-  /* पूरे बैकग्राउंड को डार्क थीम देने के लिए (अगर आपके base.html में पहले से डार्क नहीं है) */
-  body {
-    background-color: #0b0f19 !important; /* डीप डार्क नाइट ब्लू */
-  }
-
-  /* 1. ओपन होने वाला जादुई एनिमेशन (Fade In & Slide Up) */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* लॉगइन कार्ड की डार्क ग्लास स्टाइल */
-  .login-card {
-    background-color: #111827 !important; /* गहरा चारकोल/ग्रे कलर */
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* एनिमेशन लागू किया */
-  }
-
-  /* इनपुट बॉक्स डार्क स्टाइल */
-  .bg-dark-input {
-    background-color: #1f2937 !important;
-    border-color: #374151 !important;
-  }
-  .bg-dark-input:focus {
-    background-color: #1f2937 !important;
-    border-color: #0d6efd !important;
-    color: #fff !important;
-  }
-
-  /* आइकॉन बॉक्स ग्लो इफेक्ट */
-  .icon-box {
-    background: rgba(13, 110, 253, 0.1);
-    width: 60px;
-    height: 60px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid rgba(13, 110, 253, 0.2);
-  }
-
-  /* बटन होवर स्मूथ ट्रांजिशन */
-  .login-btn {
-    background: linear-gradient(45deg, #0d6efd, #0056b3);
-    border: none;
-    transition: all 0.3s ease;
-  }
-  .login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
-  }
-</style>
+<script src="{% static 'js/login.js' %}"></script>
 {% endblock %}

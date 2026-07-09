@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!doctype html>
 <html>
   <head>
@@ -21,18 +20,18 @@
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-    {% comment %} <link rel="stylesheet" href="{% static 'css/job.css' %}" /> {% endcomment %}
-    {% comment %} <link rel="stylesheet" href="{% static 'css/job_list.css' %}" /> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+
     <link rel="stylesheet" href="{% static 'css/about.css' %}" />
     <link rel="stylesheet" href="{% static 'css/works.css' %}" />
-    {% comment %} <link rel="stylesheet" href="{% static 'css/recruiter.css' %}" /> {% endcomment %}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    {% load static %}
-
-    {% comment %} <link rel="stylesheet" href="{% static 'css/available_jobs.css' %}" /> {% endcomment %}
+    {% load static %} {% comment %}
+    <link rel="stylesheet" href="{% static 'css/available_jobs.css' %}" />
+    {% endcomment %}
   </head>
 
   <body>
@@ -76,5 +75,7 @@
         sidebar.classList.toggle("close");
       };
     </script>
+    <script src="{% static 'js/login.js' %}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
   </body>
 </html>

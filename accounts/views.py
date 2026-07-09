@@ -1,14 +1,20 @@
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth import login
+from django.db.models import Q
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile
+from django.db import models
+from django.contrib.auth import login
+from django.core.mail import send_mail
+from .models import UserProfile
+from .utils import generateOTP
 
 
-# ==========================
-# Register
-# ==========================
 def register(request):
 
     if request.method == "POST":
@@ -16,33 +22,39 @@ def register(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        role = request.POST.get("role")
 
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists!")
-            return redirect("register")
-
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email already exists!")
-            return redirect("register")
-
+        # User Create
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        UserProfile.objects.create(
-            user=user,
-            role=role
+        # Profile Create
+        profile = UserProfile.objects.create(
+            user=user
         )
 
-        messages.success(request, "Registration Successful.")
-        return redirect("login")
+        # Generate OTP
+        otp = generateOTP()
+
+        profile.otp = otp
+        profile.save()
+
+        # Send Email
+        send_mail(
+            "Verification OTP",
+            f"Your OTP is {otp}",
+            None,
+            [user.email],
+            fail_silently=False,
+        )
+
+        messages.success(request, "OTP has been sent to your email.")
+        return redirect("verify_otp")
 
     return render(request, "accounts/register.html")
 
-# ==========================
 # Login
 # ==========================
 
@@ -52,34 +64,61 @@ def user_login(request):
     if request.method == "POST":
 
         username = request.POST.get("username")
+
         password = request.POST.get("password")
 
-        user = authenticate(
-            request,
-            username=username,
-            password=password
-        )
+        remember = request.POST.get("remember")
 
-        if user is not None:
+        user = None
+
+        if User.objects.filter(username=username).exists():
+
+            user_obj = User.objects.get(username=username)
+
+        elif User.objects.filter(email=username).exists():
+
+            user_obj = User.objects.get(email=username)
+
+        elif UserProfile.objects.filter(phone=username).exists():
+
+            profile = UserProfile.objects.get(phone=username)
+
+            user_obj = profile.user
+
+        else:
+
+            user_obj = None
+
+        if user_obj:
+
+            user = authenticate(
+                username=user_obj.username,
+                password=password
+            )
+
+        if user:
 
             login(request, user)
 
-            profile, created = UserProfile.objects.get_or_create(
-                user=user,
-                defaults={"role": "candidate"}
-            )
+            profile = UserProfile.objects.get(user=user)
+
+            profile.last_seen = timezone.now()
+
+            profile.save()
+
+            if not remember:
+
+                request.session.set_expiry(0)
 
             if profile.role == "recruiter":
-                return redirect("choose_role")
 
-            return redirect("home")
+                return redirect("recruiter_dashboard")
 
-        else:
-            messages.error(request, "Invalid username or password")
+            return redirect("user_dashboard")
+
+        messages.error(request, "Invalid Credentials")
 
     return render(request, "accounts/login.html")
-# Choose Role
-# ==========================
 
 
 @login_required
@@ -99,3 +138,32 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logout Successfully")
     return redirect("login")
+
+
+def forgot_password(request):
+
+    form = PasswordResetForm()
+
+    if request.method == "POST":
+
+        form = PasswordResetForm(request.POST)
+
+        if form.is_valid():
+
+            form.save(
+                request=request,
+                use_https=False
+            )
+
+            messages.success(
+                request,
+                "Password reset link sent."
+            )
+
+            return redirect("login")
+
+    return render(
+        request,
+        "accounts/forgot_password.html",
+        {"form": form}
+    )

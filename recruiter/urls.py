@@ -15,25 +15,41 @@ urlpatterns = [
     path('', views.application_list, name='application_list'),
     path('<int:id>/', views.application_detail, name='application_detail'),
 
-    # Resume Screening
-    path('resume-scanning/', views.resume_scanning, name='resume_scanning'),
-
     # Shortlisted
     path('shortlisted/', views.shortlisted_candidates,
          name='shortlisted_candidates'),
 
     # Interviews
-    path('interviews/', views.interviews, name='interviews'),
+    path(
+        "interviews/",
+        views.interviews,
+        name="interviews",
+    ),
 
-    # Offers
-    path('offers/', views.offers, name='offers'),
+
+    path(
+        "interview/<int:pk>/schedule/",
+        views.schedule_interview,
+        name="schedule_interview",
+    ),
+
+
+
+    # Offers Lettters
+    path(
+        "<int:pk>/offer/",
+        views.send_offer_letter,
+        name="send_offer_letter",
+    ),
+
 
     # Messages
-    path('messages/', views.messages, name='messages'),
+    path('recruiter_messages/', views.recruiter_messages,
+         name='recruiter_messages'),
 
     # Reports
     path('reports/', views.reports, name='reports'),
 
     # Settings
-    path('settings/', views.settings_page, name='settings_page'),
+    path('settings_page/', views.settings_page, name='settings_page'),
 ]

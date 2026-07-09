@@ -1,0 +1,452 @@
+/* ==========================================================================
+   AI JOB PORTAL PREMIUM DARK LOGIN UI
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  background: #080b17;
+  color: white;
+  overflow-x: hidden;
+  opacity: 0; /* JS Load Smooth Fade-In effect के लिए */
+  transition: opacity 0.5s ease;
+}
+
+/* Background Layout Elements */
+.login-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(108, 76, 255, 0.25),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(0, 212, 255, 0.15),
+      transparent 40%
+    ),
+    #080b17;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+  animation: floatCircles 10s infinite ease-in-out;
+}
+
+.circle1 {
+  width: 300px;
+  height: 300px;
+  background: #6c4cff;
+  top: -100px;
+  left: -100px;
+}
+.circle2 {
+  width: 250px;
+  height: 250px;
+  background: #00bfff;
+  right: 50px;
+  bottom: -50px;
+  animation-delay: 2s;
+}
+.circle3 {
+  width: 180px;
+  height: 180px;
+  background: #ff2bd6;
+  left: 45%;
+  top: 30%;
+  animation-delay: 4s;
+}
+
+@keyframes floatCircles {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(30px) scale(1.05);
+  }
+}
+
+/* Left Hero Typography */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  margin-top: 15px !important;
+  margin-bottom: 12px !important;
+  animation: leftSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.hero-title span {
+  display: block;
+  background: linear-gradient(135deg, #a391ff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+  font-size: 17px;
+  color: #cbd5ff;
+  margin-top: 20px;
+  line-height: 1.7;
+}
+
+/* Features Block */
+.feature-box {
+  margin-top: 35px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #e2e8f0;
+}
+.feature-item i {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #6c4cff, #00bfff);
+  border-radius: 14px;
+  margin-right: 15px;
+  box-shadow: 0 8px 25px rgba(108, 76, 255, 0.4);
+}
+
+/* Glassmorphic Cards */
+.ai-card {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ai-icon {
+  font-size: 40px;
+  margin-right: 15px;
+}
+.ai-card p {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+.stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.stat-card:hover {
+  transform: translateY(-6px);
+  background: rgba(108, 76, 255, 0.15);
+  border-color: rgba(108, 76, 255, 0.4);
+}
+.stat-card h2 {
+  color: #00d4ff;
+  font-weight: 800;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+.stat-card p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0;
+}
+
+.live-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+  font-size: 16px;
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.company-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+.company-logos span {
+  background: #111a32;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #27345c;
+  font-size: 13px;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+}
+.company-logos span:hover {
+  background: #6c4cff;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+/* Right Login Form Style */
+.login-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: rightSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.login-icon {
+  height: 75px;
+  width: 75px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  background: linear-gradient(45deg, #6c4cff, #00bfff);
+  box-shadow: 0 0 30px rgba(108, 76, 255, 0.6);
+}
+
+/* Custom Styled Input Fields */
+.input-group {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #222f54;
+  transition: all 0.3s ease;
+}
+.input-group-text {
+  background: #12192c;
+  color: #8067ff;
+  border: none;
+  padding-left: 15px;
+}
+.form-control {
+  background: #12192c;
+  border: none;
+  color: white;
+  padding: 13px;
+  font-size: 15px;
+}
+.form-control:focus {
+  background: #12192c;
+  color: white;
+  box-shadow: none;
+}
+.toggle-pass-btn {
+  background: #12192c;
+  border: none;
+  color: #64748b;
+}
+.toggle-pass-btn:hover {
+  background: #12192c;
+  color: #8067ff;
+}
+
+/* Buttons Setup */
+.login-btn {
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #6c4cff, #3d7cff);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(108, 76, 255, 0.4);
+}
+
+.social-btn {
+  padding: 12px;
+  border-radius: 12px;
+  background: #0f1626;
+  color: #e2e8f0;
+  border: 1px solid #222f54;
+  font-size: 14px;
+  font-semibold: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.social-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+.divider:before,
+.divider:after {
+  content: "";
+  height: 1px;
+  background: #222f54;
+  flex: 1;
+}
+.divider span {
+  padding: 0 12px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* Background Decorative Icons & Particles */
+.floating,
+.floating2,
+.floating3,
+.floating4 {
+  position: absolute;
+  font-size: 40px;
+  color: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+  z-index: 1;
+  animation: moveArts 6s infinite ease-in-out;
+}
+.floating {
+  top: 120px;
+  left: 60px;
+}
+.floating2 {
+  right: 150px;
+  top: 150px;
+  animation-delay: 1.5s;
+}
+.floating3 {
+  bottom: 120px;
+  left: 250px;
+  animation-delay: 3s;
+}
+.floating4 {
+  right: 60px;
+  bottom: 80px;
+  animation-delay: 4.5s;
+}
+
+.particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #6c4cff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  animation: particleUp linear forwards;
+}
+
+@keyframes particleUp {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    transform: translateY(-10vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes moveArts {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(8deg);
+  }
+}
+
+/* Animations */
+@keyframes leftSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rightSlide {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Optimization responsive rule */
+@media (max-width: 991.98px) {
+  .login-section {
+    background: #080b17;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .login-card {
+    padding: 30px 24px;
+    box-shadow: none;
+    background: rgba(11, 17, 32, 0.95);
+  }
+  .circle3 {
+    display: none;
+  }
+}

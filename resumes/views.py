@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Resume
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
-from django.conf import settings
+
+
 
 @login_required(login_url="login")
 def upload_resume(request):
@@ -45,6 +44,4 @@ def resume_list(request):
             "resumes": resumes
         }
     )
-
-
 

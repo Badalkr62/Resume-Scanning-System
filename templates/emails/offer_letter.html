@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f4f4f4;
+        padding: 30px;
+      }
+
+      .box {
+        max-width: 700px;
+        background: white;
+        margin: auto;
+        padding: 30px;
+        border-radius: 10px;
+      }
+
+      h2 {
+        color: #0d6efd;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #198754;
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <h2>Offer Letter</h2>
+
+      <p>Dear <b>{{ candidate }}</b>,</p>
+
+      <p>
+        Congratulations! We are pleased to offer you the position of
+
+        <b>{{ job }}</b>
+
+        at
+
+        <b>{{ company }}</b>.
+      </p>
+
+      <table>
+        <tr>
+          <td><b>Department</b></td>
+
+          <td>{{ department }}</td>
+        </tr>
+
+        <tr>
+          <td><b>Salary</b></td>
+
+          <td>{{ salary }}</td>
+        </tr>
+
+        <tr>
+          <td><b>Joining Date</b></td>
+
+          <td>{{ joining_date }}</td>
+        </tr>
+
+        <tr>
+          <td><b>Location</b></td>
+
+          <td>{{ location }}</td>
+        </tr>
+      </table>
+
+      <br />
+
+      <p>Your Offer Letter PDF is attached with this email.</p>
+
+      <p>
+        <a href="{{ offer_letter }}" class="btn"> Download Offer Letter </a>
+      </p>
+
+      <br />
+
+      <p>
+        Regards,
+
+        <br />
+
+        HR Team
+      </p>
+    </div>
+  </body>
+</html>

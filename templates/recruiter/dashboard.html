@@ -101,40 +101,307 @@
 
   <!-- Analytics -->
 
+  <!-- Analytics -->
+
   <div class="row mt-5">
-    <div class="col-lg-8">
-      <div class="card border-0 shadow">
-        <div class="card-header bg-white">
-          <h5 class="mb-0">📈 Applications Analytics</h5>
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white">
+          Applications Per Job
         </div>
 
         <div class="card-body">
-          <canvas id="chart" height="120"></canvas>
+          <canvas id="jobChart"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- Notifications -->
-
-    <div class="col-lg-4">
-      <div class="card border-0 shadow">
-        <div class="card-header bg-white">
-          <h5 class="mb-0">🔔 Notifications</h5>
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow border-0">
+        <div class="card-header bg-success text-white">
+          Monthly Applications
         </div>
 
         <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">📄 New Resume Uploaded</li>
-
-            <li class="list-group-item">👥 New Candidate Applied</li>
-
-            <li class="list-group-item">📅 Interview Today</li>
-
-            <li class="list-group-item">💼 New Job Posted</li>
-          </ul>
+          <canvas id="monthChart"></canvas>
         </div>
       </div>
     </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow border-0">
+        <div class="card-header bg-warning text-dark">Status Distribution</div>
+
+        <div class="card-body">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">🔔 Notifications</h4>
+            </div>
+
+            <div class="card-body">
+
+                <!-- Resume -->
+
+                <div class="notification-card blue">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="notify-icon">📄</div>
+
+                        <div class="flex-grow-1 ms-3">
+
+                            <h5 class="mb-1"><b>New Resume Uploaded</b></h5>
+
+                            <p class="mb-1 text-muted">
+                          {{ latest_resume.user.get_full_name|default:latest_resume.user.username }}
+                            uploaded a new resume.
+                            </p>
+
+                            <small>{{ latest_resume.applied_at|timesince }} ago</small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="notify-dot"></div>
+
+                </div>
+
+                <!-- Candidate -->
+
+                <div class="notification-card green">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="notify-icon">👤</div>
+
+                        <div class="flex-grow-1 ms-3">
+
+                            <h5><b>New Candidate Applied</b></h5>
+
+                          <p class="mb-1">
+
+                          Applied for
+
+                          <strong>{{ latest_application.job.title }}</strong>
+
+                            </p>
+
+                          <small>{{ latest_application.applied_at|date:"d M Y H:i" }}</small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="notify-dot"></div>
+
+                </div>
+
+                <!-- Interview -->
+
+                <div class="notification-card purple">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="notify-icon">📅</div>
+
+                        <div class="flex-grow-1 ms-3">
+
+                           {% if latest_interview %}
+
+                <h5><b>Interview Scheduled</b></h5>
+
+<p class="mb-1">
+    {{ latest_interview.user.get_full_name|default:latest_interview.user.username }}
+    -
+    {{ latest_interview.interview_time|time:"h:i A" }}
+</p>
+
+<small>
+    {{ latest_interview.interview_date|date:"d M Y" }}
+</small>
+
+{% else %}
+
+<h5><b>No Interview Scheduled</b></h5>
+
+{% endif %}
+
+                            {{ latest_interview.interview_date }}
+
+                              </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="notify-dot"></div>
+
+                </div>
+
+                <!-- Job -->
+
+                <div class="notification-card orange">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="notify-icon">💼</div>
+
+                        <div class="flex-grow-1 ms-3">
+
+                           <h5><b>New Job Posted</b></h5>
+
+                          <p class="mb-1">
+
+                            {{ latest_job.title }}
+
+                          </p>
+
+                          <small>
+
+                          {{ latest_job.created_at|timesince }} ago
+
+                          </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="notify-dot"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+.notification-card{
+position:relative;
+display:flex;
+align-items:center;
+padding:18px;
+margin-bottom:15px;
+border-radius:18px;
+transition:.35s;
+overflow:hidden;
+cursor:pointer;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.notification-card:hover{
+transform:translateY(-5px) scale(1.01);
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.notify-icon{
+width:70px;
+height:70px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:34px;
+margin-right:18px;
+}
+
+.notify-dot{
+position:absolute;
+top:20px;
+right:20px;
+width:15px;
+height:15px;
+border-radius:50%;
+animation:blink 1.2s infinite;
+}
+
+.blue{
+background:#eef5ff;
+border-left:5px solid #0d6efd;
+}
+
+.blue .notify-icon{
+background:#d7e8ff;
+}
+
+.blue .notify-dot{
+background:#0d6efd;
+}
+
+.green{
+background:#eefcf4;
+border-left:5px solid #198754;
+}
+
+.green .notify-icon{
+background:#d8ffe8;
+}
+
+.green .notify-dot{
+background:#198754;
+}
+
+.purple{
+background:#f7f2ff;
+border-left:5px solid #6f42c1;
+}
+
+.purple .notify-icon{
+background:#ebdbff;
+}
+
+.purple .notify-dot{
+background:#6f42c1;
+}
+
+.orange{
+background:#fff6e9;
+border-left:5px solid #fd7e14;
+}
+
+.orange .notify-icon{
+background:#fff1c7;
+}
+
+.orange .notify-dot{
+background:#fd7e14;
+}
+
+@keyframes blink{
+
+0%{
+opacity:1;
+transform:scale(1);
+}
+
+50%{
+opacity:.3;
+transform:scale(1.7);
+}
+
+100%{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+</style>
   </div>
 
   <!-- Top Candidates -->
@@ -221,34 +488,142 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById("chart");
 
-  new Chart(ctx, {
-    type: "bar",
+  // =======================
+  // Applications Per Job
+  // =======================
 
-    data: {
-      labels: ["Pending", "Shortlisted", "Interview", "Rejected"],
+  const jobLabels = [
+  {% for item in applications_per_job %}
+  "{{ item.job__title }}",
+  {% endfor %}
+  ];
 
-      datasets: [
-        {
-          label: "Candidates",
+  const jobData = [
+  {% for item in applications_per_job %}
+  {{ item.total }},
+  {% endfor %}
+  ];
 
-          data: [12, 8, 4, 3],
+  new Chart(document.getElementById("jobChart"),{
 
-          backgroundColor: ["#ffc107", "#198754", "#0dcaf0", "#dc3545"],
-        },
-      ],
-    },
+      type:"bar",
 
-    options: {
-      responsive: true,
+      data:{
 
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-    },
+          labels:jobLabels,
+
+          datasets:[{
+
+              label:"Applications",
+
+              data:jobData,
+
+              backgroundColor:"#0d6efd"
+
+          }]
+
+      }
+
+  });
+
+
+
+  // =======================
+  // Monthly Applications
+  // =======================
+
+  const monthLabels=[
+
+  {% for item in monthly_applications %}
+  "{{ item.month|date:'M Y' }}",
+  {% endfor %}
+
+  ];
+
+  const monthData=[
+
+  {% for item in monthly_applications %}
+  {{ item.total }},
+  {% endfor %}
+
+  ];
+
+  new Chart(document.getElementById("monthChart"),{
+
+      type:"line",
+
+      data:{
+
+          labels:monthLabels,
+
+          datasets:[{
+
+              label:"Applications",
+
+              data:monthData,
+
+              borderColor:"#198754",
+
+              backgroundColor:"#198754",
+
+              tension:0.4,
+
+              fill:false
+
+          }]
+
+      }
+
+  });
+
+
+
+
+  // =======================
+  // Status Distribution
+  // =======================
+
+  const statusLabels=[
+
+  {% for item in status_distribution %}
+  "{{ item.status }}",
+  {% endfor %}
+
+  ];
+
+  const statusData=[
+
+  {% for item in status_distribution %}
+  {{ item.total }},
+  {% endfor %}
+
+  ];
+
+  new Chart(document.getElementById("statusChart"),{
+
+      type:"pie",
+
+      data:{
+
+          labels:statusLabels,
+
+          datasets:[{
+
+              data:statusData,
+
+              backgroundColor:[
+                  "#0d6efd",
+                  "#198754",
+                  "#ffc107",
+                  "#dc3545",
+                  "#6f42c1"
+              ]
+
+          }]
+
+      }
+
   });
 </script>
 

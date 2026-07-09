@@ -1,172 +1,224 @@
-{% extends 'base.html' %} {% block content %}
-<div
-  class="d-flex align-items-center justify-content-center"
-  style="min-vh: 85vh"
->
-  <div
-    class="card register-card p-4 shadow-lg text-white"
-    style="width: 100%; max-width: 440px; border-radius: 16px"
-  >
-    <div class="text-center mb-4">
-      <div class="icon-box mb-2">
-        <i
-          class="fa-solid fa-user-plus text-primary"
-          style="font-size: 28px"
-        ></i>
-      </div>
-      <h2 class="fw-bold mb-1">Create Account</h2>
-      <p class="text-secondary small">
-        Get started with your free screening account
-      </p>
-    </div>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" href="{% static 'css/register_extra.css' %}" />
 
-    <form method="POST">
-      {% csrf_token %}
+<section class="login-section">
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="circle circle3"></div>
 
-      <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold"
-          >Username</label
-        >
-        <div class="input-group">
-          <span
-            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
-            ><i class="fa-solid fa-user"></i
-          ></span>
-          <input
-            type="text"
-            name="username"
-            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
-            placeholder="Choose a username"
-            required
-          />
+  <div class="container-fluid">
+    <div class="row min-vh-100 align-items-center px-3 px-md-5">
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-content">
+          <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">
+            AI Powered Job Portal
+          </span>
+
+          <h1 class="hero-title">
+            Build Your
+            <span>Career With AI 🚀</span>
+          </h1>
+
+          <p class="hero-text">
+            Create your account, upload resume, connect with companies and get
+            your dream job faster.
+          </p>
+
+          <div class="feature-box">
+            <div class="feature-item">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Create Free Account</span>
+            </div>
+
+            <div class="feature-item">
+              <i class="fa-solid fa-file-circle-check"></i>
+              <span>AI Resume Screening</span>
+            </div>
+
+            <div class="feature-item">
+              <i class="fa-solid fa-handshake"></i>
+              <span>Connect Recruiters</span>
+            </div>
+          </div>
+
+          <div class="ai-card mt-5">
+            <div class="ai-icon">🤖</div>
+            <div>
+              <h4>AI Career Assistant</h4>
+              <p>Your smart partner for finding better opportunities.</p>
+            </div>
+          </div>
+
+          <div class="stats-container mt-4">
+            <div class="stat-card">
+              <h2>25K+</h2>
+              <p>Jobs</p>
+            </div>
+
+            <div class="stat-card">
+              <h2>8K+</h2>
+              <p>Companies</p>
+            </div>
+
+            <div class="stat-card">
+              <h2>120K+</h2>
+              <p>Users</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold"
-          >Email Address</label
-        >
-        <div class="input-group">
-          <span
-            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
-            ><i class="fa-solid fa-envelope"></i
-          ></span>
-          <input
-            type="email"
-            name="email"
-            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
-            placeholder="name@example.com"
-            required
-          />
+      <div class="col-lg-6 col-12">
+        <div class="login-wrapper">
+          <div class="login-card">
+            <div class="text-center mb-4">
+              <div class="login-icon">
+                <i class="fa-solid fa-user-plus"></i>
+              </div>
+
+              <h2 class="fw-bold mt-3">Create Account</h2>
+              <p class="text-muted small">Start your career journey with us</p>
+            </div>
+
+            {% if messages %} {% for message in messages %}
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+            {% endfor %} {% endif %}
+
+            <form method="POST" autocomplete="off">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary">Username</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Choose username"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary"
+                  >Email Address</label
+                >
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="name@example.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary"
+                  >Phone Number</label
+                >
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-phone"></i>
+                  </span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="form-control"
+                    placeholder="Enter phone number"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small text-secondary">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-lock"></i>
+                  </span>
+                  <input
+                    type="password"
+                    name="password"
+                    id="registerPassword"
+                    class="form-control"
+                    placeholder="Enter password"
+                    required
+                  />
+                  <button
+                    class="btn btn-outline-secondary toggle-pass-btn"
+                    type="button"
+                    id="toggleRegisterPassword"
+                    style="background: #12192c; border: none; color: #64748b"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label small text-secondary"
+                  >Register As</label
+                >
+                <select name="role" class="form-select">
+                  <option value="candidate">Candidate</option>
+                  <option value="recruiter">Recruiter</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary login-btn w-100" type="submit">
+                Create Account
+                <i class="fa-solid fa-arrow-right ms-2 small"></i>
+              </button>
+            </form>
+
+            <div class="divider">
+              <span>OR</span>
+            </div>
+
+            <div class="text-center">
+              <p class="mb-0 text-muted small">
+                Already have an account?
+                <a
+                  href="{% url 'login' %}"
+                  class="text-primary fw-bold text-decoration-none ms-1"
+                  >Login</a
+                >
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="form-group mb-4">
-        <label class="form-label small text-secondary fw-semibold"
-          >Password</label
-        >
-        <div class="input-group">
-          <span
-            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
-            ><i class="fa-solid fa-lock"></i
-          ></span>
-          <input
-            type="password"
-            name="password"
-            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
-            placeholder="••••••••"
-            required
-          />
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label small text-secondary fw-semibold">
-          Register As
-        </label>
-
-        <select
-          name="role"
-          class="form-select bg-dark-input text-white border-secondary-subtle"
-        >
-          <option value="candidate">Candidate</option>
-
-          <option value="recruiter">Recruiter</option>
-        </select>
-      </div>
-
-      <button
-        class="btn btn-primary w-100 fw-bold py-2.5 register-btn"
-        type="submit"
-      >
-        Register &nbsp;<i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </form>
-
-    <div class="text-center mt-4">
-      <p class="small text-secondary mb-0">
-        Already have an account?
-        <a
-          href="/accounts/login/"
-          class="text-primary text-decoration-none fw-semibold"
-          >Sign in</a
-        >
-      </p>
     </div>
   </div>
+</section>
+
+<div class="d-none d-lg-block">
+  <i class="floating fa-solid fa-user"></i>
+  <i class="floating2 fa-solid fa-code"></i>
+  <i class="floating3 fa-solid fa-robot"></i>
+  <i class="floating4 fa-solid fa-building"></i>
 </div>
 
-<style>
-  body {
-    background-color: #0b0f19 !important; /* डीप डार्क नाइट ब्लू */
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .register-card {
-    background-color: #111827 !important; /* गहरा चारकोल/ग्रे कलर */
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .bg-dark-input {
-    background-color: #1f2937 !important;
-    border-color: #374151 !important;
-  }
-  .bg-dark-input:focus {
-    background-color: #1f2937 !important;
-    border-color: #0d6efd !important;
-    color: #fff !important;
-  }
-
-  .icon-box {
-    background: rgba(13, 110, 253, 0.1);
-    width: 60px;
-    height: 60px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid rgba(13, 110, 253, 0.2);
-  }
-
-  .register-btn {
-    background: linear-gradient(45deg, #0d6efd, #0056b3);
-    border: none;
-    transition: all 0.3s ease;
-  }
-  .register-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
-  }
-</style>
+<script src="{% static 'js/register.js' %}"></script>
 {% endblock %}
