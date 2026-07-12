@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3>Apply For {{ job.title }}</h3>
+    </div>
+
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label"> Upload Resume </label>
+
+          <input type="file" name="resume" class="form-control" required />
+        </div>
+
+        <button class="btn btn-success">Apply Now</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

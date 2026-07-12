@@ -163,7 +163,11 @@
                             <h5 class="mb-1"><b>New Resume Uploaded</b></h5>
 
                             <p class="mb-1 text-muted">
-                          {{ latest_resume.user.get_full_name|default:latest_resume.user.username }}
+                              {% if latest_resume %}
+                                {{ latest_resume.user.username }}
+                        {% else %}
+                    No Resume Uploaded
+              {% endif %}
                             uploaded a new resume.
                             </p>
 

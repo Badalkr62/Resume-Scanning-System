@@ -1,53 +1,82 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from datetime import timedelta  # 🔴 YEH IMPORT MISSING THA, ISILTYE CRASH HO RAHA THA!
-
+# 🔴 YEH IMPORT MISSING THA, ISILTYE CRASH HO RAHA THA!
+from datetime import timedelta
+from applications.models import Application
 # Apne saare models import karein
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
-from job.models import Job
+
 from applications.models import Application
+from job.models import Job
+from django.db.models import Count
+
 
 @login_required
+@login_required
 def dashboard(request):
-    # 1. Database se actual counts lein (Safe try-except block ke sath)
-    try:
-        today_users = User.objects.count()
-        total_jobs = Job.objects.count()
-        total_recruiters = UserProfile.objects.filter(role="recruiter").count()
-        total_applications = Application.objects.count()
-        
-        # Last 5 minutes mein active users
-        live_users = UserProfile.objects.filter(
-            last_seen__gte=timezone.now() - timedelta(minutes=5)
-        ).count()
-    except Exception as e:
-        # Agar migration ya database mein koi issue ho toh fallback values
-        today_users = 0
-        total_jobs = 0
-        total_recruiters = 0
-        total_applications = 0
-        live_users = 0
 
-    # 2. Saara data ek hi context dict mein dalein
+    today_users = User.objects.count()
+    total_jobs = Job.objects.count()
+    total_recruiters = UserProfile.objects.filter(role="recruiter").count()
+    total_applications = Application.objects.count()
+
+    live_users = UserProfile.objects.filter(
+        last_seen__gte=timezone.now() - timedelta(minutes=5)
+    ).count()
+
+    rejected = Application.objects.filter(status="Rejected").count()
+
+    online_users = live_users
+
+    latest_resume = Application.objects.order_by("-applied_at").first()
+
+    latest_application = Application.objects.order_by("-applied_at").first()
+
+    latest_interview = Application.objects.filter(
+        interview_date__isnull=False
+    ).order_by("-interview_date").first()
+
+    latest_job = Job.objects.order_by("-created_at").first()
+
+    top_candidates = Application.objects.order_by("-match_score")[:10]
+
+    applications_per_job = (
+        Application.objects.values("job__title")
+        .annotate(total=Count("id"))
+    )
+
+    status_distribution = (
+        Application.objects.values("status")
+        .annotate(total=Count("id"))
+    )
+
+    monthly_applications = []
+
     context = {
         "today_users": today_users,
         "total_jobs": total_jobs,
         "total_recruiters": total_recruiters,
         "total_applications": total_applications,
         "live_users": live_users,
-        
-        # Aapke dusre function ka static data (agar aapko use karna ho template mein)
+        "online_users": online_users,
+        "rejected": rejected,
+
+        "latest_resume": latest_resume,
+        "latest_application": latest_application,
+        "latest_interview": latest_interview,
+        "latest_job": latest_job,
+
+        "top_candidates": top_candidates,
+        "applications_per_job": applications_per_job,
+        "status_distribution": status_distribution,
+        "monthly_applications": monthly_applications,
+
         "jobs_count_static": 10,
         "resumes": 45,
         "shortlisted": 15,
-        "pending": 30
+        "pending": 30,
     }
 
-    # 3. 🔴 PATH CHECK KAREIN: Aapka dashboard file kis folder mein hai?
-    # Agar 'recruiter' folder mein hai toh niche wali line use karein:
     return render(request, "recruiter/dashboard.html", context)
-
-    # Agar 'dashboard' folder mein hai toh is line ko uncomment karein:
-    # return render(request, "dashboard/dashboard.html", context)

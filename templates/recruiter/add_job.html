@@ -1,5 +1,4 @@
-{% extends 'recruiter/recruiter_base.html' %} 
-{% load static %} 
+{% extends 'recruiter/recruiter_base.html' %} {% load static %} 
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/add_job.css' %}" />
@@ -14,14 +13,10 @@
     </div>
 
     <div class="card-body">
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{ form.as_p }}
 
-        <button class="btn btn-primary mt-3">
-          <i class="fa-solid fa-floppy-disk"></i>
-
-          Save Job
-        </button>
+        <button type="submit" class="btn btn-primary">Save Job</button>
       </form>
     </div>
   </div>

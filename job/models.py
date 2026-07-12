@@ -34,6 +34,11 @@ class Job(models.Model):
     title = models.CharField(max_length=200)
 
     company = models.CharField(max_length=200)
+    company_logo = models.ImageField(
+        upload_to="company_logo/",
+        blank=True,
+        null=True
+    )
 
     location = models.CharField(max_length=200)
 

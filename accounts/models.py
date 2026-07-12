@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 class UserProfile(models.Model):
 
@@ -19,10 +19,7 @@ class UserProfile(models.Model):
         choices=ROLE,
         default="candidate"
     )
-    profile_image = models.ImageField(
-        upload_to="profiles/",
-        default="profiles/default.png"
-    )
+
     is_verified = models.BooleanField(default=False)
 
     profile_completed = models.BooleanField(default=False)
@@ -43,8 +40,7 @@ class UserProfile(models.Model):
         null=True
     )
     otp_created = models.DateTimeField(
-        blank=True,
-        null=True
+        default=timezone.now
     )
     email_verified = models.BooleanField(
         default=False
@@ -64,9 +60,18 @@ class UserProfile(models.Model):
         null=True,
         default="profiles/default.png"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+        blank=True
+    )
+    otp_attempt = models.IntegerField(
+        default=0
+    )
 
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.user.username

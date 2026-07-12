@@ -69,7 +69,9 @@
 
           <p>{{ job.benefits }}</p>
 
-          <a href="#" class="btn btn-success btn-lg"> 🚀 Apply Now </a>
+          <a href="{% url 'apply_job' job.id %}" class="btn btn-success">
+            🚀 Apply Now
+          </a>
         </div>
       </div>
     </div>

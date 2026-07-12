@@ -41,20 +41,16 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'resumes',
-    'screening',
-    'contact',
     'dashboard',
     'applications',
     'job',
     'recruiter',
-    'ai_resume',
     "candidate",
     'django.contrib.sites',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'allauth.socialaccount.providers.google',
 ]
 
@@ -186,3 +182,5 @@ EMAIL_HOST_USER = "badal454157@gmail.com"
 EMAIL_HOST_PASSWORD = "sbij vtmj wsqs drad"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SOCIALACCOUNT_LOGIN_ON_GET = True
+LOGIN_REDIRECT_URL = "/dashboard/"

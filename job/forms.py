@@ -19,6 +19,9 @@ class JobForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "Company Name"
             }),
+            "company_logo": forms.ClearableFileInput(attrs={
+                "class": "form-control"
+            }),
 
             "location": forms.TextInput(attrs={
                 "class": "form-control",
@@ -41,49 +44,49 @@ class JobForm(forms.ModelForm):
 
             "skills": forms.Textarea(attrs={
                 "class": "form-control",
-                "rows":3,
-                "placeholder":"Python, Django, SQL, REST API"
+                "rows": 3,
+                "placeholder": "Python, Django, SQL, REST API"
             }),
 
             "description": forms.Textarea(attrs={
-                "class":"form-control",
-                "rows":5
+                "class": "form-control",
+                "rows": 5
             }),
 
             "responsibilities": forms.Textarea(attrs={
-                "class":"form-control",
-                "rows":4
+                "class": "form-control",
+                "rows": 4
             }),
 
             "requirements": forms.Textarea(attrs={
-                "class":"form-control",
-                "rows":4
+                "class": "form-control",
+                "rows": 4
             }),
 
             "benefits": forms.Textarea(attrs={
-                "class":"form-control",
-                "rows":3
+                "class": "form-control",
+                "rows": 3
             }),
 
             "deadline": forms.DateInput(attrs={
-                "class":"form-control",
-                "type":"date"
+                "class": "form-control",
+                "type": "date"
             }),
 
             "job_type": forms.Select(attrs={
-                "class":"form-select"
+                "class": "form-select"
             }),
 
             "work_mode": forms.Select(attrs={
-                "class":"form-select"
+                "class": "form-select"
             }),
 
             "experience": forms.Select(attrs={
-                "class":"form-select"
+                "class": "form-select"
             }),
 
             "status": forms.Select(attrs={
-                "class":"form-select"
+                "class": "form-select"
             })
 
         }

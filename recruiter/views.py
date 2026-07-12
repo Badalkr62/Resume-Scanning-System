@@ -18,9 +18,10 @@ from .forms import InterviewForm
 from .models import RecruiterSettings
 from .forms import RecruiterSettingsForm
 from django.contrib.auth.decorators import login_required
+from job.forms import JobForm
 
 
-def dashboard(request):
+def recruiter_dashboard(request):
 
     total_jobs = Job.objects.count()
 
@@ -155,8 +156,17 @@ def dashboard(request):
     )
 
 
-def job_list(request):
-    return render(request, "recruiter/job_list.html")
+def recruiter_job_list(request):
+
+    jobs = Job.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "recruiter/job_list.html",
+        {
+            "jobs": jobs
+        }
+    )
 
 
 def add_job(request):
@@ -164,15 +174,50 @@ def add_job(request):
 
 
 def edit_job(request, id):
-    return render(request, "recruiter/edit_job.html")
+
+    job = get_object_or_404(Job, id=id)
+
+    if request.method == "POST":
+
+        form = JobForm(
+            request.POST,
+            request.FILES,
+            instance=job,
+        )
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Job Updated Successfully")
+            return redirect("recruiter_job_list")
+
+    else:
+        form = JobForm(instance=job)
+
+    return render(
+        request,
+        "recruiter/edit_job.html",
+        {
+            "form": form,
+            "job": job,
+        },
+    )
 
 
 def delete_job(request, id):
     return render(request, "recruiter/delete_job.html")
 
 
-def job_detail(request, id):
-    return render(request, "recruiter/job_detail.html")
+def recruiter_job_detail(request, id):
+
+    job = get_object_or_404(Job, id=id)
+
+    return render(
+        request,
+        "recruiter/job_detail.html",
+        {
+            "job": job
+        }
+    )
 
 
 def application_list(request):

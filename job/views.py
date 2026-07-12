@@ -1,10 +1,16 @@
+from django.contrib import messages
+from job.models import Job
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Job
 from .forms import JobForm
-from django.contrib.auth.decorators import login_required
 from applications.models import Application
+from accounts.models import UserProfile
 
 
+# ==========================================
+# Candidate Dashboard
+# ==========================================
 @login_required(login_url="login")
 def dashboard(request):
 
@@ -34,48 +40,63 @@ def dashboard(request):
         "interview": interview,
     }
 
-    return render(
-        request,
-        "candidate/dashboard.html",
-        context
-    )
+    return render(request, "candidate/dashboard.html", context)
 
-
+@login_required(login_url="login")
 def job_list(request):
 
-    jobs = Job.objects.all().order_by("-created_at")
+    jobs = Job.objects.filter(status="Active").order_by("-created_at")
 
     search = request.GET.get("search")
-    status = request.GET.get("status")
+    location = request.GET.get("location")
+    job_type = request.GET.get("job_type")
 
     if search:
         jobs = jobs.filter(title__icontains=search)
 
-    if status:
-        jobs = jobs.filter(status=status)
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+
+    if job_type:
+        jobs = jobs.filter(job_type=job_type)
 
     context = {
         "jobs": jobs,
-        "total_jobs": Job.objects.count(),
-        "active_jobs": Job.objects.filter(status="Active").count(),
-        "closed_jobs": Job.objects.filter(status="Closed").count(),
+        "search": search,
+        "location": location,
+        "job_type": job_type,
     }
 
-    return render(request, "recruiter/job_list.html", context)
-# ----------------------------
-# Add Job
-# ----------------------------
+    return render(request, "candidate/job_list.html", context)
 
+@login_required(login_url="login")
+def job_details(request, id):
 
+    job = get_object_or_404(Job, id=id)
+
+    return render(
+        request,
+        "candidate/job_detail.html",
+        {
+            "job": job
+        }
+    )
+
+@login_required(login_url="login")
 def add_job(request):
 
     if request.method == "POST":
 
-        form = JobForm(request.POST)
+        form = JobForm(
+            request.POST,
+            request.FILES
+        )
 
         if form.is_valid():
 
             form.save()
+
+            messages.success(request, "Job Added Successfully")
 
             return redirect("job_list")
 
@@ -83,25 +104,32 @@ def add_job(request):
 
         form = JobForm()
 
-    return render(request, "recruiter/add_job.html", {
-        "form": form
-    })
+    return render(
+        request,
+        "recruiter/add_job.html",
+        {
+            "form": form
+        }
+    )
 
-
-# ----------------------------
-# Edit Job
-# ----------------------------
+@login_required(login_url="login")
 def edit_job(request, id):
 
     job = get_object_or_404(Job, id=id)
 
     if request.method == "POST":
 
-        form = JobForm(request.POST, instance=job)
+        form = JobForm(
+            request.POST,
+            request.FILES,
+            instance=job
+        )
 
         if form.is_valid():
 
             form.save()
+
+            messages.success(request, "Job Updated Successfully")
 
             return redirect("job_list")
 
@@ -109,15 +137,16 @@ def edit_job(request, id):
 
         form = JobForm(instance=job)
 
-    return render(request, "recruiter/edit_job.html", {
-        "form": form,
-        "job": job
-    })
+    return render(
+        request,
+        "recruiter/edit_job.html",
+        {
+            "form": form,
+            "job": job
+        }
+    )
 
-
-# ----------------------------
-# Delete Job
-# ----------------------------
+@login_required(login_url="login")
 def delete_job(request, id):
 
     job = get_object_or_404(Job, id=id)
@@ -126,29 +155,15 @@ def delete_job(request, id):
 
     return redirect("job_list")
 
-
-# ----------------------------
-# Job Details
-# ----------------------------
-def job_details(request, id):
-
-    job = get_object_or_404(Job, id=id)
-
-    return render(
-        request,
-        "recruiter/job_details.html",
-        {
-            "job": job
-        }
-    )
-
-
 @login_required(login_url="login")
 def my_applications(request):
 
-    applications = Application.objects.filter(
-        user=request.user
-    ).select_related("job").order_by("-applied_at")
+    applications = (
+        Application.objects
+        .filter(user=request.user)
+        .select_related("job")
+        .order_by("-applied_at")
+    )
 
     return render(
         request,

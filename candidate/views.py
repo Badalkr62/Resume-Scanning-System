@@ -1,15 +1,30 @@
-from django.shortcuts import render, get_object_or_404
-from job.models import Job
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
+
+from job.models import Job
 from applications.models import Application
-from resumes.models import Resume
 
 
+# ===========================
+# Candidate Dashboard
+# ===========================
+
+@login_required(login_url="login")
+def dashboard(request):
+
+    return render(
+        request,
+        "candidate/dashboard.html"
+    )
+
+
+@login_required(login_url="login")
 def job_list(request):
 
-    jobs = Job.objects.filter(status="Active").order_by("-created_at")
+    jobs = Job.objects.filter(
+        status="Active"
+    ).order_by("-created_at")
 
     search = request.GET.get("search")
 
@@ -22,37 +37,33 @@ def job_list(request):
         {
             "jobs": jobs,
             "search": search,
-        }
+        },
     )
 
-
+@login_required(login_url="login")
 def job_detail(request, pk):
 
     job = get_object_or_404(
         Job,
         pk=pk,
-        status="Active"
+        status="Active",
     )
 
     return render(
         request,
         "candidate/job_detail.html",
         {
-            "job": job
-        }
+            "job": job,
+        },
     )
 
 
 @login_required(login_url="login")
-def apply_job(request, pk):
+def apply_job(request, id):
 
-    job = get_object_or_404(
-        Job,
-        pk=pk,
-        status="Active"
-    )
+    job = get_object_or_404(Job, id=id)
 
-    # Duplicate Apply Check
+    # Already Applied
     if Application.objects.filter(
         user=request.user,
         job=job
@@ -63,58 +74,57 @@ def apply_job(request, pk):
             "You have already applied for this job."
         )
 
-        return redirect("job_detail", pk=pk)
+        return redirect("job_detail", pk=id)
 
-    # Resume Check
-    resume = Resume.objects.filter(
-        user=request.user
-    ).first()
+    if request.method == "POST":
 
-    if not resume:
-        messages.error(
-            request,
-            "Please upload your resume first."
+        resume = request.FILES.get("resume")
+
+        if not resume:
+
+            messages.error(
+                request,
+                "Please upload your resume."
+            )
+
+            return redirect("apply_job", id=id)
+
+        Application.objects.create(
+            user=request.user,
+            job=job,
+            resume=resume,
+            status="Pending",
         )
-        return redirect("upload_resume")   # <-- if ke andar hona chahiye
 
-    # Create Application
-    Application.objects.create(
+        messages.success(
+            request,
+            "Job Applied Successfully."
+        )
 
-        user=request.user,
-        job=job,
-        resume=resume.resume,
-        skills=resume.skills,
-        status="Pending"
+        return redirect("my_applications")
 
-    )
-
-    # Update Applicant Count
-    job.applicants += 1
-    job.save()
-
-    messages.success(
+    return render(
         request,
-        "Application Submitted Successfully."
+        "candidate/apply_job.html",
+        {
+            "job": job,
+        },
     )
-
-    return redirect("my_applications")
-
-
-def dashboard(request):
-    return render(request, "candidate/dashboard.html")
-
 
 @login_required(login_url="login")
 def my_applications(request):
 
-    applications = Application.objects.filter(
-        user=request.user
-    ).select_related("job").order_by("-applied_at")
+    applications = (
+        Application.objects
+        .filter(user=request.user)
+        .select_related("job")
+        .order_by("-applied_at")
+    )
 
     return render(
         request,
         "candidate/my_applications.html",
         {
-            "applications": applications
-        }
+            "applications": applications,
+        },
     )

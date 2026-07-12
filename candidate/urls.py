@@ -3,30 +3,38 @@ from . import views
 
 urlpatterns = [
 
-    path("jobs/", views.job_list, name="candidate_jobs"),
+    # Dashboard
+    path(
+        "dashboard/",
+        views.dashboard,
+        name="candidate_dashboard",
+    ),
+
+    # Jobs
+    path(
+        "jobs/",
+        views.job_list,
+        name="candidate_job_list",
+    ),
 
     path(
         "jobs/<int:pk>/",
         views.job_detail,
-        name="job_detail"
+        name="job_detail",
     ),
 
+    # Apply Job
     path(
-        "candidate/dashboard/",
-        views.dashboard,
-        name="candidate_dashboard"
+        "apply/<int:id>/",
+        views.apply_job,
+        name="apply_job",
     ),
 
+    # My Applications
     path(
         "my-applications/",
         views.my_applications,
-        name="my_applications"
+        name="my_applications",
     ),
-    path(
-        "jobs/<int:pk>/apply/",
-        views.apply_job,
-        name="apply_job"
-    ),
-    
 
 ]
