@@ -1,0 +1,295 @@
+/* ===============================
+   AI JOB PORTAL OTP VERIFY
+=============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #080b17;
+  color: #fff;
+  overflow-x: hidden;
+  opacity: 0;
+  transition: 1s;
+}
+
+/* ===============================
+BACKGROUND
+=============================== */
+
+.otp-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top left, #6c4cff33, transparent 35%),
+    radial-gradient(circle at bottom right, #00bfff22, transparent 35%), #080b17;
+}
+
+/* Floating Circles */
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: float 8s infinite ease-in-out;
+}
+
+.circle1 {
+  width: 260px;
+  height: 260px;
+  background: #6c4cff;
+  top: -80px;
+  left: -80px;
+}
+
+.circle2 {
+  width: 180px;
+  height: 180px;
+  background: #00bfff;
+  bottom: 40px;
+  right: 60px;
+}
+
+/* ===============================
+OTP CARD
+=============================== */
+
+.otp-card {
+  width: 100%;
+  max-width: 500px;
+
+  background: rgba(17, 25, 40, 0.8);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 25px;
+
+  padding: 45px;
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+  animation: fadeUp 0.8s;
+}
+
+/* ===============================
+ICON
+=============================== */
+
+.otp-icon {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+
+  font-size: 35px;
+
+  background: linear-gradient(45deg, #6c4cff, #00bfff);
+
+  box-shadow: 0 0 35px #6c4cff;
+}
+
+/* ===============================
+OTP BOXES
+=============================== */
+
+.otp-wrapper {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.otp-box {
+  width: 60px;
+  height: 65px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 15px;
+
+  background: #141d36;
+
+  color: #fff;
+
+  text-align: center;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  transition: 0.3s;
+}
+
+.otp-box:focus {
+  border: 2px solid #6c4cff;
+
+  box-shadow: 0 0 20px #6c4cff;
+
+  transform: translateY(-4px);
+}
+
+/* ===============================
+BUTTON
+=============================== */
+
+.verify-btn {
+  margin-top: 30px;
+
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  background: linear-gradient(90deg, #6c4cff, #3d7cff);
+
+  transition: 0.3s;
+}
+
+.verify-btn:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 15px 35px rgba(108, 76, 255, 0.4);
+}
+
+/* ===============================
+COUNTDOWN
+=============================== */
+
+.countdown {
+  margin-top: 20px;
+
+  text-align: center;
+
+  color: #00d4ff;
+
+  font-size: 17px;
+
+  font-weight: 600;
+}
+
+.resend-link {
+  color: #7f5cff;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.resend-link:hover {
+  color: #fff;
+}
+
+/* ===============================
+PARTICLES
+=============================== */
+
+.particle {
+  position: fixed;
+
+  width: 8px;
+  height: 8px;
+
+  background: #6c4cff;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  animation: particleMove linear forwards;
+
+  z-index: 1;
+}
+
+@keyframes particleMove {
+  0% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-900px);
+
+    opacity: 0;
+  }
+}
+
+/* ===============================
+ANIMATION
+=============================== */
+
+@keyframes float {
+  50% {
+    transform: translateY(35px);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+MOBILE
+=============================== */
+
+@media (max-width: 576px) {
+  .otp-card {
+    padding: 30px 20px;
+
+    margin: 15px;
+  }
+
+  .otp-box {
+    width: 48px;
+    height: 55px;
+
+    font-size: 22px;
+  }
+
+  .otp-icon {
+    width: 75px;
+    height: 75px;
+
+    font-size: 28px;
+  }
+}

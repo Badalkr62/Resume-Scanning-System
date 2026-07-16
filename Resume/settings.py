@@ -68,6 +68,8 @@ MIDDLEWARE = [
     "accounts.middleware.UpdateLastSeenMiddleware",
 
     'django.contrib.messages.middleware.MessageMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
 ]
 
@@ -224,3 +226,7 @@ EMAIL_HOST_PASSWORD = "sbij vtmj wsqs drad"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = "/dashboard/"
+ALLOWED_HOSTS = ["*"]
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

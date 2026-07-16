@@ -1,0 +1,117 @@
+body{
+    margin:0;
+    padding:0;
+    font-family: "Segoe UI", sans-serif;
+    background:#eef2f7;
+}
+
+/* Center */
+
+.role-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* Card */
+
+.role-card{
+    width:100%;
+    max-width:550px;
+    background:#fff;
+    border-radius:20px;
+    padding:45px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    animation:popup .7s ease;
+}
+
+/* Animation */
+
+@keyframes popup{
+
+    0%{
+        opacity:0;
+        transform:translateY(40px) scale(.9);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+.role-card h2{
+    font-size:40px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:10px;
+}
+
+.role-card h4{
+    color:#666;
+    margin-bottom:35px;
+    font-size:24px;
+}
+
+/* Buttons */
+
+.role-btn{
+    display:block;
+    width:100%;
+    padding:15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    font-size:20px;
+    font-weight:600;
+    margin-top:18px;
+    transition:.35s;
+}
+
+.user-btn{
+    background:#0d6efd;
+}
+
+.user-btn:hover{
+    background:#0b5ed7;
+    color:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(13,110,253,.4);
+}
+
+.recruiter-btn{
+    background:#198754;
+}
+
+.recruiter-btn:hover{
+    background:#157347;
+    color:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(25,135,84,.4);
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .role-card{
+        padding:30px;
+    }
+
+    .role-card h2{
+        font-size:30px;
+    }
+
+    .role-card h4{
+        font-size:20px;
+    }
+
+    .role-btn{
+        font-size:17px;
+    }
+
+}

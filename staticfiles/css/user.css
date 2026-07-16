@@ -1,0 +1,24 @@
+/* Navbar links formatting */
+.navbar .nav-link {
+    color: #475569 !important;
+    transition: all 0.2s ease-in-out;
+    padding: 0.5rem 1rem !important;
+    border-radius: 6px;
+}
+
+/* Hover and active effects */
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+    color: #2563eb !important; /* Premium Blue tint */
+    background-color: #f1f5f9;
+}
+
+/* Dropdown menu micro-interactions */
+.dropdown-menu {
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
