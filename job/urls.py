@@ -5,7 +5,7 @@ urlpatterns = [
 
     path("", views.job_list, name="job_list"),
 
-    path("detail/<int:id>/", views.job_details, name="job_detail"),
+    path("detail/<int:id>/", views.job_details, name="job_details"),
 
     path("add/", views.add_job, name="add_job"),
 

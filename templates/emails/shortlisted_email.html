@@ -24,7 +24,7 @@
         background: #0056b3;
         color: white;
         text-align: center;
-        padding: 25px;
+        padding: 12px;
       }
 
       .header h2 {
@@ -92,7 +92,7 @@
       <div class="content">
         <p>Dear <strong>{{ candidate }}</strong>,</p>
 
-        <p>Greetings from <strong>HR ATS</strong>.</p>
+        <p>Greetings from <strong>HR Team</strong>.</p>
 
         <p>We hope you are doing well.</p>
 
@@ -139,16 +139,22 @@
         </p>
 
         <center>
-          <a href="{{ dashboard_link }}" class="btn"> Candidate Dashboard </a>
+          <p
+            style="
+              margin-top: 25px;
+              font-size: 16px;
+              font-weight: 600;
+              color: #0056b3;
+            "
+          >
+            Please check your application details in your candidate dashboard
+            for the latest updates.
+          </p>
         </center>
-
         <div class="signature">
           <p>Best Regards,</p>
 
           <strong> Talent Acquisition Team </strong>
-
-          <br />
-           HR
         </div>
       </div>
 

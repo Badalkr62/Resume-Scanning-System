@@ -161,9 +161,21 @@ background:rgba(8,11,23,.72);
 }
 
 /* Features Block */
+
+/* Features Block (Two-part Grid) */
 .feature-box {
   margin-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
+
+/* Left portion taking remaining space */
+.feature-left {
+  flex: 1;
+}
+
 .feature-item {
   display: flex;
   align-items: center;
@@ -171,6 +183,12 @@ background:rgba(8,11,23,.72);
   font-size: 16px;
   color: #e2e8f0;
 }
+
+/* Vertical centering for last item of the list */
+.feature-left .feature-item:last-child {
+  margin-bottom: 0;
+}
+
 .feature-item i {
   width: 48px;
   height: 48px;
@@ -181,6 +199,62 @@ background:rgba(8,11,23,.72);
   border-radius: 14px;
   margin-right: 15px;
   box-shadow: 0 8px 25px rgba(108, 76, 255, 0.4);
+}
+
+/* Right portion specifically for the Clock */
+.feature-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.live-time {
+  display: flex;
+  flex-direction: column;       /* Icon aur text vertical alignment ke liye */
+  justify-content: center;      /* Vertically center icon & text */
+  align-items: center !important; /* Horizontally center icon & text */
+  gap: 6px;                     /* Icon aur time string ke beech ki space */
+  
+  /* Circle boundaries */
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;           /* Perfect circle format */
+  
+  /* Styling, background aur dynamic lights */
+  background: rgba(0, 212, 255, 0.08); 
+  border: 2px solid rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  
+  /* Typography */
+  margin: 0;                    /* Purane center margins ko reset kiya */
+  font-size: 13px;
+  color: #00d4ff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Hover glow effect */
+.live-time:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  background: rgba(0, 212, 255, 0.15);
+}
+
+/* Size adjustments for inner icon */
+.live-time i {
+  font-size: 22px;
+}
+
+/* Small screens/Mobile optimization ke liye responsive rule override */
+@media (max-width: 576px) {
+  .feature-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .feature-right {
+    width: 100%;
+    margin-top: 15px;
+  }
 }
 
 /* Glassmorphic Cards */
@@ -237,12 +311,39 @@ background:rgba(8,11,23,.72);
 
 .live-time {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 25px;
-  font-size: 16px;
+  flex-direction: column;       /* Icon aur text ko upar-neeche stack karne ke liye */
+  justify-content: center;      /* Horizontally center karne ke liye */
+  align-items: center !important; /* Vertically center karne ke liye */
+  gap: 6px;                     /* Icon aur time ke beech ka gap */
+  
+  /* Circle dimensions */
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;           /* Isse perfect round circle banega */
+  
+  /* Neon glow and background effect */
+  background: rgba(0, 212, 255, 0.08); 
+  border: 2px solid rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  
+  /* Typography & spacing */
+  margin: 25px auto 15px auto;   /* Center element on the page */
+  font-size: 14px;
   color: #00d4ff;
   font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for interactive feel */
+.live-time:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  background: rgba(0, 212, 255, 0.15);
+}
+
+/* Icon size inside circle */
+.live-time i {
+  font-size: 24px;
 }
 
 .company-logos {
@@ -353,23 +454,55 @@ background:rgba(8,11,23,.72);
   box-shadow: 0 12px 30px rgba(108, 76, 255, 0.4);
 }
 
+
+/* goggle signin  */
+/* Google Social Button Premium Styling */
+.social-buttons {
+  margin-top: 10px;
+}
+
 .social-btn {
-  padding: 12px;
-  border-radius: 12px;
-  background: #0f1626;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03); /* Glassmorphic background */
   color: #e2e8f0;
-  border: 1px solid #222f54;
-  font-size: 14px;
-  font-semibold: 500;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 15px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  gap: 12px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Subtle glow effect on hover */
 .social-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 
+              0 0 15px rgba(255, 255, 255, 0.03);
+}
+
+/* Active press state */
+.social-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Google Icon style */
+.social-btn i {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover par icon ko halka sa rotate karne ke liye */
+.social-btn:hover i {
+  transform: scale(1.1) rotate(8deg);
 }
 
 .divider {

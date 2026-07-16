@@ -1,5 +1,7 @@
-{% extends "recruiter/recruiter_base.html" %} {% block content %}
+{% extends "recruiter/recruiter_base.html" %} 
+{% load static %} 
 
+{% block content %}
 <div class="container-fluid mt-4">
   <h2 class="mb-4 fw-bold">
     <i class="fa-solid fa-gear"></i>
@@ -8,9 +10,8 @@
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-
-    <!-- ================= Profile ================= -->
-
+    
+    <!-- ================= Profile Section ================= -->
     <div class="card shadow-sm border-0 mb-4">
       <div class="card-header bg-primary text-white">
         <h5 class="mb-0">
@@ -21,52 +22,35 @@
 
       <div class="card-body">
         <div class="row align-items-center">
-          <div class="col-md-3 text-center">
+          <div class="col-md-3 text-center mb-3 mb-md-0">
             {% if settings.profile_image %}
-            <img
-              src="{{ settings.profile_image.url }}"
-              class="rounded-circle shadow mb-3"
-              width="150"
-              height="150"
-              id="profilePreview"
-            />
+              <img src="{{ settings.profile_image.url }}" class="rounded-circle shadow mb-3" width="150" height="150" id="profilePreview" alt="Profile" />
             {% else %}
-            <img
-              src="https://via.placeholder.com/150"
-              class="rounded-circle shadow mb-3"
-              width="150"
-              height="150"
-              id="profilePreview"
-            />
-            {% endif %} {{ form.profile_image }}
+              <img src="https://via.placeholder.com/150" class="rounded-circle shadow mb-3" width="150" height="150" id="profilePreview" alt="Placeholder Profile" />
+            {% endif %} 
+            <div class="mt-2 small">
+              {{ form.profile_image }}
+            </div>
           </div>
 
           <div class="col-md-9">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label class="form-label">Phone Number</label>
+                <label class="form-label fw-semibold">Phone Number</label>
                 {{ form.phone }}
               </div>
 
               <div class="col-md-6 mb-3">
-                <label class="form-label">Designation</label>
+                <label class="form-label fw-semibold">Designation</label>
                 {{ form.designation }}
               </div>
             </div>
           </div>
         </div>
-
-        <div class="text-end mt-3">
-          <button class="btn btn-primary">
-            <i class="fa-solid fa-floppy-disk"></i>
-            Save Profile
-          </button>
-        </div>
       </div>
     </div>
 
-    <!-- ================= Company ================= -->
-
+    <!-- ================= Company Section ================= -->
     <div class="card shadow-sm border-0 mb-4">
       <div class="card-header bg-success text-white">
         <h5 class="mb-0">
@@ -76,330 +60,92 @@
       </div>
 
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-3 text-center">
+        <div class="row align-items-center">
+          <div class="col-md-3 text-center mb-3 mb-md-0">
             {% if settings.company_logo %}
-            <img
-              src="{{ settings.company_logo.url }}"
-              class="img-thumbnail shadow mb-3"
-              width="170"
-              id="logoPreview"
-            />
+              <img src="{{ settings.company_logo.url }}" class="img-thumbnail shadow mb-3" width="170" id="logoPreview" alt="Logo" />
             {% else %}
-            <img
-              src="https://via.placeholder.com/170"
-              class="img-thumbnail shadow mb-3"
-              id="logoPreview"
-            />
-            {% endif %} {{ form.company_logo }}
+              <img src="https://via.placeholder.com/170" class="img-thumbnail shadow mb-3" width="170" id="logoPreview" alt="Placeholder Logo" />
+            {% endif %} 
+            <div class="mt-2 small">
+              {{ form.company_logo }}
+            </div>
           </div>
 
           <div class="col-md-9">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label>Company Name</label>
+                <label class="form-label fw-semibold">Company Name</label>
                 {{ form.company_name }}
               </div>
 
               <div class="col-md-6 mb-3">
-                <label>Website</label>
+                <label class="form-label fw-semibold">Website</label>
                 {{ form.website }}
               </div>
 
               <div class="col-md-6 mb-3">
-                <label>City</label>
+                <label class="form-label fw-semibold">City</label>
                 {{ form.city }}
               </div>
 
               <div class="col-md-6 mb-3">
-                <label>State</label>
+                <label class="form-label fw-semibold">State</label>
                 {{ form.state }}
               </div>
 
               <div class="col-md-6 mb-3">
-                <label>Country</label>
+                <label class="form-label fw-semibold">Country</label>
                 {{ form.country }}
               </div>
 
               <div class="col-md-12 mb-3">
-                <label>Address</label>
+                <label class="form-label fw-semibold">Address</label>
                 {{ form.address }}
               </div>
             </div>
           </div>
         </div>
-
-        <div class="text-end">
-          <button class="btn btn-success">
-            <i class="fa-solid fa-floppy-disk"></i>
-            Save Company
-          </button>
-        </div>
       </div>
     </div>
 
-   
-<!-- ================= Appearance ================= -->
-
-<div class="card shadow-sm border-0 mb-4">
-
-    <div class="card-header bg-warning">
-        <h5 class="mb-0">
-            <i class="fa-solid fa-palette"></i>
-            Appearance Settings
-        </h5>
-    </div>
-
-    <div class="card-body">
-
-        <div class="row">
-
-            <!-- Theme -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Dashboard Theme
-                </label>
-
-                <select class="form-select">
-
-                    <option selected>Light</option>
-
-                    <option>Dark</option>
-
-                    <option>Blue</option>
-
-                    <option>Green</option>
-
-                </select>
-
-            </div>
-
-            <!-- Sidebar -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Sidebar Color
-                </label>
-
-                <select class="form-select">
-
-                    <option selected>Blue</option>
-
-                    <option>Black</option>
-
-                    <option>Purple</option>
-
-                    <option>Green</option>
-
-                    <option>Red</option>
-
-                </select>
-
-            </div>
-
-            <!-- Dashboard -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Dashboard Color
-                </label>
-
-                <select class="form-select">
-
-                    <option selected>White</option>
-
-                    <option>Light Gray</option>
-
-                    <option>Dark</option>
-
-                    <option>Sky Blue</option>
-
-                </select>
-
-            </div>
-
-            <!-- Font -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Font Size
-                </label>
-
-                <select class="form-select">
-
-                    <option>Small</option>
-
-                    <option selected>Medium</option>
-
-                    <option>Large</option>
-
-                </select>
-
-            </div>
-
-            <!-- Card Style -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Card Style
-                </label>
-
-                <select class="form-select">
-
-                    <option selected>Rounded</option>
-
-                    <option>Square</option>
-
-                    <option>Glass Effect</option>
-
-                </select>
-
-            </div>
-
-            <!-- Table -->
-
-            <div class="col-md-6 mb-4">
-
-                <label class="fw-bold mb-2">
-                    Table Style
-                </label>
-
-                <select class="form-select">
-
-                    <option selected>Hover</option>
-
-                    <option>Striped</option>
-
-                    <option>Bordered</option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-        <hr>
-
-        <div class="text-end">
-
-            <button class="btn btn-warning px-4">
-
-                <i class="fa-solid fa-floppy-disk"></i>
-
-                Save Theme
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label>Theme</label>
-            {{ form.theme }}
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label>Sidebar Color</label>
-
-            <select class="form-select">
-              <option>Blue</option>
-              <option>Green</option>
-              <option>Black</option>
-              <option>Purple</option>
-            </select>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label>Dashboard Color</label>
-
-            <select class="form-select">
-              <option>Default</option>
-              <option>Light</option>
-              <option>Dark</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="text-end">
-          <button class="btn btn-warning text-dark">
-            <i class="fa-solid fa-palette"></i>
-            Save Theme
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= Security ================= -->
-
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-danger text-white">
-        <h5 class="mb-0">
-          <i class="fa-solid fa-lock"></i>
-          Security
-        </h5>
-      </div>
-
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label>Current Password</label>
-            <input type="password" class="form-control" />
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label>New Password</label>
-            <input type="password" class="form-control" />
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" />
-          </div>
-        </div>
-
-        <div class="text-end">
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-key"></i>
-            Change Password
-          </button>
-        </div>
-      </div>
+    <!-- Form Submit Button (Now properly inside the form context) -->
+    <div class="text-end mt-4 mb-5">
+      <button type="submit" class="btn btn-primary btn-lg px-4">
+        <i class="fa-solid fa-floppy-disk me-2"></i>Save Settings
+      </button>
     </div>
   </form>
 </div>
 
+<!-- Preview Script -->
 <script>
-  document.getElementById("id_profile_image").onchange = function (e) {
-    const reader = new FileReader();
-
-    reader.onload = function () {
-      document.getElementById("profilePreview").src = reader.result;
+  const profileInput = document.getElementById("id_profile_image");
+  if (profileInput) {
+    profileInput.onchange = function (e) {
+      if (e.target.files && e.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const preview = document.getElementById("profilePreview");
+          if (preview) preview.src = reader.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
     };
+  }
 
-    reader.readAsDataURL(e.target.files[0]);
-  };
-
-  document.getElementById("id_company_logo").onchange = function (e) {
-    const reader = new FileReader();
-
-    reader.onload = function () {
-      document.getElementById("logoPreview").src = reader.result;
+  const logoInput = document.getElementById("id_company_logo");
+  if (logoInput) {
+    logoInput.onchange = function (e) {
+      if (e.target.files && e.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const preview = document.getElementById("logoPreview");
+          if (preview) preview.src = reader.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
     };
-
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  }
 </script>
-
 {% endblock %}

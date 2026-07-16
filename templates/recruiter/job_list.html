@@ -1,81 +1,16 @@
-{% extends 'recruiter/recruiter_base.html' %} {% load static %} {% block content %}
+{% extends 'recruiter/recruiter_base.html' %} {% load static %} 
+{% block content %}
 
-<div class="container-fluid py-4">
+<div class="container-fluid">
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-2">
     <div>
       <h2 class="fw-bold mb-1">Job Management</h2>
       <p class="text-muted">Manage all recruiter job postings</p>
     </div>
 
-    <a href="{% url 'add_job' %}" class="btn btn-primary">
-      <i class="fa-solid fa-plus"></i>
-      Create Job
-    </a>
+    
   </div>
-
-  <!-- Cards -->
-
-  <div class="row g-4 mb-4">
-    <div class="col-md-4">
-      <div class="card shadow border-0">
-        <div class="card-body">
-          <h6>Total Jobs</h6>
-
-          <h2>{{ total_jobs }}</h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card shadow border-0">
-        <div class="card-body">
-          <h6>Active Jobs</h6>
-
-          <h2 class="text-success">{{ active_jobs }}</h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card shadow border-0">
-        <div class="card-body">
-          <h6>Closed Jobs</h6>
-
-          <h2 class="text-danger">{{ closed_jobs }}</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Search -->
-
-  <form method="GET">
-    <div class="row mb-4">
-      <div class="col-md-5">
-        <input
-          type="text"
-          name="search"
-          class="form-control"
-          placeholder="Search Job"
-        />
-      </div>
-
-      <div class="col-md-3">
-        <select name="status" class="form-select">
-          <option value="">All Status</option>
-
-          <option value="Active">Active</option>
-
-          <option value="Closed">Closed</option>
-        </select>
-      </div>
-
-      <div class="col-md-2">
-        <button class="btn btn-dark w-100">Search</button>
-      </div>
-    </div>
-  </form>
 
   <!-- Job Table -->
 
@@ -140,15 +75,16 @@
               </a>
 
               <a
-                href="{% url 'edit_job' job.id %}"
+                href="{% url 'recruiter_edit_job' job.id %}"
                 class="btn btn-sm btn-warning"
               >
                 <i class="fa fa-edit"></i>
               </a>
 
-              <a 
-             href="{% url 'delete_job' job.id %}"
-              class="btn btn-sm btn-danger">
+              <a
+                href="{% url 'recruiter_delete_job' job.id %}"
+                class="btn btn-sm btn-danger"
+              >
                 <i class="fa fa-trash"></i>
               </a>
             </td>
@@ -166,5 +102,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

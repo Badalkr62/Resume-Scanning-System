@@ -63,7 +63,7 @@
       <div class="d-flex align-items-center gap-3">
         {% if user.is_authenticated %} {% if user.userprofile.role == "recruiter" %}
 
-        <a href="{% url 'add_job' %}" class="btn btn-primary"> Post Job </a>
+        <a href="{% url 'recruiter_add_job' %}" class="btn btn-primary"> Post Job </a>
 
         {% else %}
 
@@ -437,7 +437,6 @@
 
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
           <a href="#"><i class="fab fa-github"></i></a>
           <a href="#"><i class="fab fa-instagram"></i></a>
         </div>

@@ -15,15 +15,15 @@
       .container {
         max-width: 700px;
         margin: auto;
-        background: #ffffff;
+        background: #fff;
         border-radius: 8px;
         overflow: hidden;
-        border: 1px solid #dcdcdc;
+        border: 1px solid #ddd;
       }
 
       .header {
-        background: #003366;
-        color: white;
+        background: #b71c1c;
+        color: #fff;
         text-align: center;
         padding: 28px;
       }
@@ -33,6 +33,12 @@
         font-size: 28px;
       }
 
+      .header p {
+        margin-top: 8px;
+        font-size: 15px;
+        opacity: 0.95;
+      }
+
       .content {
         padding: 35px;
         line-height: 1.8;
@@ -40,10 +46,11 @@
       }
 
       .info-box {
-        margin: 25px 0;
-        padding: 20px;
-        background: #f8f9fa;
+        background: #fff8f8;
         border-left: 5px solid #dc3545;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 4px;
       }
 
       .info-table {
@@ -61,19 +68,32 @@
         color: #555;
       }
 
-      .btn {
-        display: inline-block;
-        margin-top: 25px;
-        background: #003366;
-        color: white !important;
-        text-decoration: none;
-        padding: 14px 28px;
-        border-radius: 6px;
+      .status {
+        color: #dc3545;
         font-weight: bold;
       }
 
-      .center {
-        text-align: center;
+      .encourage-box {
+        background: #eef7ff;
+        border-left: 5px solid #0d6efd;
+        padding: 18px;
+        margin: 30px 0;
+        border-radius: 4px;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 14px 28px;
+        background: #003366;
+        color: #fff !important;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .signature {
+        margin-top: 35px;
       }
 
       .footer {
@@ -90,17 +110,21 @@
   <body>
     <div class="container">
       <div class="header">
-        <h2>Application Status Update</h2>
+        <h2>Application Status</h2>
+        <p>Thank you for your interest in joining {{ company }}.</p>
       </div>
 
       <div class="content">
         <p>Dear <strong>{{ candidate }}</strong>,</p>
 
-        <p>Greetings from <strong>Smart Resume ATS</strong>.</p>
+        <p>
+          Thank you for applying for the
+          <strong>{{ job }}</strong>.
+        </p>
 
         <p>
-          We thank you for your interest in our career opportunities and for
-          participating in our recruitment process.
+          We appreciate the time and effort you invested in your application and
+          the opportunity to learn more about your skills and experience.
         </p>
 
         <div class="info-box">
@@ -117,67 +141,56 @@
 
             <tr>
               <td class="label">Application Status</td>
-              <td><strong>Not Selected</strong></td>
+              <td class="status">Not Selected</td>
             </tr>
           </table>
         </div>
 
         <p>
-          We sincerely appreciate the time, effort, and enthusiasm you
-          demonstrated throughout the recruitment process.
+          After carefully reviewing your application alongside other candidates,
+          we regret to inform you that you have
+          <strong>not been selected</strong>
+          for this position.
         </p>
 
         <p>
-          After carefully reviewing your application and interview performance,
-          we regret to inform you that you have not been selected to move
-          forward in the current hiring process.
+          This decision was based on the specific requirements of the role and
+          the overall selection process. It should not be considered a
+          reflection of your abilities or future potential.
         </p>
 
-        <p>
-          This decision does not diminish your abilities or potential. We
-          encourage you to continue developing your technical skills and
-          professional experience, and we hope you will consider applying for
-          future opportunities that match your profile.
-        </p>
+        <div class="encourage-box">
+          <strong>We Encourage You to Apply Again</strong>
 
-        <p>
-          Your profile will remain in our talent database, and our recruitment
-          team may contact you if a suitable opportunity becomes available.
-        </p>
-
-        <p>
-          We appreciate your interest in our organization and wish you every
-          success in your future career.
-        </p>
-
-        <div class="center">
-          <a href="{{ careers_link }}" class="btn"> Explore More Jobs </a>
+          <p style="margin-top: 10px">
+            We genuinely appreciate your interest in our organization. We
+            encourage you to continue enhancing your skills and apply for future
+            opportunities that match your experience. We would be pleased to
+            review your application again.
+          </p>
         </div>
 
-        <br />
-
         <p>
-          Best Regards,
-
-          <br /><br />
-
-          <strong> Talent Acquisition Team </strong>
-
-          <br />
-
-          HR ATS
+          We sincerely thank you for considering <strong>{{ job }}</strong>
+          as part of your career journey and wish you every success in your
+          future endeavors.
         </p>
+
+        <div class="signature">
+          <p>Kind Regards,</p>
+
+          <strong>Talent Acquisition Team</strong>
+        </div>
       </div>
 
       <div class="footer">
-        <strong>Notice:</strong>
+        <strong>Notice:</strong><br /><br />
 
-        The information contained in this email and any attachments may contain
-        confidential or privileged information intended solely for the
-        recipient. If you are not the intended recipient, please notify the
-        sender immediately and permanently delete this email. Any unauthorized
-        review, use, disclosure, distribution, printing, or copying of this
-        communication is strictly prohibited.
+        This email and any attachments may contain confidential information
+        intended only for the recipient. If you have received this email in
+        error, please notify the sender immediately and permanently delete this
+        message. Unauthorized use or distribution of this communication is
+        strictly prohibited.
       </div>
     </div>
   </body>

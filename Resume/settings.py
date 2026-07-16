@@ -126,6 +126,46 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
+# ==============================================================================
+# DJANGO ALLAUTH & SOCIAL SIGNUP CONFIGURATIONS (Bypass Settings)
+# ==============================================================================
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_SIGNUP_ON_GET = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Custom adapter use karenge jo har haal me form bypass karega
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.CustomSocialAccountAdapter'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+# IMP: Normal signups ke liye isko tabhi trigger hone dein jab standard forms ho,
+# Google signups isko auto-bypass karenge custom adapter ke through.
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+
+# Google data flow options
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+# Redirect URLs
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/choose_role.html'  # Jaise aapne set kiya hua hai
+LOGOUT_REDIRECT_URL = '/'
+
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 

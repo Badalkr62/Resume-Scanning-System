@@ -1,3 +1,6 @@
+from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 import os
 from datetime import timedelta
 from django.shortcuts import render, redirect, get_object_or_404
@@ -19,6 +22,11 @@ from .models import RecruiterSettings
 from .forms import RecruiterSettingsForm
 from django.contrib.auth.decorators import login_required
 from job.forms import JobForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import RecruiterSettings
+from .forms import RecruiterSettingsForm
 
 
 def recruiter_dashboard(request):
@@ -169,8 +177,38 @@ def recruiter_job_list(request):
     )
 
 
+@login_required
 def add_job(request):
-    return render(request, "recruiter/add_job.html")
+
+    if request.method == "POST":
+
+        form = JobForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            job = form.save(commit=False)
+
+            # Agar Job model me recruiter field hai to use save karo
+            if hasattr(job, "recruiter"):
+                job.recruiter = request.user
+
+            job.save()
+
+            messages.success(request, "Job posted successfully.")
+
+            return redirect("recruiter_job_list")
+
+    else:
+
+        form = JobForm()
+
+    return render(
+        request,
+        "recruiter/add_job.html",
+        {
+            "form": form
+        }
+    )
 
 
 def edit_job(request, id):
@@ -187,8 +225,8 @@ def edit_job(request, id):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Job Updated Successfully")
-            return redirect("recruiter_job_list")
+            messages.success(request, "Job updated successfully.")
+            return redirect("/recruiter/jobs/")
 
     else:
         form = JobForm(instance=job)
@@ -203,8 +241,22 @@ def edit_job(request, id):
     )
 
 
+@login_required
 def delete_job(request, id):
-    return render(request, "recruiter/delete_job.html")
+    job = get_object_or_404(Job, id=id)
+
+    if request.method == "POST":
+        job.delete()
+        messages.success(request, "Job deleted successfully.")
+        return redirect("recruiter_job_list")
+
+    return render(
+        request,
+        "recruiter/delete_job.html",
+        {
+            "job": job,
+        },
+    )
 
 
 def recruiter_job_detail(request, id):
@@ -367,7 +419,7 @@ def reports(request):
 @login_required
 def settings_page(request):
 
-    settings_obj, created = RecruiterSettings.objects.get_or_create(
+    settings, created = RecruiterSettings.objects.get_or_create(
         user=request.user
     )
 
@@ -376,30 +428,23 @@ def settings_page(request):
         form = RecruiterSettingsForm(
             request.POST,
             request.FILES,
-            instance=settings_obj
+            instance=settings
         )
 
         if form.is_valid():
             form.save()
-
-            messages.success(
-                request,
-                "Settings Updated Successfully."
-            )
-
+            messages.success(request, "Settings updated successfully.")
             return redirect("settings_page")
 
     else:
 
-        form = RecruiterSettingsForm(
-            instance=settings_obj
-        )
+        form = RecruiterSettingsForm(instance=settings)
 
     return render(
         request,
         "recruiter/settings.html",
         {
             "form": form,
-            "settings": settings_obj,
+            "settings": settings,
         }
     )

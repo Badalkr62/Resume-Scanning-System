@@ -68,16 +68,32 @@ class Interview(models.Model):
         return f"{self.application.user.username} - {self.interview_date}"
 
 
-from django.db import models
-from django.contrib.auth.models import User
-
-
 class RecruiterSettings(models.Model):
 
-    THEME = (
+    THEME_CHOICES = (
         ("Light", "Light"),
         ("Dark", "Dark"),
         ("Blue", "Blue"),
+        ("Green", "Green"),
+    )
+
+    FONT_CHOICES = (
+        ("Small", "Small"),
+        ("Medium", "Medium"),
+        ("Large", "Large"),
+    )
+
+    SIDEBAR_CHOICES = (
+        ("Primary", "Primary"),
+        ("Dark", "Dark"),
+        ("Success", "Success"),
+        ("Danger", "Danger"),
+    )
+
+    DASHBOARD_CHOICES = (
+        ("Default", "Default"),
+        ("Blue", "Blue"),
+        ("Purple", "Purple"),
         ("Green", "Green"),
     )
 
@@ -86,7 +102,10 @@ class RecruiterSettings(models.Model):
         on_delete=models.CASCADE
     )
 
+    # =====================
     # Profile
+    # =====================
+
     profile_image = models.ImageField(
         upload_to="recruiter/profile/",
         blank=True,
@@ -103,7 +122,10 @@ class RecruiterSettings(models.Model):
         blank=True
     )
 
+    # =====================
     # Company
+    # =====================
+
     company_name = models.CharField(
         max_length=200,
         blank=True
@@ -115,13 +137,9 @@ class RecruiterSettings(models.Model):
         null=True
     )
 
-    website = models.URLField(
-        blank=True
-    )
+    website = models.URLField(blank=True)
 
-    address = models.TextField(
-        blank=True
-    )
+    address = models.TextField(blank=True)
 
     city = models.CharField(
         max_length=100,
@@ -138,7 +156,10 @@ class RecruiterSettings(models.Model):
         blank=True
     )
 
+    # =====================
     # Notifications
+    # =====================
+
     email_notification = models.BooleanField(default=True)
 
     resume_notification = models.BooleanField(default=True)
@@ -147,23 +168,63 @@ class RecruiterSettings(models.Model):
 
     offer_notification = models.BooleanField(default=True)
 
-    # AI
+    # =====================
+    # AI Settings
+    # =====================
+
     ai_enabled = models.BooleanField(default=True)
 
-    minimum_score = models.IntegerField(default=70)
+    minimum_score = models.PositiveIntegerField(default=70)
 
-    default_skills = models.TextField(
+    default_skills = models.TextField(blank=True)
+
+    gemini_api_key = models.TextField(
         blank=True
     )
 
-    # Theme
+    openai_api_key = models.TextField(
+        blank=True
+    )
+
+    # =====================
+    # Appearance
+    # =====================
+
     theme = models.CharField(
         max_length=20,
-        choices=THEME,
+        choices=THEME_CHOICES,
         default="Light"
     )
 
-    
+    sidebar_color = models.CharField(
+        max_length=20,
+        choices=SIDEBAR_CHOICES,
+        default="Primary"
+    )
+
+    dashboard_color = models.CharField(
+        max_length=20,
+        choices=DASHBOARD_CHOICES,
+        default="Default"
+    )
+
+    font_size = models.CharField(
+        max_length=20,
+        choices=FONT_CHOICES,
+        default="Medium"
+    )
+
+    # =====================
+    # Account
+    # =====================
+
+    profile_completed = models.BooleanField(
+        default=False
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.user.username

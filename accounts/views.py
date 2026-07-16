@@ -137,7 +137,7 @@ def user_login(request):
 
             if profile.role == "recruiter":
 
-                return redirect("recruiter_dashboard")
+                return redirect("choose_role")
 
             return redirect("home")
 
@@ -148,7 +148,6 @@ def user_login(request):
 
 @login_required
 def choose_role(request):
-
     profile = UserProfile.objects.get(user=request.user)
 
     return render(request, "accounts/choose_role.html", {
@@ -205,13 +204,20 @@ def verify_otp(request):
             messages.error(request, "Session expired. Please register again.")
             return redirect("register")
 
-        user = User.objects.get(id=request.session["user_id"])
-        profile = UserProfile.objects.get(user=user)
+        try:
+            user = User.objects.get(id=request.session["user_id"])
+            profile = UserProfile.objects.get(user=user)
 
+        except (User.DoesNotExist, UserProfile.DoesNotExist):
+            messages.error(request, "User not found.")
+            return redirect("register")
+
+        # OTP Validation
         if profile.otp == otp:
 
             profile.is_verified = True
             profile.email_verified = True
+            profile.phone_verified = True
             profile.otp = ""
             profile.save()
 
@@ -221,18 +227,19 @@ def verify_otp(request):
                 backend="django.contrib.auth.backends.ModelBackend"
             )
 
-            # Safely remove session key
+            # Remove session
             request.session.pop("user_id", None)
 
-            messages.success(request, "Account Verified Successfully")
+            messages.success(
+                request,
+                "Account Verified Successfully."
+            )
 
-            if profile.role == "recruiter":
-                return redirect("recruiter_dashboard")
-
-            return redirect("home")
+            # Always go to Choose Role page
+            return redirect("choose_role")
 
         else:
-            messages.error(request, "Invalid OTP")
+            messages.error(request, "Invalid OTP.")
 
     return render(request, "accounts/otp_verify.html")
 
