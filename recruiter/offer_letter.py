@@ -100,8 +100,8 @@ def generate_offer_letter(application):
     if os.path.exists(logo_path):
         story.append(Image(logo_path, width=90, height=90))
 
-    story.append(Paragraph("SMART RESUME ATS", title))
-    story.append(Paragraph("HR Department", heading))
+    story.append(Paragraph("Global Talent Solutions", title))
+    story.append(Paragraph("Talent Acquisition Team", heading))
 
     story.append(Spacer(1, 8))
 

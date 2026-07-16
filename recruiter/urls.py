@@ -7,6 +7,11 @@ urlpatterns = [
         views.recruiter_dashboard,
         name="recruiter_dashboard",
     ),
+    path(
+    "send_offer_letter/<int:pk>/", # <-- Yahan <int:pk>/ add kiya
+    views.send_offer_letter,
+    name="send_offer_letter",
+),
 
     path(
         "settings/",
