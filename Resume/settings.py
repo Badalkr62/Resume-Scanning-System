@@ -229,3 +229,5 @@ LOGIN_REDIRECT_URL = "/dashboard/"
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+DEBUG=False
+ALLOWED_HOSTS="*"
