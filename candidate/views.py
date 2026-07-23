@@ -1,14 +1,14 @@
+from applications.models import Application
+from django.shortcuts import get_object_or_404, redirect
+# <-- jahan Application model hai wahi import karo
+from recruiter.models import Application
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from job.models import Job
-from applications.models import Application
+from recruiter.models import Application
 
-
-# ===========================
-# Candidate Dashboard
-# ===========================
 
 @login_required(login_url="login")
 def dashboard(request):
@@ -39,6 +39,7 @@ def job_list(request):
             "search": search,
         },
     )
+
 
 @login_required(login_url="login")
 def job_detail(request, pk):
@@ -111,6 +112,7 @@ def apply_job(request, id):
         },
     )
 
+
 @login_required(login_url="login")
 def my_applications(request):
 
@@ -128,3 +130,18 @@ def my_applications(request):
             "applications": applications,
         },
     )
+
+
+@login_required
+def delete_application(request, pk):
+    application = get_object_or_404(
+        Application,
+        pk=pk,
+        user=request.user
+    )
+
+    if request.method == "POST":
+        application.delete()
+        messages.success(request, "Application deleted successfully.")
+
+    return redirect("my_applications")

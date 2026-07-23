@@ -11,7 +11,7 @@ class InterviewForm(forms.ModelForm):
             "interview_date",
             "interview_time",
             "interview_mode",
-            "meeting_link"
+            "meeting_link",
         ]
 
         widgets = {

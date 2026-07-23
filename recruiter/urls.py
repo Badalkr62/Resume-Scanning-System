@@ -8,10 +8,10 @@ urlpatterns = [
         name="recruiter_dashboard",
     ),
     path(
-    "send_offer_letter/<int:pk>/", # <-- Yahan <int:pk>/ add kiya
-    views.send_offer_letter,
-    name="send_offer_letter",
-),
+        "send_offer_letter/<int:pk>/",  # <-- Yahan <int:pk>/ add kiya
+        views.send_offer_letter,
+        name="send_offer_letter",
+    ),
 
     path(
         "settings/",
@@ -24,9 +24,9 @@ urlpatterns = [
         name="recruiter_job_list",
     ),
     path(
-        "job/<int:id>/",
-        views.recruiter_job_detail,
-        name="recruiter_job_detail",
+        "applications/<int:id>/",
+        views.application_detail,
+        name="application_detail"
     ),
     path(
         "job/add/",

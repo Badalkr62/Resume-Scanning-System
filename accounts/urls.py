@@ -23,6 +23,7 @@ urlpatterns = [
 
     path("logout/", views.user_logout, name="logout"),
 
+
     path("choose-role/", views.choose_role, name="choose_role"),
 
 

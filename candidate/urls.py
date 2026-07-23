@@ -36,5 +36,10 @@ urlpatterns = [
         views.my_applications,
         name="my_applications",
     ),
+     path(
+        "delete-application/<int:pk>/",
+        views.delete_application,
+        name="delete_application",
+    ),
 
 ]

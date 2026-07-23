@@ -34,11 +34,7 @@ class Job(models.Model):
     title = models.CharField(max_length=200)
 
     company = models.CharField(max_length=200)
-    company_logo = models.ImageField(
-        upload_to="company_logo/",
-        blank=True,
-        null=True
-    )
+    
 
     location = models.CharField(max_length=200)
 
@@ -61,13 +57,10 @@ class Job(models.Model):
     )
 
     education = models.CharField(max_length=200)
-
+    applicants = models.PositiveIntegerField(default=0)
     salary = models.CharField(max_length=100)
 
     openings = models.PositiveIntegerField(default=1)
-
-    applicants = models.PositiveIntegerField(default=0)
-
     skills = models.TextField(
         help_text="Example: Python, Django, SQL, REST API"
     )

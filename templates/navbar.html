@@ -1,113 +1,54 @@
-{% comment %} <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-  <div class="container-fluid px-md-5">
-    <div class="d-flex align-items-center">
-      <i
-        class="fa-solid fa-file-invoice text-primary"
-        style="font-size: 35px"
-      ></i>
-      <div class="ms-2">
-        <a
-          class="navbar-brand fw-bold text-primary mb-0 p-0 d-block"
-          href="/"
-          style="line-height: 1"
-          >Smart Recruiter</a
-        >
-        <small class="text-secondary d-block" style="font-size: 11px"
-          >Career Portal</small
-        >
-      </div>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top custom-navbar">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold fs-3 text-white d-flex align-items-center" href="{% url 'home' %}">
+      <i class="fa-solid fa-briefcase text-primary me-2"></i>
+      Online Job Portal
+    </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#menu"
-      aria-controls="menu"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="menu">
-      <div class="mx-auto text-center my-2 my-lg-0">
-        <span class="nav-link fw-bold text-dark fs-5">
-          <i class="fa-regular fa-hand text-warning me-1"></i> Welcome,
-          <span class="text-primary">{{ user.username }}</span>
-        </span>
-      </div>
-
-      <ul class="navbar-nav ms-auto align-items-center custom-nav">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left Menu -->
+      <ul class="navbar-nav ms-4">
         <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/' %}active{% endif %}"
-            href="/"
-            >Home</a
-          >
+          <a class="nav-link text-white fw-semibold ms-2" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-bold" href="{% url 'user_section' %}">
-            Candidate Sections
+          <a class="nav-link text-white-50 fw-semibold ms-2" href="{% url 'job_list' %}">Find Jobs</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link text-white-50 fw-semibold ms-2" href="{% url 'my_applications' %}">My Applications</a>
+        </li>
+        {% endif %}
+      </ul>
+
+      <!-- Right Menu -->
+      <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item me-lg-3 mb-2 mb-lg-0">
+          <span class="nav-link fw-semibold text-white d-flex align-items-center">
+            <i class="fa-solid fa-user me-2 text-primary"></i>
+            {{ user.get_full_name|default:user.username }}
+          </span>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="btn btn-danger btn-sm px-3 rounded-2 fw-bold">
+            Logout
           </a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/about/' %}active{% endif %}"
-            href="/about/"
-            >About</a
-          >
+        {% else %}
+        <li class="nav-item me-2">
+          <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm px-3">Login</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/features/' %}active{% endif %}"
-            href="/features/"
-            >Features</a
-          >
+          <a href="{% url 'register' %}" class="btn btn-primary btn-sm px-3">Register</a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/how-it-works/' %}active{% endif %}"
-            href="/how-it-works/"
-            >How it Works</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-bold {% if request.path == '/contact/' %}active{% endif %}"
-            href="/contact/"
-            >Contact</a
-          >
-        </li>
-
-        
+        {% endif %}
       </ul>
     </div>
   </div>
 </nav>
-
-<style>
-  .custom-nav .nav-link {
-    position: relative;
-    padding-bottom: 6px !important;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-  }
-  .custom-nav .nav-link.active::after,
-  .custom-nav .nav-link:hover::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #0d6efd;
-    border-radius: 2px;
-  }
-  .custom-nav .nav-link.active {
-    color: #0d6efd !important;
-  }
-  .nav-link fw-bold {
-    color: black;
-  }
-</style> {% endcomment %}

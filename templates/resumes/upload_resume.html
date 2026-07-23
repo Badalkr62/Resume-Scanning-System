@@ -1,64 +1,112 @@
-{% extends 'base.html' %} 
-
-{% block content %}
-<div class="d-flex align-items-center justify-content-center" style="min-vh: 85vh;">
-  
-  <div class="card upload-card p-4 shadow-lg text-white" style="width: 100%; max-width: 480px; border-radius: 16px;">
-    
+{% extends 'base.html' %} {% block content %}
+<div
+  class="d-flex align-items-center justify-content-center"
+  style="min-vh: 85vh"
+>
+  <div
+    class="card upload-card p-4 shadow-lg text-white"
+    style="width: 100%; max-width: 480px; border-radius: 16px"
+  >
     <div class="text-center mb-4">
       <div class="icon-box mb-2">
-        <i class="fa-solid fa-cloud-arrow-up text-success" style="font-size: 28px;"></i>
+        <i
+          class="fa-solid fa-cloud-arrow-up text-success"
+          style="font-size: 28px"
+        ></i>
       </div>
       <h2 class="fw-bold mb-1">Upload Resume</h2>
-      <p class="text-secondary small">Enter candidate details and parse the resume file</p>
+      <p class="text-secondary small">
+        Enter candidate details and parse the resume file
+      </p>
     </div>
 
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
       <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold">Candidate Name</label>
+        <label class="form-label small text-secondary fw-semibold"
+          >Candidate Name</label
+        >
         <div class="input-group">
-          <span class="input-group-text bg-dark-input border-secondary-subtle text-secondary"><i class="fa-solid fa-user"></i></span>
-          <input type="text" name="name" class="form-control bg-dark-input text-white border-secondary-subtle shadow-none" placeholder="John Doe" required>
+          <span
+            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
+            ><i class="fa-solid fa-user"></i
+          ></span>
+          <input
+            type="text"
+            name="name"
+            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
+            placeholder="John Doe"
+            required
+          />
         </div>
       </div>
 
       <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold">Email Address</label>
+        <label class="form-label small text-secondary fw-semibold"
+          >Email Address</label
+        >
         <div class="input-group">
-          <span class="input-group-text bg-dark-input border-secondary-subtle text-secondary"><i class="fa-solid fa-envelope"></i></span>
-          <input type="email" name="email" class="form-control bg-dark-input text-white border-secondary-subtle shadow-none" placeholder="john@example.com" required>
+          <span
+            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
+            ><i class="fa-solid fa-envelope"></i
+          ></span>
+          <input
+            type="email"
+            name="email"
+            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
+            placeholder="john@example.com"
+            required
+          />
         </div>
       </div>
 
       <div class="form-group mb-3">
-        <label class="form-label small text-secondary fw-semibold">Phone Number</label>
+        <label class="form-label small text-secondary fw-semibold"
+          >Phone Number</label
+        >
         <div class="input-group">
-          <span class="input-group-text bg-dark-input border-secondary-subtle text-secondary"><i class="fa-solid fa-phone"></i></span>
-          <input type="text" name="phone" class="form-control bg-dark-input text-white border-secondary-subtle shadow-none" placeholder="+1 (555) 000-0000" required>
+          <span
+            class="input-group-text bg-dark-input border-secondary-subtle text-secondary"
+            ><i class="fa-solid fa-phone"></i
+          ></span>
+          <input
+            type="text"
+            name="phone"
+            class="form-control bg-dark-input text-white border-secondary-subtle shadow-none"
+            placeholder="+1 (555) 000-0000"
+            required
+          />
         </div>
       </div>
 
       <div class="form-group mb-4">
-        <label class="form-label small text-secondary fw-semibold">Resume File (PDF, DOCX)</label>
-        <input type="file" name="resume" class="form-control bg-dark-input text-white border-secondary-subtle file-custom shadow-none" required />
+        <label class="form-label small text-secondary fw-semibold"
+          >Resume File (PDF, DOCX)</label
+        >
+        <input
+          type="file"
+          name="resume"
+          class="form-control bg-dark-input text-white border-secondary-subtle file-custom shadow-none"
+          required
+        />
       </div>
 
-      <button type="submit" class="btn btn-success w-100 fw-bold py-2.5 upload-btn">
+      <button
+        type="submit"
+        class="btn btn-success w-100 fw-bold py-2.5 upload-btn"
+      >
         <i class="fa-solid fa-file-import me-1"></i> Process & Upload
       </button>
     </form>
-
   </div>
 </div>
 
 <style>
   body {
-    background-color: #0b0f19 !important; /* डीप डार्क नाइट ब्लू */
+    background-color: #0b0f19 !important;
   }
 
-  /* 1. ओपन होने वाला जादुई एनिमेशन (Fade In & Slide Up) */
   @keyframes fadeInUp {
     from {
       opacity: 0;

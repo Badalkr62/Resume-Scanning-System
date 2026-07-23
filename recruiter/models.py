@@ -1,6 +1,6 @@
 from django.db import models
-from applications.models import Application
 from django.contrib.auth.models import User
+from applications.models import Application
 
 
 class Interview(models.Model):
@@ -25,7 +25,6 @@ class Interview(models.Model):
     )
 
     interview_date = models.DateField()
-
     interview_time = models.TimeField()
 
     mode = models.CharField(
@@ -64,8 +63,13 @@ class Interview(models.Model):
         auto_now=True
     )
 
+    class Meta:
+        ordering = ['-interview_date', '-interview_time']
+
     def __str__(self):
-        return f"{self.application.user.username} - {self.interview_date}"
+        # Safer string formatting in case application or user is None
+        user_name = getattr(self.application.user, 'username', 'Unknown Candidate') if self.application else "No Application"
+        return f"Interview with {user_name} on {self.interview_date}"
 
 
 class RecruiterSettings(models.Model):
@@ -99,13 +103,13 @@ class RecruiterSettings(models.Model):
 
     user = models.OneToOneField(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="recruiter_settings"
     )
 
     # =====================
     # Profile
     # =====================
-
     profile_image = models.ImageField(
         upload_to="recruiter/profile/",
         blank=True,
@@ -125,7 +129,6 @@ class RecruiterSettings(models.Model):
     # =====================
     # Company
     # =====================
-
     company_name = models.CharField(
         max_length=200,
         blank=True
@@ -138,7 +141,6 @@ class RecruiterSettings(models.Model):
     )
 
     website = models.URLField(blank=True)
-
     address = models.TextField(blank=True)
 
     city = models.CharField(
@@ -159,37 +161,34 @@ class RecruiterSettings(models.Model):
     # =====================
     # Notifications
     # =====================
-
     email_notification = models.BooleanField(default=True)
-
     resume_notification = models.BooleanField(default=True)
-
     interview_notification = models.BooleanField(default=True)
-
     offer_notification = models.BooleanField(default=True)
 
     # =====================
     # AI Settings
     # =====================
-
     ai_enabled = models.BooleanField(default=True)
-
     minimum_score = models.PositiveIntegerField(default=70)
-
     default_skills = models.TextField(blank=True)
 
-    gemini_api_key = models.TextField(
-        blank=True
+    # Note: Controlled max_length added for API keys
+    gemini_api_key = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
     )
 
-    openai_api_key = models.TextField(
-        blank=True
+    openai_api_key = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
     )
 
     # =====================
     # Appearance
     # =====================
-
     theme = models.CharField(
         max_length=20,
         choices=THEME_CHOICES,
@@ -217,7 +216,6 @@ class RecruiterSettings(models.Model):
     # =====================
     # Account
     # =====================
-
     profile_completed = models.BooleanField(
         default=False
     )
@@ -227,4 +225,4 @@ class RecruiterSettings(models.Model):
     )
 
     def __str__(self):
-        return self.user.username
+        return f"Settings - {self.user.username}"

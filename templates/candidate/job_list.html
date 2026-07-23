@@ -1,99 +1,170 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 
-<div class="container mt-5">
-  <div class="row">
-    <!-- Sidebar -->
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+<div class="container my-5">
+  <div class="row g-4">
+    
+    <!-- Sidebar: Search Form -->
     <div class="col-lg-3">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">🔍 Search Jobs</h5>
+      <div class="card shadow border-secondary-subtle rounded-4 bg-dark text-light sticky-top overflow-hidden" style="top: 24px;">
+        <div class="card-header bg-primary text-white p-3 border-0">
+          <h5 class="mb-0 fw-bold fs-6">
+            <i class="bi bi-search me-2"></i>Search Jobs
+          </h5>
         </div>
 
-        <div class="card-body">
+        <div class="card-body p-4">
           <form method="GET">
-            <input
-              type="text"
-              name="search"
-              value="{{ search }}"
-              class="form-control mb-3"
-              placeholder="Job title"
-            />
+            <div class="mb-3">
+              <label class="form-label text-white-50 small fw-semibold">Search by Keyword</label>
+              <div class="input-group">
+                <span class="input-group-text bg-secondary bg-opacity-25 border-secondary text-white-50 border-end-0">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input
+                  type="text"
+                  name="search"
+                  value="{{ search|default:'' }}"
+                  class="form-control bg-secondary bg-opacity-25 border-secondary text-white border-start-0 shadow-none dark-input"
+                  placeholder="e.g. PHP, React..."
+                />
+              </div>
+            </div>
 
-            <button class="btn btn-primary w-100">Search</button>
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3 shadow-sm">
+              <i class="bi bi-funnel-fill me-1"></i> Filter Jobs
+            </button>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- Jobs -->
-
+    <!-- Main Content: Job List -->
     <div class="col-lg-9">
+      
       {% for job in jobs %}
-
-      <div class="card shadow border-0 mb-4">
-        <div class="card-body">
-          <div class="justify-content-between">
+      <div class="card shadow border-secondary-subtle rounded-4 mb-4 bg-dark text-light hover-card transition-all">
+        <div class="card-body p-4">
+          
+          <!-- Title & Header Section -->
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
             <div>
-              <h3>{{ job.title }}</h3>
-
-              <h5 class="text-primary">{{ job.company }}</h5>
+              <h3 class="fw-bold text-white mb-1 h4">
+                <a href="{% url 'job_detail' job.id %}" class="text-white text-decoration-none hover-title">
+                  {{ job.title }}
+                </a>
+              </h3>
+              <h5 class="text-info fw-semibold mb-0 h6">
+                <i class="bi bi-building me-1"></i>{{ job.company }}
+              </h5>
             </div>
-
-            <span class="badge bg-success"> {{ job.status }} </span>
+            
+            <span class="badge bg-success text-white border border-success rounded-pill px-3 py-2 fw-semibold shadow-sm">
+              <i class="bi bi-check-circle-fill me-1"></i>{{ job.status|default:"Active" }}
+            </span>
           </div>
 
-          <hr />
+          <!-- Quick Badges -->
+          <div class="d-flex flex-wrap gap-2 my-3">
+            <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-normal rounded-2">
+              <i class="bi bi-geo-alt text-danger me-1"></i>{{ job.location }}
+            </span>
+            <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-normal rounded-2">
+              <i class="bi bi-laptop text-info me-1"></i>{{ job.work_mode }}
+            </span>
+            <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-normal rounded-2">
+              <i class="bi bi-bag text-warning me-1"></i>{{ job.job_type }}
+            </span>
+            <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-semibold rounded-2">
+              <i class="bi bi-cash-stack text-success me-1"></i>{{ job.salary }}
+            </span>
+          </div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <p>📍 {{ job.location }}</p>
-
-              <p>🏢 {{ job.work_mode }}</p>
-
-              <p>💼 {{ job.job_type }}</p>
-
-              <p>🎓 {{ job.education }}</p>
+          <!-- Secondary Grid Details -->
+          <div class="row g-2 text-white-50 small my-3 pt-3 border-top border-secondary border-opacity-25">
+            <div class="col-6 col-md-4">
+              <i class="bi bi-award me-1"></i><b class="text-white">Exp:</b> {{ job.experience }}
             </div>
-
-            <div class="col-md-6">
-              <p>💰 {{ job.salary }}</p>
-
-              <p>👨‍💻 {{ job.experience }}</p>
-
-              <p>👥 {{ job.openings }} Openings</p>
-
-              <p>📅 Last Date {{ job.deadline }}</p>
+            <div class="col-6 col-md-4">
+              <i class="bi bi-mortarboard me-1"></i><b class="text-white">Edu:</b> {{ job.education }}
+            </div>
+            <div class="col-6 col-md-4">
+              <i class="bi bi-people me-1"></i><b class="text-white">Openings:</b> {{ job.openings }}
+            </div>
+            <div class="col-6 col-md-4">
+              <i class="bi bi-person-check me-1 text-info"></i><b class="text-white">Applied:</b> 
+              <span class="fw-bold text-info">{{ job.applicants|default:0 }}</span>
+            </div>
+            <div class="col-6 col-md-4">
+              <i class="bi bi-hourglass-split me-1 text-danger"></i><b class="text-white">Remaining:</b> 
+              <span class="fw-bold text-danger">{{ job.remaining_openings|default:job.openings }}</span>
+            </div>
+            <div class="col-6 col-md-4">
+              <i class="bi bi-calendar-event me-1"></i><b class="text-white">Deadline:</b> {{ job.deadline }}
             </div>
           </div>
 
-          <hr />
+          <!-- Skills Badges -->
+          <div class="d-flex align-items-center gap-2 flex-wrap mb-4">
+            <span class="small fw-bold text-white me-1">Skills:</span>
+            {% for skill in job.skills.split %}
+              <span class="badge bg-primary text-white border border-primary px-3 py-1.5 rounded-pill fw-medium shadow-sm">
+                {{ skill|cut:"," }}
+              </span>
+            {% endfor %}
+          </div>
 
-          <p>
-            <strong>Skills Required</strong>
-          </p>
-
-          <p>{{ job.skills }}</p>
-
-          <div class="mt-3">
-            <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">
+          <!-- Action Buttons -->
+          <div class="d-flex align-items-center gap-2 border-top border-secondary border-opacity-25 pt-3">
+            <a href="{% url 'job_detail' job.id %}" class="btn btn-outline-primary btn-sm px-4 py-2 rounded-3 fw-semibold">
               View Details
             </a>
-
-            <a href="{% url 'apply_job' job.id %}" class="btn btn-success">
-              🚀 Apply Now
+            <a href="{% url 'apply_job' job.id %}" class="btn btn-primary btn-sm px-4 py-2 rounded-3 fw-semibold shadow-sm">
+              <i class="bi bi-send-fill me-1"></i>Apply Now
             </a>
           </div>
+
         </div>
       </div>
 
       {% empty %}
 
-      <div class="alert alert-warning">No Jobs Available</div>
+      <div class="card shadow border-secondary-subtle rounded-4 p-5 text-center bg-dark text-light">
+        <i class="bi bi-search fs-1 text-white-50 mb-2"></i>
+        <h5 class="fw-bold text-white mb-1">No Jobs Available</h5>
+        <p class="text-white-50 mb-0">Try searching with a different job title or keyword.</p>
+      </div>
 
       {% endfor %}
+
     </div>
   </div>
 </div>
+
+<!-- Custom Dark Mode Styles -->
+<style>
+  .hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .hover-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(13, 110, 253, 0.5) !important;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5) !important;
+  }
+  .hover-title:hover {
+    color: #6ea8fe !important;
+  }
+  .dark-input::placeholder {
+    color: #a0aec0 !important;
+  }
+  .dark-input:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-color: #0d6efd !important;
+  }
+</style>
 
 {% endblock %}

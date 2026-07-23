@@ -4,7 +4,6 @@
   <div class="row">
     <!-- LEFT SIDE -->
     <div class="col-lg-4">
-      <!-- Candidate Profile -->
       <div class="card shadow border-0 mb-4">
         <div class="card-body text-center">
           <img
@@ -12,7 +11,9 @@
             class="rounded-circle mb-3"
           />
 
-          <h3>{{ application.user.username }}</h3>
+          <h3>
+            <h3>{{ application.user.username }}</h3>
+          </h3>
 
           <p class="text-muted">{{ application.user.email }}</p>
 
@@ -26,61 +27,68 @@
           </p>
 
           <p>
+            <strong>Company</strong><br />
+            {{ application.job.company }}
+          </p>
+
+          <p>
             <strong>Applied Date</strong><br />
             {{ application.applied_at|date:"d M Y" }}
           </p>
         </div>
       </div>
 
-      <!-- Recruiter Actions -->
       <div class="card shadow border-0">
         <div class="card-header bg-dark text-white">Recruiter Actions</div>
 
         <div class="card-body d-grid gap-2">
+          <a
+            href="{% url 'update_application_status' application.id 'Shortlisted' %}"
+            class="btn btn-success"
+          >
+            ✅ Shortlist
+          </a>
 
-  <a
-    href="{% url 'update_application_status' application.id 'Shortlisted' %}"
-    class="btn btn-success">
-    ✅ Shortlist
-  </a>
+          <a
+            href="{% url 'update_application_status' application.id 'Rejected' %}"
+            class="btn btn-danger"
+          >
+            ❌ Reject
+          </a>
 
-  <a
-    href="{% url 'update_application_status' application.id 'Rejected' %}"
-    class="btn btn-danger">
-    ❌ Reject
-  </a>
+          <a
+            href="{% url 'schedule_interview' application.id %}"
+            class="btn btn-primary"
+          >
+            📅 Schedule Interview
+          </a>
 
-  <a
-    href="{% url 'schedule_interview' application.id %}"
-    class="btn btn-primary">
-    📅 Schedule Interview
-  </a>
-
-  <a
-    href="{% url 'send_offer_letter' application.id %}"
-    class="btn btn-info text-white">
-    📄 Send Offer Letter
-  </a>
-
-</div>
+          <a
+            href="{% url 'send_offer_letter' application.id %}"
+            class="btn btn-info text-white"
+          >
+            📄 Send Offer Letter
+          </a>
+        </div>
       </div>
     </div>
 
     <!-- RIGHT SIDE -->
     <div class="col-lg-8">
-      <!-- AI Resume Match -->
+      <!-- AI MATCH -->
+
       <div class="card shadow border-0 mb-4">
         <div class="card-header bg-success text-white">🤖 AI Resume Match</div>
 
         <div class="card-body text-center">
-          <h1 class="display-4 fw-bold text-success">
+          <h1 class="display-3 fw-bold text-success">
             {{ application.match_score }}%
           </h1>
 
           <div class="progress mb-3" style="height: 20px">
             <div
               class="progress-bar bg-success"
-              style="width: {{ application.match_score }}%;"
+              style="width:{{ application.match_score }}%"
             ></div>
           </div>
 
@@ -100,90 +108,109 @@
         </div>
       </div>
 
-      <!-- Skills Match -->
-      <div class="card shadow border-0 mb-4">
-        <div class="card shadow border-0 mb-4">
-          <div class="card-header bg-info text-white">🤖 Extracted Skills</div>
+      <!-- Extracted Skills -->
 
-          <div class="card-body">{{ application.skills }}</div>
-        </div>
+      <div class="card shadow border-0 mb-4">
+        <div class="card-header bg-info text-white">🧠 Extracted Skills</div>
 
         <div class="card-body">
-          <span class="badge bg-success m-1">Python</span>
-          <span class="badge bg-success m-1">Django</span>
-          <span class="badge bg-success m-1">SQL</span>
-          <span class="badge bg-success m-1">REST API</span>
+          {% if skills_list %} {% for skill in skills_list %}
 
-          <span class="badge bg-danger m-1">Docker</span>
-          <span class="badge bg-danger m-1">AWS</span>
+          <span class="badge bg-primary m-1 p-2"> {{ skill }} </span>
+
+          {% endfor %} {% else %}
+
+          <div class="alert alert-warning mb-0">No skills extracted.</div>
+
+          {% endif %}
         </div>
       </div>
 
-      <!-- Candidate Information -->
+      <!-- Candidate -->
+
       <div class="card shadow border-0 mb-4">
         <div class="card-header bg-secondary text-white">
           🎓 Candidate Information
         </div>
 
         <div class="card-body">
-          <p><strong>Education</strong></p>
-          <p>{{ application.education }}</p>
+          <h6>Education</h6>
+
+          <p>{{ application.education|default:"Not Available" }}</p>
 
           <hr />
 
-          <p><strong>Experience</strong></p>
-          <p>{{ application.experience }}</p>
+          <h6>Experience</h6>
 
-          <hr />
-
-          <div class="card shadow border-0 mt-4">
-            <div class="card-header bg-success text-white">
-              ✅ Matched Skills
-            </div>
-
-            <div class="card-body">
-              {% for skill in matched_skills %}
-
-              <span class="badge bg-success m-1"> {{ skill }} </span>
-
-              {% empty %}
-
-              <p>No matched skills.</p>
-
-              {% endfor %}
-            </div>
-          </div>
-
-          <div class="card shadow border-0 mt-4">
-            <div class="card-header bg-danger text-white">
-              ❌ Missing Skills
-            </div>
-
-            <div class="card-body">
-              {% for skill in missing_skills %}
-
-              <span class="badge bg-danger m-1"> {{ skill }} </span>
-
-              {% empty %}
-
-              <p>No missing skills.</p>
-
-              {% endfor %}
-            </div>
-          </div>
+          <p>{{ application.experience|default:"Not Available" }}</p>
         </div>
       </div>
 
-      <!-- AI Summary -->
+      <!-- Matched Skills -->
+
+      <div class="card shadow border-0 mb-4">
+        <div class="card-header bg-success text-white">✅ Matched Skills</div>
+
+        <div class="card-body">
+          {% for skill in matched_skills %}
+
+          <span class="badge bg-success m-1"> {{ skill }} </span>
+
+          {% empty %}
+
+          <p>No matched skills.</p>
+
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Missing -->
+
+      <div class="card shadow border-0 mb-4">
+        <div class="card-header bg-danger text-white">❌ Missing Skills</div>
+
+        <div class="card-body">
+          {% for skill in missing_skills %}
+
+          <span class="badge bg-danger m-1"> {{ skill }} </span>
+
+          {% empty %}
+
+          <p>No missing skills.</p>
+
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- AI SUMMARY -->
+
       <div class="card shadow border-0 mb-4">
         <div class="card-header bg-dark text-white">🤖 AI Summary</div>
 
         <div class="card-body">
-          <p>{{ application.ai_summary }}</p>
+          <div class="bg-light border rounded p-4">
+            <pre
+              class="mb-0"
+              style="
+                white-space: pre-wrap;
+                font-family: &quot;Segoe UI&quot;, sans-serif;
+                font-size: 15px;
+                line-height: 1.8;
+                border: none;
+                background: none;
+              "
+            >
+
+{{ application.ai_summary }}
+
+</pre
+            >
+          </div>
         </div>
       </div>
 
       <!-- Recruiter Notes -->
+
       <div class="card shadow border-0 mb-4">
         <div class="card-header">📝 Recruiter Notes</div>
 
@@ -191,12 +218,7 @@
           <form method="post">
             {% csrf_token %}
 
-            <textarea
-              name="notes"
-              rows="5"
-              class="form-control"
-              placeholder="Write notes here..."
-            >
+            <textarea name="notes" rows="5" class="form-control">
 {{ application.recruiter_notes }}</textarea
             >
 
@@ -205,7 +227,8 @@
         </div>
       </div>
 
-      <!-- Resume Preview -->
+      <!-- Resume -->
+
       <div class="card shadow border-0">
         <div class="card-header bg-primary text-white">📄 Resume Preview</div>
 
@@ -214,8 +237,8 @@
 
           <a
             href="{{ application.resume.url }}"
-            class="btn btn-success mb-3"
             target="_blank"
+            class="btn btn-success mb-3"
           >
             Download Resume
           </a>

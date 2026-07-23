@@ -235,3 +235,6 @@ ALLOWED_HOSTS = [
     "localhost",
     ".onrender.com",
 ]
+
+DEBUG = True
+ALLOWED_HOSTS = []

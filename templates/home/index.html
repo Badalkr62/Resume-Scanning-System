@@ -1,242 +1,237 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<!-- Swiper CSS CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-<!-- ================= NAVBAR ================= -->
+<!-- Custom Dark CSS for Home -->
+<style>
+  .hero-section {
+    background:
+      radial-gradient(
+        circle at 10% 20%,
+        rgba(59, 130, 246, 0.15) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 90% 80%,
+        rgba(147, 51, 234, 0.12) 0%,
+        transparent 40%
+      );
+    padding: 70px 0;
+  }
+  .hero-badge {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 50px;
+    padding: 8px 16px;
+  }
+  .search-card {
+    background-color: #121826 !important;
+    border: 1px solid #1e293b;
+  }
+  .search-input {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #334155 !important;
+  }
+  .search-input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: none;
+  }
+  .job-card-dark {
+    background-color: #121826;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .job-card-dark:hover {
+    transform: translateY(-5px);
+    border-color: #3b82f6;
+  }
+  .footer-dark {
+    background-color: #080c14;
+    border-top: 1px solid #1e293b;
+  }
 
-<nav
-  class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top custom-navbar"
->
-  <div class="container">
-    <a class="navbar-brand fw-bold fs-3" href="#">
-      <i class="fa-solid fa-briefcase me-2"></i>
-      Online Job Portal
-    </a>
+  /* Featured Swiper Custom Styling */
+  .featuredSwiper {
+    padding: 10px 5px 45px 5px !important;
+  }
+  .swiper-button-next, .swiper-button-prev {
+    color: #3b82f6 !important;
+    background: rgba(255, 255, 255, 0.08);
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+  }
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    background: #3b82f6;
+    color: #ffffff !important;
+  }
+  
+  
 
-    <button
-      class="navbar-toggler"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  /* Companies/Brand Swiper Styling */
+  .brandSwiper {
+    width: 100%;
+    padding: 10px 0 !important;
+  }
+  .brandSwiper .swiper-wrapper {
+    transition-timing-function: linear !important; /* Continuous linear transition for smooth continuous scrolling */
+  }
+  .brand-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    height: 80px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .brand-card img {
+    max-height: 45px;
+    max-width: 130px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.85);
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .brand-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(13, 110, 253, 0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.2);
+  }
+  .brand-card:hover img {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.05);
+  }
+  .fs-7 {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+  }
+</style>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a
-            class="nav-link {% if request.path == '/' %}active{% endif %}"
-            href="{% url 'home' %}"
-          >
-            Home
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a
-            class="nav-link {% if 'job' in request.path %}active{% endif %}"
-            href="{% url 'job_list' %}"
-          >
-            Find Jobs
-          </a>
-        </li>
-
-        
-
-        {% if user.is_authenticated %}
-
-        
-        {% else %}
-        <li class="nav-item ms-2">
-          <a class="btn btn-primary text-white" href="{% url 'login' %}">
-            Login
-          </a>
-        </li>
-        <li class="nav-item ms-2">
-          <a class="btn btn-success text-white" href="{% url 'register' %}">
-            Register
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-
-      <div class="d-flex align-items-center gap-3">
-        {% if user.is_authenticated %} {% if user.userprofile.role == "recruiter" %}
-
-        <a href="{% url 'recruiter_add_job' %}" class="btn btn-primary"> Post Job </a>
-
-        {% else %}
-
-
-        {% endif %} {% else %}
-
-        <a href="{% url 'login' %}" class="btn btn-primary"> Login </a>
-
-        {% endif %}
-
-        
-
-        
-
-        <div class="dropdown">
-          <a
-            href="#"
-            class="dropdown-toggle text-decoration-none text-white"
-            data-bs-toggle="dropdown"
-          >
-            <img
-              src="https://ui-avatars.com/api/?name={{request.user.username}}"
-              class="rounded-circle"
-              width="42"
-            />
-
-            {{request.user.username}}
-          </a>
-
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-
-            <li><hr class="dropdown-divider" /></li>
-
-            <li>
-              <a class="dropdown-item text-danger" href="{% url 'logout' %}">
-                Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- ================= HERO ================= -->
-
+<!-- ================= HERO SECTION ================= -->
 <section class="hero-section">
   <div class="container">
-    <div class="row align-items-center">
+    <div class="row align-items-center gy-5">
       <div class="col-lg-6">
-        <span class="badge hero-badge"> 🚀 25K+ Jobs Available </span>
+        <span class="badge hero-badge mb-3"> 🚀 25K+ Jobs Available </span>
 
-        <h1 class="hero-title">
-          Find The Job
-
-          <span>That Defines You</span>
+        <h1 class="fw-bold display-4 text-white mb-3">
+          Find The Job <br />
+          <span class="text-primary">That Defines You</span>
         </h1>
 
-        <p class="hero-text">
+        <p class="text-white-50 mb-4 fs-5">
           AI Powered Job Portal to help you build your career, create ATS
           friendly resume and connect with recruiters.
         </p>
 
-        <div class="mt-4">
-          <a href="{% url 'job_list' %}" class="btn btn-lg btn-primary">
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a
+            href="{% url 'job_list' %}"
+            class="btn btn-lg btn-primary fw-semibold px-4"
+          >
             Find Jobs
           </a>
 
           <a
             href="{% url 'my_applications' %}"
-            class="btn btn-lg btn-outline-light ms-3"
+            class="btn btn-lg btn-outline-light fw-semibold px-4"
           >
-            <i class="fa-solid fa-file-circle-check me-2"></i> My Applications
+            <i class="fa-solid fa-file-circle-check me-2"></i>
+            My Applications
           </a>
         </div>
       </div>
 
       <div class="col-lg-6 text-center">
-        <img src="/media/boy.png" class="img-fluid hero-image" />
+        <img
+          src="{% static 'images/banner.png' %}"
+          class="img-fluid hero-image rounded-4 shadow-lg"
+          alt="Banner"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= SEARCH ================= -->
-
-<section class="search-section">
+<!-- ================= SEARCH SECTION ================= -->
+<section class="py-5">
   <div class="container">
-    <div class="search-box">
-      <form method="GET" action="{% url 'job_list' %}">
-        <div class="row g-3">
+    <div class="search-card p-4 rounded-4 shadow-lg">
+      <div
+        class="d-flex justify-content-between align-items-center flex-wrap mb-4"
+      >
+        <div>
+          <h3 class="fw-bold text-white mb-1">
+            <i class="fa-solid fa-magnifying-glass text-primary me-2"></i>
+            Find Your Dream Job
+          </h3>
+          <p class="text-white-50 mb-0">
+            Search thousands of jobs by title, location and job type.
+          </p>
+        </div>
+        <span class="badge bg-primary fs-6 px-3 py-2 rounded-pill">
+          {{ jobs.count }} Jobs Available
+        </span>
+      </div>
+
+      <form method="GET" action="{% url 'home' %}">
+        <div class="row g-3 align-items-end">
           <div class="col-lg-4">
-            <input
-              type="text"
-              name="search"
-              class="form-control"
-              placeholder="Job title"
-              value="{{ request.GET.search }}"
-            />
-          </div>
-
-          <div class="col-lg-3">
-            <input
-              type="text"
-              name="location"
-              class="form-control"
-              placeholder="Location"
-              value="{{ request.GET.location }}"
-            />
-          </div>
-
-          <div class="col-lg-3">
-            <select name="job_type" class="form-select">
-              <option
-                value="Full Time"
-                {%
-                if
-                request.GET.job_type=""
-                ="Full Time"
-                %}selected{%
-                endif
-                %}
-              >
-                Full Time
-              </option>
-
-              <option
-                value="Part Time"
-                {%
-                if
-                request.GET.job_type=""
-                ="Part Time"
-                %}selected{%
-                endif
-                %}
-              >
-                Part Time
-              </option>
-
-              <option
-                value="Remote"
-                {%
-                if
-                request.GET.job_type=""
-                ="Remote"
-                %}selected{%
-                endif
-                %}
-              >
-                Remote
-              </option>
-
-              <option
-                value="Internship"
-                {%
-                if
-                request.GET.job_type=""
-                ="Internship"
-                %}selected{%
-                endif
-                %}
-              >
-                Internship
-              </option>
+            <label class="form-label text-white-50 fw-semibold">
+              <i class="fa-solid fa-briefcase text-primary me-2"></i>Job Title
+            </label>
+            <select name="search" class="form-select search-input py-2.5">
+              <option value="">All Job Titles</option>
+              {% for title in job_titles %}
+              <option value="{{ title }}">{{ title }}</option>
+              {% endfor %}
             </select>
           </div>
 
-          <div class="col-lg-2">
-            <button class="btn btn-primary w-100">Search</button>
+          <div class="col-lg-3">
+            <label class="form-label text-white-50 fw-semibold">
+              <i class="fa-solid fa-location-dot text-danger me-2"></i>Location
+            </label>
+            <select name="location" class="form-select search-input py-2.5">
+              <option value="">All Locations</option>
+              {% for loc in locations %}
+              <option value="{{ loc }}">{{ loc }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-lg-3">
+            <label class="form-label text-white-50 fw-semibold">
+              <i class="fa-solid fa-business-time text-success me-2"></i>Job Type
+            </label>
+            <select name="job_type" class="form-select search-input py-2.5">
+              <option value="">All Job Types</option>
+              {% for jt in job_types %}
+              <option value="{{ jt }}">{{ jt }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-lg-2 d-grid">
+            <button type="submit" class="btn btn-primary fw-bold py-2.5">
+              <i class="fa-solid fa-search me-2"></i>Search
+            </button>
           </div>
         </div>
       </form>
@@ -244,257 +239,352 @@
   </div>
 </section>
 
-<!-- ================= CATEGORY ================= -->
-
-{% comment %} <section class="category-section py-5">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-3 col-md-6">
-        <div class="category-card text-center">
-          <div class="icon-box">
-            <i class="fa-solid fa-code"></i>
-          </div>
-          <h5 class="mt-4">Software Development</h5>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="category-card text-center">
-          <div class="icon-box">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <h5 class="mt-4">Artificial Intelligence</h5>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="category-card text-center">
-          <div class="icon-box">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <h5 class="mt-4">Data Science</h5>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="category-card text-center">
-          <div class="icon-box">
-            <i class="fa-solid fa-bullhorn"></i>
-          </div>
-          <h5 class="mt-4">Marketing</h5>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> {% endcomment %}
-
-<!-- ================= FEATURED JOBS ================= -->
-
-<section class="featured-section">
+<!-- ================= FEATURED JOBS SLIDER ================= -->
+<section class="py-5">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Featured Jobs</h2>
-
-      <a href="{% url 'job_list' %}" class="btn btn-outline-light">
-        View All
+      <div>
+        <h3 class="fw-bold text-white mb-0">Featured Jobs</h3>
+        <p class="text-white-50 small mb-0">Explore trending job opportunities</p>
+      </div>
+      <a href="{% url 'job_list' %}" class="btn btn-outline-light btn-sm px-3">
+        View All <i class="fa-solid fa-arrow-right ms-1"></i>
       </a>
     </div>
 
-    <div class="row g-4">
-      <!-- Job Card -->
+    <div class="position-relative">
+      <div class="swiper featuredSwiper">
+        <div class="swiper-wrapper">
+          {% for job in jobs %}
+          <div class="swiper-slide h-auto">
+            <div class="job-card-dark p-4 h-100 d-flex flex-column">
+              <h5 class="fw-bold text-white mb-2">{{ job.title }}</h5>
 
-      <div class="row g-4">
-        {% for job in jobs %}
+              <p class="text-white-50 small mb-1">
+                <i class="fa-solid fa-building me-2 text-primary"></i>{{ job.company }}
+              </p>
 
-        <div class="col-lg-4">
-          <div class="job-card">
-            <h5>{{ job.title }}</h5>
+              <p class="text-white-50 small mb-3">
+                <i class="fa-solid fa-location-dot me-2 text-danger"></i>{{ job.location }}
+              </p>
 
-            <p>{{ job.company }}</p>
+              <div class="mb-3 d-flex flex-wrap gap-1">
+                <!-- Salary Badge -->
+                <span class="badge bg-success text-white border border-success px-3 py-2">
+                  <i class="fa-solid fa-indian-rupee-sign me-1"></i>{{ job.salary }}
+                </span>
 
-            <span class="badge bg-success"> {{ job.salary }} </span>
+                <!-- Job Type Badge -->
+                <span class="badge bg-primary text-white border border-primary px-3 py-2">
+                  {{ job.job_type }}
+                </span>
+              </div>
 
-            <br /><br />
+              <p class="text-white-50 small mb-4">
+                {{ job.description|truncatewords:10 }}
+              </p>
 
-            <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">
-              View Job
-            </a>
-
-            <a href="{% url 'apply_job' job.id %}" class="btn btn-success">
-              Apply Now
-            </a>
+              <div class="mt-auto d-grid gap-2">
+                <a
+                  href="{% url 'job_detail' job.id %}"
+                  class="btn btn-outline-light btn-sm fw-semibold"
+                >
+                  View Details
+                </a>
+                <a
+                  href="{% url 'apply_job' job.id %}"
+                  class="btn btn-primary btn-sm fw-semibold"
+                >
+                  Apply Now
+                </a>
+              </div>
+            </div>
           </div>
+          {% empty %}
+          <div class="swiper-slide text-center py-4">
+            <p class="text-white-50 fs-5">No jobs available right now.</p>
+          </div>
+          {% endfor %}
         </div>
 
-        {% empty %}
+       
 
-        <div class="col-12 text-center">
-          <h5>No Jobs Available</h5>
-        </div>
-
-        {% endfor %}
-      </div>
+      
     </div>
   </div>
 </section>
 
-<!-- ================= TRUSTED COMPANIES ================= -->
-
-<section class="company-section py-5">
+<!-- ================= TRUSTED COMPANIES SLIDER ================= -->
+<section class="py-5 brand-section-wrapper">
   <div class="container">
-    <h3 class="text-center fw-bold mb-5">Trusted By Top Companies</h3>
-
-    <div class="row justify-content-center align-items-center g-4 text-center">
-      <div class="col-6 col-md-2">
-        <img src="/media/google.png" class="company-logo" />
-      </div>
-
-      <div class="col-6 col-md-2">
-        <img src="/media/microsoft.png" class="company-logo" />
-      </div>
-
-      <div class="col-6 col-md-2">
-        <img src="/media/amazon.png" class="company-logo" />
-      </div>
-
-      <div class="col-6 col-md-2">
-        <img src="/media/tcs.jpeg" class="company-logo" />
-      </div>
-
-      <div class="col-6 col-md-2">
-        <img src="/media/infosys.png" class="company-logo" />
-      </div>
+    
+    <!-- Section Title -->
+    <div class="text-center mb-4">
+      <span class="badge hero-badge text-uppercase px-3 py-1 fw-semibold mb-2 fs-7">
+        ✨ Global Partnerships
+      </span>
+      <h3 class="fw-bold text-white mb-0 fs-2 title-gradient">
+        Trusted By Top Companies
+      </h3>
     </div>
+
+    <!-- Company Logos Swiper Slider Container -->
+    <div class="brand-slider-container position-relative">
+      
+      <!-- Side Fade Masks (Fade Out Effect on Left & Right) -->
+      <div class="slider-mask mask-left"></div>
+      <div class="slider-mask mask-right"></div>
+
+      <div class="swiper brandSwiper">
+        <div class="swiper-wrapper align-items-center">
+          
+          <div class="swiper-slide">
+            <div class="brand-card">
+              <img src="{% static 'images/google.png' %}" alt="Google" />
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="brand-card">
+              <img src="{% static 'images/microsoft.png' %}" alt="Microsoft" />
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="brand-card">
+              <img src="{% static 'images/amazon.png' %}" alt="Amazon" />
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="brand-card">
+              <img src="{% static 'images/tcs.png' %}" alt="TCS" />
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="brand-card">
+              <img src="{% static 'images/infosys.png' %}" alt="Infosys" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
-<!-- ================= AI FEATURES ================= -->
+<!-- Modern Attractive Styling -->
+<style>
+  /* Title Gradient */
+  .title-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-{% comment %} <section class="ai-section">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-3">
-        <div class="feature-card">
-          <i class="fa-solid fa-robot"></i>
+  /* Slider Main Wrapper with Glow */
+  .brand-section-wrapper {
+    position: relative;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  }
 
-          <h4>AI Resume Match</h4>
+  .brand-slider-container {
+    padding: 10px 0;
+  }
 
-          <p>Match your resume with thousands of jobs instantly.</p>
-        </div>
-      </div>
+  /* Side Fade Masks for Seamless Ticker Look */
+  .slider-mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .mask-left {
+    left: 0;
+    background: linear-gradient(to right, #080c14 0%, transparent 100%);
+  }
+  .mask-right {
+    right: 0;
+    background: linear-gradient(to left, #080c14 0%, transparent 100%);
+  }
 
-      <div class="col-lg-3">
-        <div class="feature-card">
-          <i class="fa-solid fa-file-lines"></i>
+  .brandSwiper {
+    width: 100%;
+    padding: 15px 0 !important;
+  }
 
-          <h4>Resume Builder</h4>
+  .brandSwiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
 
-          <p>Build ATS Friendly Resume in one click.</p>
-        </div>
-      </div>
+  /* Glassmorphism Modern Brand Card */
+  .brand-card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    height: 85px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
 
-      <div class="col-lg-3">
-        <div class="feature-card">
-          <i class="fa-solid fa-video"></i>
+  /* Image White Box Removal & Brightness Optimization */
+  .brand-card img {
+    max-height: 40px;
+    max-width: 120px;
+    width: auto;
+    object-fit: contain;
+    /* Inverts & makes white background transparent/blend on dark mode */
+    mix-blend-mode: screen; 
+    filter: brightness(0.9) contrast(1.2);
+    transition: all 0.4s ease;
+  }
 
-          <h4>Interview Prep</h4>
+  /* Premium Hover Effect */
+  .brand-card:hover {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25), 
+                inset 0 0 15px rgba(59, 130, 246, 0.1);
+  }
 
-          <p>Practice AI Interview Questions before interview.</p>
-        </div>
-      </div>
+  .brand-card:hover img {
+    mix-blend-mode: normal;
+    filter: brightness(1.1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    transform: scale(1.08);
+  }
 
-      <div class="col-lg-3">
-        <div class="feature-card premium">
-          <i class="fa-solid fa-crown"></i>
-
-          <h4>Premium</h4>
-
-          <p>Unlock premium jobs & recruiter visibility.</p>
-
-          <button class="btn btn-light mt-3">Upgrade</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> {% endcomment %}
+  .fs-7 {
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+  }
+</style>
 
 <!-- ================= FOOTER ================= -->
-
-<footer class="footer-section mt-4">
+<footer class="footer-dark py-5 mt-5">
   <div class="container">
-    <div class="row">
-      <!-- Logo -->
-      <div class="col-lg-4 mb-4">
-        <h3 class="footer-logo">
-          <i class="fa-solid fa-briefcase"></i>
-          Online Job Portal
-        </h3>
-
-        <p>
+    <!-- Added 'text-center text-md-start' to center content on mobile and keep left on desktop -->
+    <div class="row g-4 text-center text-md-start">
+      
+      <div class="col-lg-4 col-md-12">
+        <h4 class="fw-bold text-white mb-3">
+          <i class="fa-solid fa-briefcase text-primary me-2"></i>Online Job Portal
+        </h4>
+        <p class="text-white-50 small mx-auto mx-md-0" style="max-width: 350px;">
           AI Powered Job Portal to help students and professionals find their
           dream jobs faster.
         </p>
-
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
       </div>
 
-      <!-- Quick Links -->
-      <div class="col-lg-2 col-md-6 mb-4">
-        <h5>Quick Links</h5>
-
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Find Jobs</a></li>
-          <li><a href="#">Companies</a></li>
-          <li><a href="#">Courses</a></li>
+      <div class="col-lg-2 col-md-4">
+        <h6 class="fw-bold text-white mb-3">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a
+              href="{% url 'home' %}"
+              class="text-white-50 text-decoration-none small"
+              >Home</a
+            >
+          </li>
+          <li class="mb-2">
+            <a
+              href="{% url 'job_list' %}"
+              class="text-white-50 text-decoration-none small"
+              >Find Jobs</a
+            >
+          </li>
         </ul>
       </div>
 
-      <!-- Candidate -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <h5>Candidates</h5>
-
-        <ul>
-          <li><a href="#">My Profile</a></li>
-          <li><a href="#">Applications</a></li>
-          <li><a href="#">Resume Builder</a></li>
-          <li><a href="#">Interview Prep</a></li>
+      <div class="col-lg-3 col-md-4">
+        <h6 class="fw-bold text-white mb-3">Candidates</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a
+              href="{% url 'my_applications' %}"
+              class="text-white-50 text-decoration-none small"
+              >My Applications</a
+            >
+          </li>
         </ul>
       </div>
 
-      <!-- Contact -->
-      <div class="col-lg-3">
-        <h5>Contact</h5>
-
-        <p>
-          <i class="fa-solid fa-location-dot"></i>
-          Hazaribagh, Jharkhand
+      <div class="col-lg-3 col-md-4">
+        <h6 class="fw-bold text-white mb-3">Contact</h6>
+        <p class="text-white-50 small mb-1">
+          <i class="fa-solid fa-location-dot me-2 text-danger"></i>Hazaribagh, Jharkhand
         </p>
-
-        <p>
-          <i class="fa-solid fa-envelope"></i>
-          support@smartresume.com
-        </p>
-
-        <p>
-          <i class="fa-solid fa-phone"></i>
-          +91 9876543210
+        <p class="text-white-50 small mb-1">
+          <i class="fa-solid fa-envelope me-2 text-primary"></i>support@smartresume.com
         </p>
       </div>
+
     </div>
 
-    <hr />
+    <hr class="border-secondary my-4 opacity-25" />
 
-    <div class="text-center copyright">
+    <div class="text-center text-white-50 small">
       © 2026 Online Job Portal. All Rights Reserved.
     </div>
   </div>
 </footer>
 
-<script src="{% static 'js/home.js' %}"></script>
+{% endblock %} 
 
+{% block extra_js %}
+<!-- Swiper JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    
+    // 1. Featured Jobs Swiper Setup
+    const jobSwiper = new Swiper(".featuredSwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: {{ jobs.count|default:0 }} > 3,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+     
+      
+      breakpoints: {
+        640: { slidesPerView: 1.5 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1400: { slidesPerView: 4 },
+      },
+    });
+
+    // 2. Company Logos Infinite Smooth Ticker Slider
+    const brandSwiper = new Swiper(".brandSwiper", {
+      slidesPerView: 2,
+      spaceBetween: 20,
+      loop: true,
+      speed: 4000, // Smooth continuous slide duration
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        576: { slidesPerView: 3, spaceBetween: 20 },
+        768: { slidesPerView: 4, spaceBetween: 20 },
+        992: { slidesPerView: 5, spaceBetween: 25 },
+      },
+    });
+
+  });
+</script>
 {% endblock %}

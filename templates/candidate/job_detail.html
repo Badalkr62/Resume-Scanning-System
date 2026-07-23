@@ -1,136 +1,186 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 
-<div class="container mt-5">
-  <div class="row">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container my-5">
+  <div class="row g-4">
+    
+    <!-- LEFT MAIN CARD -->
     <div class="col-lg-8">
-      <div class="card shadow border-0">
-        <div class="card-body">
-          <h2>{{ job.title }}</h2>
-
-          <h4 class="text-primary">{{ job.company }}</h4>
-
-          <hr />
-
-          <div class="row">
-            <div class="col-md-6">
-              <p>📍 <b>Location:</b> {{ job.location }}</p>
-
-              <p>🏢 <b>Work Mode:</b> {{ job.work_mode }}</p>
-
-              <p>💼 <b>Job Type:</b> {{ job.job_type }}</p>
-
-              <p>👨‍💻 <b>Experience:</b> {{ job.experience }}</p>
-            </div>
-
-            <div class="col-md-6">
-              <p>💰 <b>Salary:</b> {{ job.salary }}</p>
-
-              <p>🎓 <b>Education:</b> {{ job.education }}</p>
-
-              <p>👥 <b>Openings:</b> {{ job.openings }}</p>
-
-              <p>📅 <b>Deadline:</b> {{ job.deadline }}</p>
-            </div>
+      <div class="card shadow border-secondary-subtle rounded-4 bg-dark text-light p-4 p-md-5">
+        
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+          <div>
+            <h2 class="fw-bold text-white mb-1">{{ job.title }}</h2>
+            <h5 class="text-primary-emphasis fw-semibold mb-0">
+              <i class="bi bi-building me-1"></i>{{ job.company }}
+            </h5>
           </div>
+          <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2 fs-6">
+            <i class="bi bi-check-circle-fill me-1"></i>{{ job.status|default:"Active" }}
+          </span>
+        </div>
 
-          <hr />
+        <!-- Badges Bar -->
+        <div class="d-flex flex-wrap gap-2 my-3">
+          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
+            <i class="bi bi-geo-alt text-info me-1"></i>{{ job.location }}
+          </span>
+          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
+            <i class="bi bi-laptop text-info me-1"></i>{{ job.work_mode }}
+          </span>
+          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
+            <i class="bi bi-briefcase text-info me-1"></i>{{ job.job_type }}
+          </span>
+          <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-semibold rounded-3">
+            <i class="bi bi-cash-stack text-success me-1"></i>{{ job.salary }}
+          </span>
+        </div>
 
-          <h4>Description</h4>
+        <!-- Highlights Grid Box -->
+        <div class="row g-3 bg-secondary bg-opacity-10 rounded-4 p-3 my-3 border border-secondary border-opacity-25">
+          <div class="col-6 col-sm-4 col-md-2.4">
+            <div class="text-secondary-subtle small mb-1"><i class="bi bi-award me-1"></i>Experience</div>
+            <div class="fw-bold text-white">{{ job.experience }}</div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-2.4">
+            <div class="text-secondary-subtle small mb-1"><i class="bi bi-people me-1"></i>Openings</div>
+            <div class="fw-bold text-white">{{ job.openings }}</div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-2.4">
+            <div class="text-secondary-subtle small mb-1"><i class="bi bi-person-check me-1 text-info"></i>Applied</div>
+            <div class="fw-bold text-info">{{ job.applicants|default:0 }}</div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-2.4">
+            <div class="text-secondary-subtle small mb-1"><i class="bi bi-hourglass-split me-1 text-danger"></i>Remaining</div>
+            <div class="fw-bold text-danger">{{ job.remaining_openings|default:job.openings }}</div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-2.4">
+            <div class="text-secondary-subtle small mb-1"><i class="bi bi-calendar-event me-1"></i>Deadline</div>
+            <div class="fw-bold text-white">{{ job.deadline }}</div>
+          </div>
+        </div>
 
-          <p>{{ job.description }}</p>
+        <hr class="my-4 text-secondary opacity-50" />
 
-          <hr />
+        <!-- Description -->
+        <div class="mb-4">
+          <h5 class="fw-bold text-white mb-2">
+            <i class="bi bi-file-earmark-text text-primary me-2"></i>Description
+          </h5>
+          <p class="text-secondary-subtle lh-lg mb-0">{{ job.description }}</p>
+        </div>
 
-          <h4>Responsibilities</h4>
+        <!-- Responsibilities -->
+        <div class="mb-4">
+          <h5 class="fw-bold text-white mb-2">
+            <i class="bi bi-list-check text-primary me-2"></i>Responsibilities
+          </h5>
+          <p class="text-secondary-subtle lh-lg mb-0">{{ job.responsibilities }}</p>
+        </div>
 
-          <p>{{ job.responsibilities }}</p>
+        <!-- Requirements -->
+        <div class="mb-4">
+          <h5 class="fw-bold text-white mb-2">
+            <i class="bi bi-card-checklist text-primary me-2"></i>Requirements
+          </h5>
+          <p class="text-secondary-subtle lh-lg mb-0">{{ job.requirements }}</p>
+        </div>
 
-          <hr />
-
-          <h4>Requirements</h4>
-
-          <p>{{ job.requirements }}</p>
-
-          <hr />
-
-          <h4>Required Skills</h4>
-
-          <div class="mb-3">
+        <!-- Required Skills -->
+        <div class="mb-4">
+          <h5 class="fw-bold text-white mb-3">
+            <i class="bi bi-tools text-primary me-2"></i>Required Skills
+          </h5>
+          <div class="d-flex flex-wrap gap-2">
             {% for skill in job.skills.split %}
-
-            <span class="badge bg-primary m-1"> {{ skill }} </span>
-
+              <span class="badge bg-primary bg-opacity-25 text-primary-emphasis border border-primary border-opacity-50 px-3 py-2 rounded-pill fw-medium">
+                {{ skill|cut:"," }}
+              </span>
             {% endfor %}
           </div>
+        </div>
 
-          <hr />
+        <!-- Benefits -->
+        {% if job.benefits %}
+        <div class="mb-4">
+          <h5 class="fw-bold text-white mb-2">
+            <i class="bi bi-gift text-primary me-2"></i>Benefits
+          </h5>
+          <p class="text-secondary-subtle lh-lg mb-0">{{ job.benefits }}</p>
+        </div>
+        {% endif %}
 
-          <h4>Benefits</h4>
+        <hr class="my-4 text-secondary opacity-50" />
 
-          <p>{{ job.benefits }}</p>
-
-          <a href="{% url 'apply_job' job.id %}" class="btn btn-success">
-            🚀 Apply Now
+        <!-- Action Button -->
+        <div>
+          <a href="{% url 'apply_job' job.id %}" class="btn btn-primary btn-lg px-5 py-3 rounded-3 shadow-sm fw-bold">
+            <i class="bi bi-send-fill me-2"></i>Apply Now
           </a>
         </div>
+
       </div>
     </div>
 
-    <div class="col-lg-4">
-      <div class="card shadow border-0">
-        <div class="card-header bg-primary text-white">Job Summary</div>
+    <!-- RIGHT STICKY SIDEBAR -->
+    <div class="col-lg-4 d-none d-lg-block">
+      <div class="card shadow border-secondary-subtle rounded-4 bg-dark text-light sticky-top overflow-hidden" style="top: 24px;">
+        
+        <div class="card-header bg-primary text-white p-3 border-0">
+          <h5 class="card-title mb-0 fw-bold fs-6">
+            <i class="bi bi-info-circle-fill me-2"></i>Job Summary
+          </h5>
+        </div>
 
-        <div class="card-body">
-          <p>
-            <b>Company</b>
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+            <span class="text-secondary-subtle"><i class="bi bi-building me-2"></i>Company</span>
+            <span class="fw-bold text-white">{{ job.company }}</span>
+          </div>
+          
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+            <span class="text-secondary-subtle"><i class="bi bi-cash-stack me-2"></i>Salary</span>
+            <span class="fw-bold text-success">{{ job.salary }}</span>
+          </div>
 
-            <br />
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+            <span class="text-secondary-subtle"><i class="bi bi-people me-2"></i>Total Openings</span>
+            <span class="fw-bold text-white">{{ job.openings }}</span>
+          </div>
 
-            {{ job.company }}
-          </p>
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+            <span class="text-secondary-subtle"><i class="bi bi-person-check me-2 text-info"></i>Total Applied</span>
+            <span class="fw-bold text-info">{{ job.applicants|default:0 }}</span>
+          </div>
 
-          <hr />
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+            <span class="text-secondary-subtle"><i class="bi bi-hourglass-split me-2 text-danger"></i>Slots Left</span>
+            <span class="badge bg-danger-subtle text-danger fw-bold fs-6 px-2.5 py-1">
+              {{ job.remaining_openings|default:job.openings }}
+            </span>
+          </div>
 
-          <p>
-            <b>Salary</b>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <span class="text-secondary-subtle"><i class="bi bi-activity me-2"></i>Status</span>
+            <span class="badge bg-success-subtle text-success fw-bold px-2.5 py-1.5">
+              {{ job.status|default:"Active" }}
+            </span>
+          </div>
 
-            <br />
+          <div class="d-grid">
+            <a href="{% url 'apply_job' job.id %}" class="btn btn-outline-primary btn-lg rounded-3 fw-bold">
+              Apply for this Position
+            </a>
+          </div>
 
-            {{ job.salary }}
-          </p>
-
-          <hr />
-
-          <p>
-            <b>Experience</b>
-
-            <br />
-
-            {{ job.experience }}
-          </p>
-
-          <hr />
-
-          <p>
-            <b>Openings</b>
-
-            <br />
-
-            {{ job.openings }}
-          </p>
-
-          <hr />
-
-          <p>
-            <b>Status</b>
-
-            <br />
-
-            <span class="badge bg-success"> {{ job.status }} </span>
-          </p>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 

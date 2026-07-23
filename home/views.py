@@ -5,15 +5,32 @@ from job.models import Job
 
 @login_required(login_url="login")
 def index(request):
-    jobs = Job.objects.filter(status="Active").order_by("-created_at")[:3]
+    jobs = Job.objects.filter(status="Active")
 
-    return render(
-        request,
-        "home/index.html",
-        {
-            "jobs": jobs
-        }
-    )
+    search = request.GET.get("search")
+    location = request.GET.get("location")
+    job_type = request.GET.get("job_type")
+
+    if search:
+        jobs = jobs.filter(title=search)
+
+    if location:
+        jobs = jobs.filter(location=location)
+
+    if job_type:
+        jobs = jobs.filter(job_type=job_type)
+
+    context = {
+        "jobs": jobs,
+        "search": search,
+        "location": location,
+        "job_type": job_type,
+        "job_titles": Job.objects.values_list("title", flat=True).distinct(),
+        "locations": Job.objects.values_list("location", flat=True).distinct(),
+        "job_types": Job.objects.values_list("job_type", flat=True).distinct(),
+    }
+
+    return render(request, "home/index.html", context)
 
 
 @login_required(login_url="login")
@@ -22,20 +39,11 @@ def user_section(request):
 
 
 def companies(request):
-    companies = Job.objects.values(
+    company_list = Job.objects.values(
         "company",
         "location"
     ).distinct()
 
-#     return render(request, "company/companies.html", {
-#         "companies": companies
-#     })
-
-
-# def company_detail(request, company_name):
-#     jobs = Job.objects.filter(company=company_name)
-#     company = jobs.first()
-#     return render(request, "company/company_detail.html", {
-#         "company": company,
-#         "jobs": jobs,
-#     })
+    return render(request, "companies.html", {
+        "companies": company_list
+    })

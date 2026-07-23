@@ -25,7 +25,6 @@ class Migration(migrations.Migration):
                 ('education', models.CharField(max_length=200)),
                 ('salary', models.CharField(max_length=100)),
                 ('openings', models.PositiveIntegerField(default=1)),
-                ('applicants', models.PositiveIntegerField(default=0)),
                 ('skills', models.TextField(help_text='Example: Python, Django, SQL, REST API')),
                 ('responsibilities', models.TextField()),
                 ('requirements', models.TextField()),

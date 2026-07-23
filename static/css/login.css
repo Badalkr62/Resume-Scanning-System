@@ -1,631 +1,310 @@
-/* ==========================================================================
-   AI JOB PORTAL PREMIUM DARK LOGIN UI
-   ========================================================================== */
+/* ================= LOGIN CARD ================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family:
-    "Segoe UI",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  background: #080b17;
-  color: white;
-  overflow-x: hidden;
-  opacity: 0; /* JS Load Smooth Fade-In effect के लिए */
-  transition: opacity 0.5s ease;
-}
-
-/* Background Layout Elements */
-.login-section {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(108, 76, 255, 0.25),
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 90% 80%,
-      rgba(0, 212, 255, 0.15),
-      transparent 40%
-    ),
-    #080b17;
-}
-
-
-/* ===============================
-VIDEO BACKGROUND
-=============================== */
-
-.video-container{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-overflow:hidden;
-
-z-index:-3;
-
-}
-
-.video-container video{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-filter:blur(2px);
-
-}
-
-.video-overlay{
-
-position:absolute;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(8,11,23,.72);
-
-}
-
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 1;
-  animation: floatCircles 10s infinite ease-in-out;
-}
-
-.circle1 {
-  width: 300px;
-  height: 300px;
-  background: #6c4cff;
-  top: -100px;
-  left: -100px;
-}
-.circle2 {
-  width: 250px;
-  height: 250px;
-  background: #00bfff;
-  right: 50px;
-  bottom: -50px;
-  animation-delay: 2s;
-}
-.circle3 {
-  width: 180px;
-  height: 180px;
-  background: #ff2bd6;
-  left: 45%;
-  top: 30%;
-  animation-delay: 4s;
-}
-
-@keyframes floatCircles {
-  0%,
-  100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(30px) scale(1.05);
-  }
-}
-
-/* Left Hero Typography */
-.hero-content {
-  position: relative;
-  z-index: 5;
-  margin-top: 15px !important;
-  margin-bottom: 12px !important;
-  animation: leftSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero-title {
-  font-size: 56px;
-  font-weight: 800;
-  line-height: 1.15;
-  color: #ffffff;
-}
-
-.hero-title span {
-  display: block;
-  background: linear-gradient(135deg, #a391ff, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-text {
-  font-size: 17px;
-  color: #cbd5ff;
-  margin-top: 20px;
-  line-height: 1.7;
-}
-
-/* Features Block */
-
-/* Features Block (Two-part Grid) */
-.feature-box {
-  margin-top: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-/* Left portion taking remaining space */
-.feature-left {
-  flex: 1;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  font-size: 16px;
-  color: #e2e8f0;
-}
-
-/* Vertical centering for last item of the list */
-.feature-left .feature-item:last-child {
-  margin-bottom: 0;
-}
-
-.feature-item i {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(45deg, #6c4cff, #00bfff);
-  border-radius: 14px;
-  margin-right: 15px;
-  box-shadow: 0 8px 25px rgba(108, 76, 255, 0.4);
-}
-
-/* Right portion specifically for the Clock */
-.feature-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.live-time {
-  display: flex;
-  flex-direction: column;       /* Icon aur text vertical alignment ke liye */
-  justify-content: center;      /* Vertically center icon & text */
-  align-items: center !important; /* Horizontally center icon & text */
-  gap: 6px;                     /* Icon aur time string ke beech ki space */
-  
-  /* Circle boundaries */
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;           /* Perfect circle format */
-  
-  /* Styling, background aur dynamic lights */
-  background: rgba(0, 212, 255, 0.08); 
-  border: 2px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
-  
-  /* Typography */
-  margin: 0;                    /* Purane center margins ko reset kiya */
-  font-size: 13px;
-  color: #00d4ff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-/* Hover glow effect */
-.live-time:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 212, 255, 0.15);
-}
-
-/* Size adjustments for inner icon */
-.live-time i {
-  font-size: 22px;
-}
-
-/* Small screens/Mobile optimization ke liye responsive rule override */
-@media (max-width: 576px) {
-  .feature-box {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .feature-right {
-    width: 100%;
-    margin-top: 15px;
-  }
-}
-
-/* Glassmorphic Cards */
-.ai-card {
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.ai-icon {
-  font-size: 40px;
-  margin-right: 15px;
-}
-.ai-card p {
-  color: #94a3b8;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 25px;
-}
-.stat-card {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.stat-card:hover {
-  transform: translateY(-6px);
-  background: rgba(108, 76, 255, 0.15);
-  border-color: rgba(108, 76, 255, 0.4);
-}
-.stat-card h2 {
-  color: #00d4ff;
-  font-weight: 800;
-  font-size: 28px;
-  margin-bottom: 5px;
-}
-.stat-card p {
-  color: #94a3b8;
-  font-size: 14px;
-  margin: 0;
-}
-
-.live-time {
-  display: flex;
-  flex-direction: column;       /* Icon aur text ko upar-neeche stack karne ke liye */
-  justify-content: center;      /* Horizontally center karne ke liye */
-  align-items: center !important; /* Vertically center karne ke liye */
-  gap: 6px;                     /* Icon aur time ke beech ka gap */
-  
-  /* Circle dimensions */
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;           /* Isse perfect round circle banega */
-  
-  /* Neon glow and background effect */
-  background: rgba(0, 212, 255, 0.08); 
-  border: 2px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
-  
-  /* Typography & spacing */
-  margin: 25px auto 15px auto;   /* Center element on the page */
-  font-size: 14px;
-  color: #00d4ff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect for interactive feel */
-.live-time:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 212, 255, 0.15);
-}
-
-/* Icon size inside circle */
-.live-time i {
-  font-size: 24px;
-}
-
-.company-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 25px;
-}
-.company-logos span {
-  background: #111a32;
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: 1px solid #27345c;
-  font-size: 13px;
-  color: #94a3b8;
-  transition: all 0.3s ease;
-}
-.company-logos span:hover {
-  background: #6c4cff;
-  color: #ffffff;
-  transform: translateY(-3px);
-}
-
-/* Right Login Form Style */
-.login-wrapper {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 .login-card {
-  width: 100%;
-  max-width: 460px;
-  background: rgba(11, 17, 32, 0.85);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border-radius: 24px;
-  padding: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  animation: rightSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    width: 100%;
+    max-width: 550px;
+    margin: auto;
+    padding: 50px;
+    border-radius: 28px;
+
+    background: rgba(12,18,35,.92);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.60),
+        0 0 45px rgba(108,76,255,.15);
+
+    transition: .35s;
 }
 
-.login-icon {
-  height: 75px;
-  width: 75px;
-  margin: 0 auto;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  background: linear-gradient(45deg, #6c4cff, #00bfff);
-  box-shadow: 0 0 30px rgba(108, 76, 255, 0.6);
+.login-card:hover{
+    transform: translateY(-5px);
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.70),
+        0 0 60px rgba(108,76,255,.25);
 }
 
-/* Custom Styled Input Fields */
-.input-group {
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #222f54;
-  transition: all 0.3s ease;
-}
-.input-group-text {
-  background: #12192c;
-  color: #8067ff;
-  border: none;
-  padding-left: 15px;
-}
-.form-control {
-  background: #12192c;
-  border: none;
-  color: white;
-  padding: 13px;
-  font-size: 15px;
-}
-.form-control:focus {
-  background: #12192c;
-  color: white;
-  box-shadow: none;
-}
-.toggle-pass-btn {
-  background: #12192c;
-  border: none;
-  color: #64748b;
-}
-.toggle-pass-btn:hover {
-  background: #12192c;
-  color: #8067ff;
+/* ================= ICON ================= */
+
+.login-icon{
+
+    width:95px;
+    height:95px;
+
+    margin:0 auto 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:38px;
+    color:#fff;
+
+    background:linear-gradient(135deg,#6c4cff,#2196f3);
+
+    box-shadow:
+        0 0 25px rgba(108,76,255,.55),
+        0 0 60px rgba(0,212,255,.18);
 }
 
-/* Buttons Setup */
-.login-btn {
-  padding: 13px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #6c4cff, #3d7cff);
-  border: none;
-  color: white;
-  transition: all 0.3s ease;
-}
-.login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(108, 76, 255, 0.4);
+/* ================= TITLE ================= */
+
+.login-card h1{
+
+    font-size:52px;
+    font-weight:800;
+
+    color:#fff;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    line-height:1.2;
 }
 
-
-/* goggle signin  */
-/* Google Social Button Premium Styling */
-.social-buttons {
-  margin-top: 10px;
+.login-card p{
+    color:#b8c7e6 !important;
+    font-size:16px;
+    text-align:center;
+}
+.login-features{
+    text-align:center;
+    margin-top:20px;
+    color:#8fd3ff;
+    font-size:15px;
+    font-weight:500;
 }
 
-.social-btn {
-  padding: 14px 20px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03); /* Glassmorphic background */
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+.login-features i{
+    color:#22c55e;
+    margin-right:5px;
 }
 
-/* Subtle glow effect on hover */
-.social-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 
-              0 0 15px rgba(255, 255, 255, 0.03);
+.signup-text{
+    text-align:center;
+    color:#b8c7e6;
+    font-size:16px;
+    margin-top:25px;
 }
 
-/* Active press state */
-.social-btn:active {
-  transform: translateY(-1px);
+/* Sign Up Link */
+.signup-text a{
+    color:#5b8cff;
+    font-weight:700;
+    text-decoration:none;
+    transition:.3s;
 }
 
-/* Google Icon style */
-.social-btn i {
-  font-size: 18px;
-  transition: transform 0.3s ease;
+.signup-text a:hover{
+    color:#7ea8ff;
+    text-decoration:underline;
 }
 
-/* Hover par icon ko halka sa rotate karne ke liye */
-.social-btn:hover i {
-  transform: scale(1.1) rotate(8deg);
+/* ================= LABEL ================= */
+
+.login-card label{
+
+    color:#d9e3ff;
+
+    font-weight:600;
+
+    margin-bottom:8px;
 }
 
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-}
-.divider:before,
-.divider:after {
-  content: "";
-  height: 1px;
-  background: #222f54;
-  flex: 1;
-}
-.divider span {
-  padding: 0 12px;
-  color: #64748b;
-  font-size: 13px;
+/* ================= INPUT GROUP ================= */
+
+.login-card .input-group{
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    border:1px solid #2c3963;
+
+    background:#151d35;
+
+    transition:.3s;
 }
 
-/* Background Decorative Icons & Particles */
-.floating,
-.floating2,
-.floating3,
-.floating4 {
-  position: absolute;
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.07);
-  pointer-events: none;
-  z-index: 1;
-  animation: moveArts 6s infinite ease-in-out;
-}
-.floating {
-  top: 120px;
-  left: 60px;
-}
-.floating2 {
-  right: 150px;
-  top: 150px;
-  animation-delay: 1.5s;
-}
-.floating3 {
-  bottom: 120px;
-  left: 250px;
-  animation-delay: 3s;
-}
-.floating4 {
-  right: 60px;
-  bottom: 80px;
-  animation-delay: 4.5s;
+.login-card .input-group:focus-within{
+
+    border-color:#6c4cff;
+
+    box-shadow:0 0 18px rgba(108,76,255,.22);
 }
 
-.particle {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: #6c4cff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 2;
-  animation: particleUp linear forwards;
+.login-card .input-group-text{
+
+    background:#151d35 !important;
+
+    border:none;
+
+    color:#7d5fff;
+
+    padding:16px;
 }
 
-@keyframes particleUp {
-  0% {
-    transform: translateY(100vh) scale(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  100% {
-    transform: translateY(-10vh) scale(0.5);
-    opacity: 0;
-  }
+.login-card .form-control{
+
+    background:#151d35 !important;
+
+    border:none !important;
+
+    color:#fff !important;
+
+    height:58px;
+
+    font-size:16px;
+
+    box-shadow:none !important;
 }
 
-@keyframes moveArts {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(8deg);
-  }
+.login-card .form-control::placeholder{
+
+    color:#97a5cb !important;
+
+    opacity:1;
 }
 
-/* Animations */
-@keyframes leftSlide {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes rightSlide {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.login-card .form-control:focus{
+
+    background:#151d35 !important;
+
+    color:#fff !important;
 }
 
-/* Mobile Optimization responsive rule */
-@media (max-width: 991.98px) {
-  .login-section {
-    background: #080b17;
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .login-card {
-    padding: 30px 24px;
-    box-shadow: none;
-    background: rgba(11, 17, 32, 0.95);
-  }
-  .circle3 {
-    display: none;
-  }
+.toggle-pass-btn{
+
+    background:#151d35 !important;
+
+    border:none !important;
+
+    color:#94a3b8;
+
+    padding:0 18px;
+}
+
+/* ================= REMEMBER ================= */
+
+.form-check-input{
+
+    width:18px;
+
+    height:18px;
+}
+
+.form-check-label{
+
+    color:#dbe5ff;
+}
+
+/* ================= BUTTON ================= */
+
+.login-btn{
+
+    width:100%;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:linear-gradient(135deg,#6c4cff,#3f7cff,#00bfff);
+
+    transition:.35s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 35px rgba(76,120,255,.35);
+}
+
+/* ================= DIVIDER ================= */
+
+.divider{
+
+    display:flex;
+
+    align-items:center;
+
+    margin:28px 0;
+}
+
+.divider::before,
+.divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:#2b3556;
+}
+
+.divider span{
+
+    padding:0 15px;
+
+    color:#8795b7;
+
+    font-size:14px;
+}
+
+/* ================= LINKS ================= */
+
+.login-card a{
+
+    text-decoration:none;
+
+    color:#4d95ff;
+
+    font-weight:600;
+}
+
+.login-card a:hover{
+
+    color:#73b2ff;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+.login-card{
+
+padding:35px 25px;
+
+margin:20px;
+}
+
+.login-card h1{
+
+font-size:40px;
+}
+
+.login-icon{
+
+width:80px;
+
+height:80px;
+
+font-size:30px;
+}
+
 }

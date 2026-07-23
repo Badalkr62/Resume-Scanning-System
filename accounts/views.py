@@ -158,8 +158,7 @@ def choose_role(request):
 def user_logout(request):
     logout(request)
     messages.success(request, "Logout Successfully")
-    return redirect("login")
-
+    return redirect("home")
 
 def forgot_password(request):
 

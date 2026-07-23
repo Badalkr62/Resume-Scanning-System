@@ -1,41 +1,107 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <div class="container py-5">
-  <div class="row mb-4">
-    <div class="col-md-8">
-      <h2 class="fw-bold">Find Your Dream Job</h2>
-
-      <p class="text-muted">Thousands of verified jobs</p>
+  
+  <!-- Header & Search Bar -->
+  <div class="row align-items-center mb-4 g-3">
+    <div class="col-md-7">
+      <h2 class="fw-bold text-dark mb-1">Find Your Dream Job</h2>
+      <p class="text-muted mb-0">Explore thousands of verified job opportunities</p>
     </div>
 
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Search jobs..." />
+    <div class="col-md-5">
+      <form method="GET">
+        <div class="input-group shadow-sm rounded-3">
+          <span class="input-group-text bg-white border-end-0 text-muted ps-3">
+            <i class="bi bi-search"></i>
+          </span>
+          <input 
+            type="text" 
+            name="search" 
+            value="{{ search }}" 
+            class="form-control border-start-0 py-2.5" 
+            placeholder="Search by title, skills or company..." 
+          />
+          <button type="submit" class="btn btn-primary px-4 fw-semibold">
+            Search
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
+  <!-- Job Cards Grid -->
   <div class="row">
     {% for job in jobs %}
-
     <div class="col-lg-6 mb-4">
-      <div class="card shadow border-0 h-100">
-        <div class="card-body">
-          <h4>{{ job.title }}</h4>
+      <div class="card shadow-sm border-0 rounded-4 h-100 bg-white hover-card">
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          
+          <div>
+            <!-- Header: Title & Company -->
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h4 class="fw-bold text-dark h5 mb-1">
+                  <a href="{% url 'job_detail' job.id %}" class="text-dark text-decoration-none hover-title">
+                    {{ job.title }}
+                  </a>
+                </h4>
+                <p class="text-primary fw-semibold mb-0 small">
+                  <i class="bi bi-building me-1"></i>{{ job.company }}
+                </p>
+              </div>
 
-          <p class="text-muted">{{ job.company }}</p>
+              <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1.5 fw-semibold small">
+                {{ job.status|default:"Active" }}
+              </span>
+            </div>
 
-          <hr />
+            <!-- Quick Badges -->
+            <div class="d-flex flex-wrap gap-2 my-3">
+              <span class="badge bg-light text-secondary border px-2.5 py-1.5 fw-normal rounded-2">
+                <i class="bi bi-geo-alt text-danger me-1"></i>{{ job.location }}
+              </span>
+              <span class="badge bg-light text-secondary border px-2.5 py-1.5 fw-normal rounded-2">
+                <i class="bi bi-briefcase text-primary me-1"></i>{{ job.job_type }}
+              </span>
+              <span class="badge bg-light text-dark border px-2.5 py-1.5 fw-semibold rounded-2">
+                <i class="bi bi-cash-stack text-success me-1"></i>{{ job.salary }}
+              </span>
+            </div>
 
-          <p>📍 {{ job.location }}</p>
+            <!-- Detailed Grid (Experience, Openings, Applied & Remaining) -->
+            <div class="row g-2 text-muted small my-3 pt-2 border-top">
+              <div class="col-6">
+                <i class="bi bi-award me-1"></i><b>Exp:</b> {{ job.experience }}
+              </div>
+              <div class="col-6">
+                <i class="bi bi-people me-1"></i><b>Openings:</b> {{ job.openings }}
+              </div>
+              <div class="col-6">
+                <i class="bi bi-person-check me-1 text-info"></i><b>Applied:</b> 
+                <span class="fw-bold text-info">{{ job.applicants|default:0 }}</span>
+              </div>
+              <div class="col-6">
+                <i class="bi bi-hourglass-split me-1 text-danger"></i><b>Remaining:</b> 
+                <span class="fw-bold text-danger">{{ job.remaining_openings|default:job.openings }}</span>
+              </div>
+            </div>
+          </div>
 
-          <p>💰 {{ job.salary }}</p>
+          <!-- Footer Buttons -->
+          <div class="d-flex align-items-center gap-2 border-top pt-3 mt-2">
+            <a href="{% url 'job_detail' job.id %}" class="btn btn-outline-primary btn-sm px-4 rounded-3 fw-semibold w-100 py-2">
+              View Details
+            </a>
+            <a href="{% url 'apply_job' job.id %}" class="btn btn-primary btn-sm px-4 rounded-3 fw-semibold w-100 py-2 shadow-sm">
+              <i class="bi bi-send-fill me-1"></i>Apply
+            </a>
+          </div>
 
-          <p>💼 {{ job.experience }}</p>
-
-          <p>🕒 {{ job.job_type }}</p>
-
-          <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">
-            View Details
-          </a>
         </div>
       </div>
     </div>
@@ -43,11 +109,30 @@
     {% empty %}
 
     <div class="col-12">
-      <div class="alert alert-warning">No Jobs Found</div>
+      <div class="card shadow-sm border-0 rounded-4 p-5 text-center bg-white">
+        <i class="bi bi-search fs-1 text-muted mb-2"></i>
+        <h5 class="fw-bold text-dark mb-1">No Jobs Found</h5>
+        <p class="text-muted mb-0">We couldn't find any jobs matching your criteria.</p>
+      </div>
     </div>
 
     {% endfor %}
   </div>
+
 </div>
+
+<!-- Hover Effects Styling -->
+<style>
+  .hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .hover-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1.2rem rgba(0, 0, 0, 0.08) !important;
+  }
+  .hover-title:hover {
+    color: var(--bs-primary) !important;
+  }
+</style>
 
 {% endblock %}

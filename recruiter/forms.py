@@ -79,7 +79,6 @@ class RecruiterSettingsForm(forms.ModelForm):
             "profile_image",
             "phone",
             "designation",
-
             "company_name",
             "company_logo",
             "website",

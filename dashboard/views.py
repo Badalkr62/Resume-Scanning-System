@@ -1,17 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-# 🔴 YEH IMPORT MISSING THA, ISILTYE CRASH HO RAHA THA!
 from datetime import timedelta
 from applications.models import Application
-# Apne saare models import karein
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
-
 from applications.models import Application
 from job.models import Job
 from django.db.models import Count
-
 
 @login_required
 @login_required
@@ -73,10 +69,10 @@ def dashboard(request):
         "status_distribution": status_distribution,
         "monthly_applications": monthly_applications,
 
-        "jobs_count_static": 10,
-        "resumes": 45,
-        "shortlisted": 15,
-        "pending": 30,
+        # "jobs_count_static": 10,
+        # "resumes": 45,
+        # "shortlisted": 15,
+        # "pending": 30,
     }
 
     return render(request, "recruiter/dashboard.html", context)

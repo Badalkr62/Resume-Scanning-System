@@ -1,3 +1,6 @@
+from applications.ai_match import calculate_match_score
+from applications.ai_parser import extract_resume_data
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -259,16 +262,46 @@ def delete_job(request, id):
     )
 
 
-def recruiter_job_detail(request, id):
+def application_detail(request, id):
 
-    job = get_object_or_404(Job, id=id)
+    application = get_object_or_404(Application, id=id)
+
+    matched_skills = []
+    missing_skills = []
+
+    if application.resume:
+
+        data = extract_resume_data(application.resume.path)
+
+        application.skills = data["skills"]
+
+        score, matched_skills, missing_skills = calculate_match_score(
+            application.job.skills,
+            application.skills
+        )
+
+        application.match_score = score
+
+        application.ai_summary = (
+            f"Matched {len(matched_skills)} skills, "
+            f"Missing {len(missing_skills)} skills."
+        )
+
+        application.save()
+
+    if request.method == "POST":
+        application.recruiter_notes = request.POST.get("notes")
+        application.save()
+        return redirect("application_detail", id=id)
 
     return render(
         request,
-        "recruiter/job_detail.html",
+        "recruiter/application_detail.html",
         {
-            "job": job
-        }
+            "application": application,
+            "matched_skills": matched_skills,
+            "missing_skills": missing_skills,
+        },
     )
 
 
