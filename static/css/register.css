@@ -151,3 +151,60 @@
     .ai-card { flex-direction: column; text-align: center; padding: 25px 15px; }
     .stat-card { flex: 0 0 100%; }
 }
+
+
+/* Hero Title Styling */
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #2f6fff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Feature Item Box Styling */
+.feature-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 18px;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: rgba(47, 111, 255, 0.1);
+    border-color: rgba(47, 111, 255, 0.4);
+    transform: translateX(5px);
+}
+
+.feature-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    background: rgba(47, 111, 255, 0.15);
+    color: #2f6fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* AI Card & Stat Cards */
+.ai-card, .stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.stat-card {
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    border-color: rgba(47, 111, 255, 0.4);
+    transform: translateY(-3px);
+}

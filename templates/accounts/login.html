@@ -1,122 +1,228 @@
-{% extends 'base.html' %} {% load static %} 
-{% load socialaccount %} 
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<style>
+  /* ==========================================
+     EXACT REGISTER UI MATCH OVERRIDES
+     ========================================== */
+  
+  /* Top Space & Layout Alignment Fix */
+  .login-section {
+    padding-top: 15px !important;
+  }
+  
+  /* Badge Pill Styling */
+  .badge-pill-exact {
+    background: #007bff;
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+
+  /* Feature Box Styling */
+  .feature-box-exact {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin: 20px 0 !important;
+  }
+
+  .feature-item-exact {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 12px 18px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    width: 100% !important;
+    transition: all 0.3s ease;
+  }
+
+  .feature-icon-exact {
+    width: 38px !important;
+    height: 38px !important;
+    background: #12192c !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #3b82f6 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* AI Card & Big Glowing Robot Avatar */
+  .ai-card-exact {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 18px !important;
+    padding: 18px 22px !important;
+    background: rgba(15, 20, 32, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    backdrop-filter: blur(15px);
+  }
+
+  .ai-icon-exact {
+    width: 52px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    font-size: 26px !important;
+    background: radial-gradient(circle, #6366f1, #3b82f6) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .ai-text-exact h4 {
+    color: white !important;
+    margin-bottom: 3px !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+  }
+
+  .ai-text-exact p {
+    color: #94a3b8 !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+  }
+
+  /* Stats Grid Layout (3 Uniform Cards like Register Page) */
+  .stats-container-exact {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+  }
+
+  .stat-card-exact {
+    background: rgba(15, 20, 32, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 16px 10px !important;
+    text-align: center !important;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card-exact h2 {
+    font-size: 22px !important;
+    margin: 0 !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, #0088ff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-card-exact p {
+    margin: 3px 0 0 !important;
+    color: #94a3b8 !important;
+    font-size: 12px !important;
+  }
+</style>
+
 <section class="login-section">
   <div class="circle circle1"></div>
   <div class="circle circle2"></div>
   <div class="circle circle3"></div>
 
   <div class="container-fluid">
-    <div class="row min-vh-100 align-items-center px-3 px-md-5">
-      <div class="col-lg-6 d-none d-lg-block">
-        <div class="hero-content">
-          <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">
-            AI Powered Job Portal
-          </span>
+    <!-- TOP GAP REMOVED: align-items-start aur py-2 set kar diya hai -->
+    <div class="row align-items-start px-3 px-md-5 py-2">
+      
+      <!-- LEFT HERO CONTENT -->
+      <div class="col-lg-6 d-none d-lg-block pe-lg-5">
+        <div class="hero-content mt-2">
+          <div class="mb-3">
+            <span class="badge-pill-exact">AI Powered Job Portal</span>
+          </div>
 
           <h1 class="hero-title">
-            Find The Job
-            <span>That Defines You 🚀</span>
+            Find The Job <br />
+            <span class="gradient-text">That Defines You</span> 🚀
           </h1>
 
-          <p class="hero-text">
+          <p class="hero-text my-3">
             Search thousands of jobs, build your resume, connect with recruiters
             and get hired faster.
           </p>
 
-          <!-- Feature Items Box -->
-          <div class="feature-box">
-            <!-- Left Side: Features list -->
-            <div class="feature-left">
-              <div class="feature-item">
+          <!-- Feature Items -->
+          <div class="feature-box-exact">
+            <div class="feature-item-exact">
+              <div class="feature-icon-exact">
                 <i class="fa-solid fa-briefcase"></i>
-                <span>10,000+ Jobs</span>
               </div>
-              <div class="feature-item">
+              <span>10,000+ Jobs</span>
+            </div>
+            <div class="feature-item-exact">
+              <div class="feature-icon-exact">
                 <i class="fa-solid fa-building"></i>
-                <span>5,000+ Companies</span>
               </div>
-              <div class="feature-item">
+              <span>5,000+ Companies</span>
+            </div>
+            <div class="feature-item-exact">
+              <div class="feature-icon-exact">
                 <i class="fa-solid fa-robot"></i>
-                <span>AI Resume Match</span>
               </div>
-            </div>
-
-            <!-- Right Side: Circular Clock -->
-            <div class="feature-right">
-              <div class="live-time">
-                <i class="fa-solid fa-clock"></i>
-                <span id="clock">Loading...</span>
-              </div>
+              <span>AI Resume Match</span>
             </div>
           </div>
 
-          <!-- AI Assistant Card -->
-          <div class="ai-card">
-            <div class="ai-icon">🤖</div>
-            <div>
+          <!-- AI Card -->
+          <div class="ai-card-exact">
+            <div class="ai-icon-exact">🤖</div>
+            <div class="ai-text-exact">
               <h4>AI Career Assistant</h4>
-              <p>Find your perfect job using Artificial Intelligence.</p>
+              <p>Your smart partner for finding better opportunities.</p>
             </div>
           </div>
 
-          <!-- Stats Container -->
-          <div class="stats-container">
-            <div class="stat-card">
+          <!-- Stats Grid (Register Page Matching) -->
+          <div class="stats-container-exact">
+            <div class="stat-card-exact">
               <h2>25K+</h2>
-              <p>Active Jobs</p>
+              <p>Jobs</p>
             </div>
-            <div class="stat-card">
+            <div class="stat-card-exact">
               <h2>8K+</h2>
               <p>Companies</p>
             </div>
-            <div class="stat-card">
+            <div class="stat-card-exact">
               <h2>120K+</h2>
-              <p>Candidates</p>
+              <p>Users</p>
             </div>
-            <div class="stat-card">
-              <h2>96%</h2>
-              <p>Hiring Success</p>
-            </div>
-          </div>
-
-          <!-- Company Logos -->
-          <div class="company-logos">
-            <span>Google</span>
-            <span>Amazon</span>
-            <span>TCS</span>
-            <span>Infosys</span>
-            <span>Microsoft</span>
           </div>
         </div>
       </div>
 
-      <!-- Login Form Side -->
-      <div class="col-lg-6 col-12">
+      <!-- RIGHT LOGIN FORM -->
+      <div class="col-lg-6 col-12 ms-auto">
         <div class="login-wrapper">
           <div class="login-card">
             <div class="text-center mb-4">
               <div class="login-icon">
                 <i class="fa-solid fa-user-shield"></i>
               </div>
-              <h2 class="fw-bold mt-3" style="min-height: 40px">
-                <span id="typing"></span>
-              </h2>
-              <p class="subtitle">Login to continue your career journey</p>
+              <h2 class="fw-bold mt-3">Welcome Back!</h2>
+              <p class="text-muted small">
+                Login to continue your career journey
+              </p>
             </div>
 
             {% if messages %} {% for message in messages %}
-            <div
-              class="alert alert-warning alert-dismissible fade show"
-              role="alert"
-            >
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
               {{ message }}
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endfor %} {% endif %}
 
@@ -126,102 +232,56 @@
               <div class="mb-3">
                 <label class="form-label small text-secondary">Username</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-user"></i>
-                  </span>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="username"
-                    placeholder="Username, Email or Phone"
-                    required
-                  />
+                  <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                  <input type="text" class="form-control" name="username" placeholder="Username, Email or Phone" required />
                 </div>
               </div>
 
               <div class="mb-3">
                 <label class="form-label small text-secondary">Password</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-lock"></i>
-                  </span>
-                  <input
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    id="password"
-                    placeholder="Enter password"
-                    required
-                  />
-                  <button
-                    class="btn btn-outline-secondary toggle-pass-btn"
-                    type="button"
-                    id="togglePassword"
-                  >
+                  <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required />
+                  <button class="btn toggle-pass-btn" type="button" id="togglePassword">
                     <i class="fa-solid fa-eye"></i>
                   </button>
                 </div>
               </div>
 
-              <div
-                class="d-flex justify-content-between align-items-center mb-4 small"
-              >
+              <div class="d-flex justify-content-between align-items-center mb-4 small">
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    name="remember"
-                    id="remember"
-                  />
-                  <label class="form-check-label text-muted" for="remember"
-                    >Remember Me</label
-                  >
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember" />
+                  <label class="form-check-label text-muted" for="remember">Remember Me</label>
                 </div>
-                <a
-                  href="{% url 'forgot_password' %}"
-                  class="text-decoration-none"
-                  >Forgot Password?</a
-                >
+                <a href="{% url 'forgot_password' %}" class="text-primary text-decoration-none">Forgot Password?</a>
               </div>
 
-              <button
-                type="submit"
-                class="btn btn-primary login-btn w-100 mb-3"
-              >
+              <button type="submit" class="btn btn-primary login-btn w-100 mb-3">
                 Login Now <i class="fa-solid fa-arrow-right ms-2 small"></i>
               </button>
 
-              <div class="login-features">
-                <i class="fa-solid fa-check"></i> Secure Login &nbsp; | &nbsp;
-                <i class="fa-solid fa-check"></i> AI Verified &nbsp; | &nbsp;
-                <i class="fa-solid fa-check"></i> Encrypted
+              <div class="login-features text-center text-muted small mt-2">
+                <i class="fa-solid fa-check text-success me-1"></i> Secure Login
+                &nbsp;|&nbsp;
+                <i class="fa-solid fa-check text-success me-1"></i> AI Verified
+                &nbsp;|&nbsp;
+                <i class="fa-solid fa-check text-success me-1"></i> Encrypted
               </div>
             </form>
 
             <div class="text-center mt-4 border-top pt-3">
               <p class="mb-0 text-muted small">
                 Don't have an account?
-                <a
-                  href="{% url 'register' %}"
-                  class="text-primary fw-bold text-decoration-none ms-1"
-                  >Sign Up</a
-                >
+                <a href="{% url 'register' %}" class="text-primary fw-bold text-decoration-none ms-1">Sign Up</a>
               </p>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
-
-<!-- Floating Background Elements -->
-<div class="d-none d-lg-block">
-  <i class="floating fa-solid fa-briefcase"></i>
-  <i class="floating2 fa-solid fa-code"></i>
-  <i class="floating3 fa-solid fa-robot"></i>
-  <i class="floating4 fa-solid fa-building"></i>
-</div>
 
 <script src="{% static 'js/login.js' %}"></script>
 {% endblock %}

@@ -1,75 +1,88 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}" />
-<link rel="stylesheet" href="{% static 'css/register_extra.css' %}" />
 
-<section class="login-section">
+<!-- Cache-buster parameter v=1.1 add kiya hai taaki updated CSS sofort load ho -->
+<link rel="stylesheet" href="{% static 'css/register_extra.css' %}?v=1.1" />
+
+<section class="login-section pt-3 pt-md-4">
   <div class="circle circle1"></div>
   <div class="circle circle2"></div>
   <div class="circle circle3"></div>
 
   <div class="container-fluid">
-    <div class="row min-vh-100 align-items-center px-3 px-md-5">
-      <div class="col-lg-6 d-none d-lg-block">
-        <div class="hero-content">
-          <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">
+    <!-- CHANGED: min-vh-100 & align-items-center KO HATA KAR align-items-start KIYA HAI -->
+    <div class="row align-items-start px-3 px-md-5 py-2">
+      
+      <!-- LEFT HERO CONTENT -->
+      <div class="col-lg-6 d-none d-lg-block pe-lg-5">
+        <div class="hero-content mt-2">
+          <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill shadow-sm">
             AI Powered Job Portal
           </span>
 
           <h1 class="hero-title">
-            Build Your
-            <span>Career With AI 🚀</span>
+            Build Your <br />
+            <span class="gradient-text">Career With AI</span> 🚀
           </h1>
 
-          <p class="hero-text">
-            Create your account, upload resume, connect with companies and get
-            your dream job faster.
+          <p class="hero-text my-3">
+            Create your account, upload resume, connect with companies and get your dream job faster.
           </p>
 
-          <div class="feature-box">
-            <div class="feature-item">
-              <i class="fa-solid fa-user-plus"></i>
-              <span>Create Free Account</span>
+          <!-- MODERN FEATURE ITEMS -->
+          <div class="feature-box d-flex flex-column gap-3 my-4">
+            <div class="feature-item d-flex align-items-center">
+              <div class="feature-icon-wrapper me-3">
+                <i class="fa-solid fa-user-plus"></i>
+              </div>
+              <span class="fw-semibold">Create Free Account</span>
             </div>
 
-            <div class="feature-item">
-              <i class="fa-solid fa-file-circle-check"></i>
-              <span>AI Resume Screening</span>
+            <div class="feature-item d-flex align-items-center">
+              <div class="feature-icon-wrapper me-3">
+                <i class="fa-solid fa-file-circle-check"></i>
+              </div>
+              <span class="fw-semibold">AI Resume Screening</span>
             </div>
 
-            <div class="feature-item">
-              <i class="fa-solid fa-handshake"></i>
-              <span>Connect Recruiters</span>
+            <div class="feature-item d-flex align-items-center">
+              <div class="feature-icon-wrapper me-3">
+                <i class="fa-solid fa-handshake"></i>
+              </div>
+              <span class="fw-semibold">Connect Recruiters</span>
             </div>
           </div>
 
-          <div class="ai-card mt-5">
+          <!-- AI CARD -->
+          <div class="ai-card p-3 rounded-4 d-flex align-items-center gap-3">
             <div class="ai-icon">🤖</div>
             <div>
-              <h4>AI Career Assistant</h4>
-              <p>Your smart partner for finding better opportunities.</p>
+              <h5 class="mb-1 fw-bold text-white">AI Career Assistant</h5>
+              <p class="mb-0 text-muted small">Your smart partner for finding better opportunities.</p>
             </div>
           </div>
 
-          <div class="stats-container mt-4">
-            <div class="stat-card">
-              <h2>25K+</h2>
-              <p>Jobs</p>
+          <!-- STATS CONTAINER -->
+          <div class="stats-container d-flex gap-3 mt-4">
+            <div class="stat-card flex-fill text-center p-3 rounded-4">
+              <h3 class="fw-bold mb-0 gradient-text">25K+</h3>
+              <p class="mb-0 text-muted small">Jobs</p>
             </div>
 
-            <div class="stat-card">
-              <h2>8K+</h2>
-              <p>Companies</p>
+            <div class="stat-card flex-fill text-center p-3 rounded-4">
+              <h3 class="fw-bold mb-0 gradient-text">8K+</h3>
+              <p class="mb-0 text-muted small">Companies</p>
             </div>
 
-            <div class="stat-card">
-              <h2>120K+</h2>
-              <p>Users</p>
+            <div class="stat-card flex-fill text-center p-3 rounded-4">
+              <h3 class="fw-bold mb-0 gradient-text">120K+</h3>
+              <p class="mb-0 text-muted small">Users</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-6 col-12">
+      <!-- RIGHT REGISTER FORM -->
+      <div class="col-lg-6 col-12 ms-auto">
         <div class="login-wrapper">
           <div class="login-card">
             <div class="text-center mb-4">
@@ -82,17 +95,9 @@
             </div>
 
             {% if messages %} {% for message in messages %}
-            <div
-              class="alert alert-warning alert-dismissible fade show"
-              role="alert"
-            >
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
               {{ message }}
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endfor %} {% endif %}
 
@@ -102,84 +107,40 @@
               <div class="mb-3">
                 <label class="form-label small text-secondary">Username</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-user"></i>
-                  </span>
-                  <input
-                    type="text"
-                    name="username"
-                    class="form-control"
-                    placeholder="Choose username"
-                    required
-                  />
+                  <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                  <input type="text" name="username" class="form-control" placeholder="Choose username" required />
                 </div>
               </div>
 
               <div class="mb-3">
-                <label class="form-label small text-secondary"
-                  >Email Address</label
-                >
+                <label class="form-label small text-secondary">Email Address</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-envelope"></i>
-                  </span>
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    placeholder="name@example.com"
-                    required
-                  />
+                  <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                  <input type="email" name="email" class="form-control" placeholder="name@example.com" required />
                 </div>
               </div>
 
               <div class="mb-3">
-                <label class="form-label small text-secondary"
-                  >Phone Number</label
-                >
+                <label class="form-label small text-secondary">Phone Number</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-phone"></i>
-                  </span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    class="form-control"
-                    placeholder="Enter phone number"
-                    required
-                  />
+                  <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                  <input type="tel" name="phone" class="form-control" placeholder="Enter phone number" required />
                 </div>
               </div>
 
               <div class="mb-3">
                 <label class="form-label small text-secondary">Password</label>
                 <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-lock"></i>
-                  </span>
-                  <input
-                    type="password"
-                    name="password"
-                    id="registerPassword"
-                    class="form-control"
-                    placeholder="Enter password"
-                    required
-                  />
-                  <button
-                    class="btn btn-outline-secondary toggle-pass-btn"
-                    type="button"
-                    id="toggleRegisterPassword"
-                    style="background: #12192c; border: none; color: #64748b"
-                  >
+                  <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                  <input type="password" name="password" id="registerPassword" class="form-control" placeholder="Enter password" required />
+                  <button class="btn btn-outline-secondary toggle-pass-btn" type="button" id="toggleRegisterPassword" style="background: #12192c; border: none; color: #64748b">
                     <i class="fa-solid fa-eye"></i>
                   </button>
                 </div>
               </div>
 
               <div class="mb-4">
-                <label class="form-label small text-secondary"
-                  >Register As</label
-                >
+                <label class="form-label small text-secondary">Register As</label>
                 <select name="role" class="form-select">
                   <option value="candidate">Candidate</option>
                   <option value="recruiter">Recruiter</option>
@@ -187,8 +148,7 @@
               </div>
 
               <button class="btn btn-primary login-btn w-100" type="submit">
-                Create Account
-                <i class="fa-solid fa-arrow-right ms-2 small"></i>
+                Create Account <i class="fa-solid fa-arrow-right ms-2 small"></i>
               </button>
             </form>
 
@@ -199,26 +159,16 @@
             <div class="text-center">
               <p class="mb-0 text-muted small">
                 Already have an account?
-                <a
-                  href="{% url 'login' %}"
-                  class="text-primary fw-bold text-decoration-none ms-1"
-                  >Login</a
-                >
+                <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none ms-1">Login</a>
               </p>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
-
-<div class="d-none d-lg-block">
-  <i class="floating fa-solid fa-user"></i>
-  <i class="floating2 fa-solid fa-code"></i>
-  <i class="floating3 fa-solid fa-robot"></i>
-  <i class="floating4 fa-solid fa-building"></i>
-</div>
 
 <script src="{% static 'js/register.js' %}"></script>
 {% endblock %}

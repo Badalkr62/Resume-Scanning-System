@@ -1,134 +1,250 @@
 /* ==========================================================================
-   REGISTER PAGE EXTRA STYLE & OVERRIDES
+   REGISTER PAGE COMPLETE STYLING & TOP GAP FIX
    ========================================================================== */
 
-/* 1. AI Assistant Card Custom Styling */
-.ai-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    transition: all 0.4s ease;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.ai-card:hover {
-    transform: translateY(-6px);
-    border-color: #6c4cff;
-    background: rgba(108, 76, 255, 0.05);
+body {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #080b17;
+  color: white;
+  overflow-x: hidden;
+  opacity: 1;
 }
 
-.ai-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 30px;
-    background: linear-gradient(45deg, #6c4cff, #00bfff);
-    box-shadow: 0 0 25px rgba(108, 76, 255, 0.5);
-    flex-shrink: 0;
+/* -------------------------------------------------------------------------
+   1. TOP GAP & SECTION LAYOUT FIXES
+   ------------------------------------------------------------------------- */
+.register-section,
+.login-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex !important;
+  align-items: flex-start !important; /* Top space fix */
+  padding-top: 15px !important;       /* Top space fix */
+  padding-bottom: 30px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(108, 76, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.15), transparent 40%),
+    #080b17;
 }
 
-.ai-card h4 {
-    color: white;
-    margin-bottom: 4px;
-    font-weight: 700;
-    font-size: 18px;
+/* Bootstrap Row override to force top alignment */
+.register-section .row,
+.login-section .row {
+  align-items: flex-start !important;
+  padding-top: 10px !important;
 }
 
-.ai-card p {
-    color: #bfc7e8;
-    margin: 0;
-    font-size: 13px;
+.hero-content {
+  position: relative;
+  z-index: 5;
+  margin-top: 0 !important;   /* Top margin zero */
+  padding-top: 5px !important;
+  animation: leftSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* 2. Responsive Statistics Layout */
-.stats-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
+/* -------------------------------------------------------------------------
+   2. HERO CONTENT & BADGE PILL
+   ------------------------------------------------------------------------- */
+.badge-pill-exact {
+  background: #007bff;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
 }
 
-.stat-card {
-    flex: 1;
-    min-width: 110px;
-    padding: 18px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 18px;
-    transition: all 0.3s ease;
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
 }
 
-.stat-card:hover {
-    transform: translateY(-6px);
-    background: #6c4cff;
-    border-color: #6c4cff;
+.gradient-text {
+  background: linear-gradient(135deg, #0088ff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-.stat-card:hover p {
-    color: #ffffff;
+.hero-text {
+  color: #a0aec0;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-.stat-card h2 {
-    font-size: 26px;
-    margin: 0;
-    font-weight: 800;
-    color: white;
+/* -------------------------------------------------------------------------
+   3. AI ASSISTANT CARD & FEATURE ITEMS
+   ------------------------------------------------------------------------- */
+.ai-card,
+.ai-card-exact {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 18px !important;
+  padding: 18px 22px !important;
+  background: rgba(15, 20, 32, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  margin-bottom: 24px !important;
+  width: 100% !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transition: all 0.4s ease;
 }
 
-.stat-card p {
-    margin: 5px 0 0;
-    color: #94a3b8;
-    font-size: 13px;
-    transition: color 0.3s ease;
+.ai-card:hover,
+.ai-card-exact:hover {
+  transform: translateY(-4px);
+  border-color: #6c4cff !important;
+  background: rgba(108, 76, 255, 0.1) !important;
 }
 
-/* 3. Dark Styled Select Dropdown Input */
+.ai-icon,
+.ai-icon-exact {
+  width: 52px !important;
+  height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 26px !important;
+  background: radial-gradient(circle, #6366f1, #3b82f6) !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5) !important;
+  flex-shrink: 0 !important;
+}
+
+.ai-card h4, .ai-text-exact h4 {
+  color: white !important;
+  margin-bottom: 3px !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.ai-card p, .ai-text-exact p {
+  color: #94a3b8 !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+}
+
+/* -------------------------------------------------------------------------
+   4. STATS GRID LAYOUT
+   ------------------------------------------------------------------------- */
+.stats-container,
+.stats-container-exact {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 12px !important;
+}
+
+.stat-card,
+.stat-card-exact {
+  background: rgba(15, 20, 32, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  padding: 16px 10px !important;
+  text-align: center !important;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover,
+.stat-card-exact:hover {
+  transform: translateY(-4px);
+  background: #6c4cff !important;
+  border-color: #6c4cff !important;
+}
+
+.stat-card h2,
+.stat-card-exact h2 {
+  font-size: 22px !important;
+  margin: 0 !important;
+  font-weight: 800 !important;
+  color: #00bfff !important;
+}
+
+.stat-card:hover h2,
+.stat-card-exact:hover h2 {
+  color: #ffffff !important;
+}
+
+.stat-card p,
+.stat-card-exact p {
+  margin: 3px 0 0 !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+}
+
+.stat-card:hover p,
+.stat-card-exact:hover p {
+  color: #ffffff !important;
+}
+
+/* -------------------------------------------------------------------------
+   5. REGISTER FORM & DROPDOWN STYLING
+   ------------------------------------------------------------------------- */
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  padding: 35px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+  animation: rightSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .login-card .form-select {
-    background-color: #12192c;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238067ff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 16px 12px;
-    color: white;
-    border: 1px solid #222f54;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  background-color: #12192c;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238067ff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px 12px;
+  color: white;
+  border: 1px solid #222f54;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .login-card .form-select:focus {
-    background-color: #12192c;
-    color: white;
-    border-color: #6c4cff;
-    box-shadow: 0 0 15px rgba(108, 76, 255, 0.4);
+  background-color: #12192c;
+  color: white;
+  border-color: #6c4cff;
+  box-shadow: 0 0 15px rgba(108, 76, 255, 0.4);
 }
 
 .login-card option {
-    background: #111827;
-    color: white;
+  background: #111827;
+  color: white;
 }
 
-/* 4. Ambient Art Animations */
+/* -------------------------------------------------------------------------
+   6. AMBIENT ART ANIMATIONS
+   ------------------------------------------------------------------------- */
 .floating, .floating2, .floating3, .floating4 {
-    position: absolute;
-    font-size: 42px;
-    color: #6c4cff;
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 1;
-    animation: iconFloat 7s infinite ease-in-out;
+  position: absolute;
+  font-size: 42px;
+  color: #6c4cff;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+  animation: iconFloat 7s infinite ease-in-out;
 }
 
 .floating  { top: 15%; right: 8%; }
@@ -137,17 +253,43 @@
 .floating4 { bottom: 10%; right: 15%; animation-delay: 4.5s; }
 
 @keyframes iconFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(6deg); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(6deg); }
 }
 
-/* 5. Fluid Structural Breakpoints */
+@keyframes leftSlide {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes rightSlide {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* -------------------------------------------------------------------------
+   7. RESPONSIVE BREAKPOINTS
+   ------------------------------------------------------------------------- */
 @media (max-width: 991.98px) {
-    .stats-container { justify-content: center; }
-    .stat-card { flex: 0 0 45%; }
+  .register-section {
+    padding-top: 20px !important;
+  }
+  .stats-container, .stats-container-exact { 
+    grid-template-columns: repeat(2, 1fr) !important; 
+  }
+  .login-card {
+    box-shadow: none;
+    background: rgba(11, 17, 32, 0.95);
+  }
 }
 
 @media (max-width: 576px) {
-    .ai-card { flex-direction: column; text-align: center; padding: 25px 15px; }
-    .stat-card { flex: 0 0 100%; }
+  .ai-card, .ai-card-exact { 
+    flex-direction: column !important; 
+    text-align: center; 
+    padding: 20px 15px !important; 
+  }
+  .stats-container, .stats-container-exact { 
+    grid-template-columns: repeat(1, 1fr) !important; 
+  }
 }

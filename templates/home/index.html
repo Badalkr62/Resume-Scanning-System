@@ -3,6 +3,37 @@
 <!-- Swiper CSS CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+{% if messages %}
+<div class="d-flex justify-content-center mt-3">
+    <div style="width:100%; max-width:300px;">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show auto-dismiss shadow text-center position-relative"
+             role="alert"
+             style="border-radius:12px; padding:14px 45px 14px 20px;">
+
+            <strong>{{ message }}</strong>
+
+            <button type="button"
+                    class="btn-close position-absolute top-50 end-0 translate-middle-y me-3"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+        document.querySelectorAll(".auto-dismiss").forEach(function (alert) {
+            let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+            bsAlert.close();
+        });
+    }, 3000);
+});
+</script>
+{% endif %}
+
 <!-- Custom Dark CSS for Home -->
 <style>
   .hero-section {

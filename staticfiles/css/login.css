@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AI JOB PORTAL PREMIUM DARK LOGIN UI
+   AI JOB PORTAL PREMIUM DARK LOGIN UI (FIXED LAYOUT)
    ========================================================================== */
 
 * {
@@ -9,15 +9,11 @@
 }
 
 body {
-  font-family:
-    "Segoe UI",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   background: #080b17;
   color: white;
   overflow-x: hidden;
-  opacity: 0; /* JS Load Smooth Fade-In effect के लिए */
+  opacity: 1; /* Fixed 0 opacity bug */
   transition: opacity 0.5s ease;
 }
 
@@ -29,65 +25,39 @@ body {
   align-items: center;
   overflow: hidden;
   background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(108, 76, 255, 0.25),
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 90% 80%,
-      rgba(0, 212, 255, 0.15),
-      transparent 40%
-    ),
+    radial-gradient(circle at 10% 20%, rgba(108, 76, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.15), transparent 40%),
     #080b17;
 }
 
-
-/* ===============================
-VIDEO BACKGROUND
-=============================== */
-
-.video-container{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-overflow:hidden;
-
-z-index:-3;
-
+/* Video Background Support */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -3;
 }
 
-.video-container video{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-filter:blur(2px);
-
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(2px);
 }
 
-.video-overlay{
-
-position:absolute;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(8,11,23,.72);
-
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 11, 23, 0.72);
 }
 
+/* Ambient Glowing Circles */
 .circle {
   position: absolute;
   border-radius: 50%;
@@ -103,6 +73,7 @@ background:rgba(8,11,23,.72);
   top: -100px;
   left: -100px;
 }
+
 .circle2 {
   width: 250px;
   height: 250px;
@@ -111,6 +82,7 @@ background:rgba(8,11,23,.72);
   bottom: -50px;
   animation-delay: 2s;
 }
+
 .circle3 {
   width: 180px;
   height: 180px;
@@ -121,250 +93,168 @@ background:rgba(8,11,23,.72);
 }
 
 @keyframes floatCircles {
-  0%,
-  100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(30px) scale(1.05);
-  }
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(30px) scale(1.05); }
 }
 
 /* Left Hero Typography */
 .hero-content {
   position: relative;
   z-index: 5;
-  margin-top: 15px !important;
-  margin-bottom: 12px !important;
   animation: leftSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Badge Pill Above Title */
+.badge-pill-exact {
+  background: #007bff;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
 .hero-title {
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 800;
   line-height: 1.15;
   color: #ffffff;
 }
 
-.hero-title span {
-  display: block;
-  background: linear-gradient(135deg, #a391ff, #00d4ff);
+.gradient-text {
+  background: linear-gradient(135deg, #0088ff, #00d4ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .hero-text {
-  font-size: 17px;
-  color: #cbd5ff;
-  margin-top: 20px;
-  line-height: 1.7;
+  color: #a0aec0;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* Features Block */
-
-/* Features Block (Two-part Grid) */
-.feature-box {
-  margin-top: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+/* -------------------------------------------------------------------------
+   FEATURE BOXES (HORIZONTAL PILL CARDS FIXED)
+   ------------------------------------------------------------------------- */
+.feature-box-exact {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  margin: 24px 0 !important;
 }
 
-/* Left portion taking remaining space */
-.feature-left {
-  flex: 1;
+.feature-item-exact {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 14px 18px !important;
+  background: rgba(15, 20, 32, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
 }
 
-.feature-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  font-size: 16px;
-  color: #e2e8f0;
+.feature-item-exact:hover {
+  border-color: rgba(0, 212, 255, 0.4) !important;
+  background: rgba(20, 28, 45, 0.9) !important;
+  transform: translateX(4px) !important;
 }
 
-/* Vertical centering for last item of the list */
-.feature-left .feature-item:last-child {
-  margin-bottom: 0;
+.feature-icon-exact {
+  width: 38px !important;
+  height: 38px !important;
+  background: #151d30 !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #3b82f6 !important;
+  font-size: 16px !important;
+  flex-shrink: 0 !important;
 }
 
-.feature-item i {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(45deg, #6c4cff, #00bfff);
-  border-radius: 14px;
-  margin-right: 15px;
-  box-shadow: 0 8px 25px rgba(108, 76, 255, 0.4);
+/* -------------------------------------------------------------------------
+   AI ASSISTANT CARD FIXED
+   ------------------------------------------------------------------------- */
+.ai-card-exact {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 18px !important;
+  padding: 18px 22px !important;
+  background: rgba(15, 20, 32, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  margin-bottom: 24px !important;
+  width: 100% !important;
 }
 
-/* Right portion specifically for the Clock */
-.feature-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.ai-icon-exact {
+  width: 52px !important;
+  height: 52px !important;
+  background: radial-gradient(circle, #6366f1, #3b82f6) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 26px !important;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5) !important;
+  flex-shrink: 0 !important;
 }
 
-.live-time {
-  display: flex;
-  flex-direction: column;       /* Icon aur text vertical alignment ke liye */
-  justify-content: center;      /* Vertically center icon & text */
-  align-items: center !important; /* Horizontally center icon & text */
-  gap: 6px;                     /* Icon aur time string ke beech ki space */
-  
-  /* Circle boundaries */
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;           /* Perfect circle format */
-  
-  /* Styling, background aur dynamic lights */
-  background: rgba(0, 212, 255, 0.08); 
-  border: 2px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
-  
-  /* Typography */
-  margin: 0;                    /* Purane center margins ko reset kiya */
-  font-size: 13px;
-  color: #00d4ff;
-  font-weight: 600;
-  transition: all 0.3s ease;
+.ai-text-exact h4 {
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin-bottom: 3px !important;
 }
 
-/* Hover glow effect */
-.live-time:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 212, 255, 0.15);
+.ai-text-exact p {
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+  margin: 0 !important;
 }
 
-/* Size adjustments for inner icon */
-.live-time i {
-  font-size: 22px;
+/* -------------------------------------------------------------------------
+   STATS GRID FIXED
+   ------------------------------------------------------------------------- */
+.stats-container-exact {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 14px !important;
 }
 
-/* Small screens/Mobile optimization ke liye responsive rule override */
-@media (max-width: 576px) {
-  .feature-box {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .feature-right {
-    width: 100%;
-    margin-top: 15px;
-  }
+.stats-container-exact.login-stats {
+  grid-template-columns: repeat(4, 1fr) !important;
 }
 
-/* Glassmorphic Cards */
-.ai-card {
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.ai-icon {
-  font-size: 40px;
-  margin-right: 15px;
-}
-.ai-card p {
-  color: #94a3b8;
-  font-size: 13px;
-  margin-top: 4px;
+.stat-card-exact {
+  background: rgba(15, 20, 32, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  padding: 16px 12px !important;
+  text-align: center !important;
 }
 
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 25px;
-}
-.stat-card {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.stat-card:hover {
-  transform: translateY(-6px);
-  background: rgba(108, 76, 255, 0.15);
-  border-color: rgba(108, 76, 255, 0.4);
-}
-.stat-card h2 {
-  color: #00d4ff;
-  font-weight: 800;
-  font-size: 28px;
-  margin-bottom: 5px;
-}
-.stat-card p {
-  color: #94a3b8;
-  font-size: 14px;
-  margin: 0;
+.stat-card-exact h2 {
+  color: #00bfff !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  margin-bottom: 2px !important;
 }
 
-.live-time {
-  display: flex;
-  flex-direction: column;       /* Icon aur text ko upar-neeche stack karne ke liye */
-  justify-content: center;      /* Horizontally center karne ke liye */
-  align-items: center !important; /* Vertically center karne ke liye */
-  gap: 6px;                     /* Icon aur time ke beech ka gap */
-  
-  /* Circle dimensions */
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;           /* Isse perfect round circle banega */
-  
-  /* Neon glow and background effect */
-  background: rgba(0, 212, 255, 0.08); 
-  border: 2px solid rgba(0, 212, 255, 0.6);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
-  
-  /* Typography & spacing */
-  margin: 25px auto 15px auto;   /* Center element on the page */
-  font-size: 14px;
-  color: #00d4ff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect for interactive feel */
-.live-time:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 212, 255, 0.15);
-}
-
-/* Icon size inside circle */
-.live-time i {
-  font-size: 24px;
-}
-
-.company-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 25px;
-}
-.company-logos span {
-  background: #111a32;
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: 1px solid #27345c;
-  font-size: 13px;
-  color: #94a3b8;
-  transition: all 0.3s ease;
-}
-.company-logos span:hover {
-  background: #6c4cff;
-  color: #ffffff;
-  transform: translateY(-3px);
+.stat-card-exact p {
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+  margin: 0 !important;
 }
 
 /* Right Login Form Style */
@@ -375,6 +265,7 @@ background:rgba(8,11,23,.72);
   display: flex;
   justify-content: center;
 }
+
 .login-card {
   width: 100%;
   max-width: 460px;
@@ -385,8 +276,6 @@ background:rgba(8,11,23,.72);
   padding: 40px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
-  transform-style: preserve-3d;
-  perspective: 1000px;
   animation: rightSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -403,19 +292,21 @@ background:rgba(8,11,23,.72);
   box-shadow: 0 0 30px rgba(108, 76, 255, 0.6);
 }
 
-/* Custom Styled Input Fields */
+/* Inputs & Form Controls */
 .input-group {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222f54;
   transition: all 0.3s ease;
 }
+
 .input-group-text {
   background: #12192c;
   color: #8067ff;
   border: none;
   padding-left: 15px;
 }
+
 .form-control {
   background: #12192c;
   border: none;
@@ -423,22 +314,25 @@ background:rgba(8,11,23,.72);
   padding: 13px;
   font-size: 15px;
 }
+
 .form-control:focus {
   background: #12192c;
   color: white;
   box-shadow: none;
 }
+
 .toggle-pass-btn {
   background: #12192c;
   border: none;
   color: #64748b;
 }
+
 .toggle-pass-btn:hover {
   background: #12192c;
   color: #8067ff;
 }
 
-/* Buttons Setup */
+/* Buttons */
 .login-btn {
   padding: 13px;
   border-radius: 12px;
@@ -449,14 +343,13 @@ background:rgba(8,11,23,.72);
   color: white;
   transition: all 0.3s ease;
 }
+
 .login-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(108, 76, 255, 0.4);
 }
 
-
-/* goggle signin  */
-/* Google Social Button Premium Styling */
+/* Google Social Button Styling */
 .social-buttons {
   margin-top: 10px;
 }
@@ -464,7 +357,7 @@ background:rgba(8,11,23,.72);
 .social-btn {
   padding: 14px 20px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03); /* Glassmorphic background */
+  background: rgba(255, 255, 255, 0.03);
   color: #e2e8f0;
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 15px;
@@ -479,30 +372,12 @@ background:rgba(8,11,23,.72);
   overflow: hidden;
 }
 
-/* Subtle glow effect on hover */
 .social-btn:hover {
   background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 
-              0 0 15px rgba(255, 255, 255, 0.03);
-}
-
-/* Active press state */
-.social-btn:active {
-  transform: translateY(-1px);
-}
-
-/* Google Icon style */
-.social-btn i {
-  font-size: 18px;
-  transition: transform 0.3s ease;
-}
-
-/* Hover par icon ko halka sa rotate karne ke liye */
-.social-btn:hover i {
-  transform: scale(1.1) rotate(8deg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .divider {
@@ -510,6 +385,7 @@ background:rgba(8,11,23,.72);
   align-items: center;
   margin: 20px 0;
 }
+
 .divider:before,
 .divider:after {
   content: "";
@@ -517,106 +393,27 @@ background:rgba(8,11,23,.72);
   background: #222f54;
   flex: 1;
 }
+
 .divider span {
   padding: 0 12px;
   color: #64748b;
   font-size: 13px;
 }
 
-/* Background Decorative Icons & Particles */
-.floating,
-.floating2,
-.floating3,
-.floating4 {
-  position: absolute;
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.07);
-  pointer-events: none;
-  z-index: 1;
-  animation: moveArts 6s infinite ease-in-out;
-}
-.floating {
-  top: 120px;
-  left: 60px;
-}
-.floating2 {
-  right: 150px;
-  top: 150px;
-  animation-delay: 1.5s;
-}
-.floating3 {
-  bottom: 120px;
-  left: 250px;
-  animation-delay: 3s;
-}
-.floating4 {
-  right: 60px;
-  bottom: 80px;
-  animation-delay: 4.5s;
-}
-
-.particle {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: #6c4cff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 2;
-  animation: particleUp linear forwards;
-}
-
-@keyframes particleUp {
-  0% {
-    transform: translateY(100vh) scale(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  100% {
-    transform: translateY(-10vh) scale(0.5);
-    opacity: 0;
-  }
-}
-
-@keyframes moveArts {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(8deg);
-  }
-}
-
 /* Animations */
 @keyframes leftSlide {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes rightSlide {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* Mobile Optimization responsive rule */
+@keyframes rightSlide {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Mobile Responsive Overrides */
 @media (max-width: 991.98px) {
   .login-section {
-    background: #080b17;
     padding-top: 40px;
     padding-bottom: 40px;
   }

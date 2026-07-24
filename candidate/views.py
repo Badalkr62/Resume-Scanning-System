@@ -99,7 +99,7 @@ def apply_job(request, id):
 
         messages.success(
             request,
-            "Job Applied Successfully."
+            "Resume uploaded successfully. Your job application has been submitted."
         )
 
         return redirect("my_applications")
@@ -142,6 +142,8 @@ def delete_application(request, pk):
 
     if request.method == "POST":
         application.delete()
-        messages.success(request, "Application deleted successfully.")
-
+        messages.success(
+            request,
+            "Resume deleted successfully."
+        )
     return redirect("my_applications")

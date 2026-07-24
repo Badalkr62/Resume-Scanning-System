@@ -429,3 +429,27 @@ img {
         text-align: center;
     }
 }
+
+
+/* ===================================================
+              MOBILE NAVBAR BUTTONS FIX
+=================================================== */
+@media (max-width: 991px) {
+    /* Buttons wrapper ko flex container banayega */
+    .navbar-nav .d-flex {
+        display: flex !important;
+        flex-direction: row !important; /* Single line alignment */
+        align-items: center !important;
+        gap: 12px !important;            /* Space between buttons */
+        margin-top: 15px !important;    /* Top space inside menu */
+        margin-bottom: 10px !important;
+    }
+
+    /* Mobile par buttons ka size & style */
+    .navbar-nav .btn {
+        width: auto !important;          /* Oversize hone se rokega */
+        padding: 8px 18px !important;
+        font-size: 14px !important;
+        display: inline-block !important;
+    }
+}

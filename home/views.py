@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from job.models import Job
 
 
-@login_required(login_url="login")
 def index(request):
     jobs = Job.objects.filter(status="Active")
 
