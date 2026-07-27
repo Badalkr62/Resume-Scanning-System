@@ -63,7 +63,7 @@ def register(request):
         try:
             resend.Emails.send(
                 {
-                    "from": "Job Portal <otp@jobportal.in>",  # Ya support@jobportal.in
+                    "from": "Job Portal <otp@myjobportal.online>",
                     "to": [email],
                     "subject": "Verification OTP",
                     "html": f"<p>Hello <strong>{username}</strong>,</p><p>Your OTP for verification is: <strong>{otp}</strong></p><p>Valid for 10 minutes.</p>",
