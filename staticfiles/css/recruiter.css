@@ -326,37 +326,37 @@ body {
 /* ==========================================
    Responsive Design (Media Queries)
 ========================================== */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
+
+.menu-toggle{
+    display:none;
+    border:none;
+    background:none;
+    font-size:24px;
+    cursor:pointer;
 }
 
-@media (max-width: 992px) {
-  .menu-toggle {
-    display: block;
-  }
-  .sidebar {
-    left: -260px;
-  }
-  .sidebar.active {
-    left: 0;
-  }
-  .main-content {
-    margin-left: 0;
-    width: 100%;
-  }
-  .dashboard-row {
-    grid-template-columns: 1fr;
-  }
+@media (max-width:992px){
 
-  /* Yahan mobile par margin change ho kar +270px (ya standard 0) set ho jayega */
-  .content {
-    margin-left: 0px !important; /* Mobile par overlap hatane ke liye isko 0px ya 270px kar sakte hain */
-  }
+.menu-toggle{
+    display:block;
 }
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100vh;
+    transition:.3s;
+    z-index:1050;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+}
+
 
 @media (max-width: 576px) {
   .stats-grid {

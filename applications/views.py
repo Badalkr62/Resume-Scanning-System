@@ -8,24 +8,45 @@ from .models import Application
 from .forms import InterviewForm
 from .ai_parser import extract_resume_data
 from .ai_match import calculate_match_score
+from django.db.models import Q
 
 
 logger = logging.getLogger(__name__)
 
 
 def application_list(request):
+
+    search = request.GET.get("search", "")
+    status = request.GET.get("status", "")
+
     applications = (
         Application.objects
         .select_related("user", "job")
         .order_by("-applied_at")
     )
 
+    # Search by candidate name or job title
+    if search:
+        applications = applications.filter(
+            Q(user__username__icontains=search) |
+            Q(user__first_name__icontains=search) |
+            Q(user__last_name__icontains=search) |
+            Q(job__title__icontains=search)
+        )
+
+    if status:
+        applications = applications.filter(status=status)
+
+    context = {
+        "applications": applications,
+        "search": search,
+        "status": status,
+    }
+
     return render(
         request,
         "recruiter/application_list.html",
-        {
-            "applications": applications
-        }
+        context,
     )
 
 

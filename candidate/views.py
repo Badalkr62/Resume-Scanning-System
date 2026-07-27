@@ -1,13 +1,11 @@
 from applications.models import Application
 from django.shortcuts import get_object_or_404, redirect
 # <-- jahan Application model hai wahi import karo
-from recruiter.models import Application
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from job.models import Job
-from recruiter.models import Application
 
 
 @login_required(login_url="login")
@@ -24,7 +22,7 @@ def job_list(request):
 
     jobs = Job.objects.filter(
         status="Active"
-    ).order_by("-created_at")
+    ).order_by("-id")
 
     search = request.GET.get("search")
 
@@ -43,18 +41,25 @@ def job_list(request):
 
 @login_required(login_url="login")
 def job_detail(request, pk):
+    job = get_object_or_404(Job, pk=pk, status="Active")
 
-    job = get_object_or_404(
-        Job,
-        pk=pk,
-        status="Active",
-    )
+    applied = Application.objects.filter(job=job).count()
+
+    remaining = max(job.openings - applied, 0)
+
+    already_applied = Application.objects.filter(
+        user=request.user,
+        job=job
+    ).exists()
 
     return render(
         request,
         "candidate/job_detail.html",
         {
             "job": job,
+            "applied": applied,
+            "remaining": remaining,
+            "already_applied": already_applied,
         },
     )
 
@@ -96,6 +101,7 @@ def apply_job(request, id):
             resume=resume,
             status="Pending",
         )
+        job.update_status()
 
         messages.success(
             request,

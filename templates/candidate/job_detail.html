@@ -1,187 +1,450 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
+<!-- Font Awesome & Bootstrap Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+/>
 
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+  /* DARK THEME OVERRIDES */
+  body {
+    background-color: #0d1117 !important;
+    color: #e6edf3 !important;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .back-link {
+    color: #8b949e;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .back-link:hover {
+    color: #c9d1d9;
+  }
+  .job-detail-card {
+    background-color: #161b22;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
+  .job-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+  }
+  .company-sub {
+    font-size: 1.05rem;
+    color: #8b949e;
+  }
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #8b949e;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .sub-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 0.6rem;
+  }
+  .info-tag {
+    display: inline-flex;
+    align-items: center;
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-right: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .info-tag i {
+    color: #8b949e;
+    margin-right: 0.4rem;
+  }
+  .btn-lime {
+    background-color: #c0ed00 !important;
+    color: #0d1117 !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 12px 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 0 15px rgba(192, 237, 0, 0.25);
+  }
+  .btn-lime:hover {
+    background-color: #d2ff00 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(192, 237, 0, 0.4);
+  }
+  .btn-applied {
+    background-color: #21262d !important;
+    color: #8b949e !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    padding: 12px 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    cursor: not-allowed;
+  }
+  .share-btn {
+    color: #8b949e;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+  .share-btn:hover {
+    color: #ffffff;
+  }
+  .skill-pill {
+    background-color: rgba(192, 237, 0, 0.12);
+    color: #c0ed00;
+    border: 1px solid rgba(192, 237, 0, 0.25);
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 50px;
+    display: inline-block;
+  }
+  .highlight-grid {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px 20px;
+  }
+  .highlight-label {
+    font-size: 0.8rem;
+    color: #8b949e;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .highlight-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .summary-card {
+    background-color: #161b22;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+  .bullet-list {
+    padding-left: 1.2rem;
+    color: #c9d1d9;
+    line-height: 1.7;
+  }
+  .bullet-list li {
+    margin-bottom: 0.6rem;
+  }
+</style>
 
-<div class="container my-5">
+<div class="container my-4 my-md-5">
+  <!-- Django Success/Error Messages -->
+  {% if messages %}
+  <div class="mb-4">
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show bg-dark text-white border-secondary"
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close btn-close-white"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Back Button -->
+  <div class="mb-3">
+    <a href="javascript:history.back()" class="back-link">
+      <i class="fa-solid fa-arrow-left me-1"></i> All positions
+    </a>
+  </div>
+
   <div class="row g-4">
-    
-    <!-- LEFT MAIN CARD -->
+    <!-- LEFT MAIN CONTENT CARD -->
     <div class="col-lg-8">
-      <div class="card shadow border-secondary-subtle rounded-4 bg-dark text-light p-4 p-md-5">
-        
-        <!-- Header Section -->
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-          <div>
-            <h2 class="fw-bold text-white mb-1">{{ job.title }}</h2>
-            <h5 class="text-primary-emphasis fw-semibold mb-0">
-              <i class="bi bi-building me-1"></i>{{ job.company }}
-            </h5>
-          </div>
-          <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2 fs-6">
-            <i class="bi bi-check-circle-fill me-1"></i>{{ job.status|default:"Active" }}
-          </span>
+      <div class="job-detail-card">
+        <!-- Job Title Section -->
+        <h1 class="job-title mb-2">{{ job.title }}</h1>
+        <div class="company-sub mb-3">
+          <span class="fw-semibold text-light">{{ job.company }}</span>
+          {% if job.posted_by %}
+          <span class="mx-1">•</span> Posted by {{ job.posted_by }} {% endif %}
         </div>
 
-        <!-- Badges Bar -->
-        <div class="d-flex flex-wrap gap-2 my-3">
-          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
-            <i class="bi bi-geo-alt text-info me-1"></i>{{ job.location }}
-          </span>
-          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
-            <i class="bi bi-laptop text-info me-1"></i>{{ job.work_mode }}
-          </span>
-          <span class="badge bg-secondary-subtle text-light border border-secondary px-3 py-2 fw-normal rounded-3">
-            <i class="bi bi-briefcase text-info me-1"></i>{{ job.job_type }}
-          </span>
-          <span class="badge bg-secondary-subtle text-white border border-secondary px-3 py-2 fw-semibold rounded-3">
-            <i class="bi bi-cash-stack text-success me-1"></i>{{ job.salary }}
-          </span>
+        <!-- Top Badges / Info List -->
+        <div class="d-flex flex-wrap align-items-center mb-4">
+          <span class="info-tag"
+            ><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span
+          >
+          <span class="info-tag"
+            ><i class="fa-solid fa-house-laptop"></i> {{ job.work_mode }}</span
+          >
+          <span class="info-tag"
+            ><i class="fa-solid fa-briefcase"></i> {{ job.job_type }}</span
+          >
+          <span class="info-tag"
+            ><i class="fa-regular fa-clock"></i> {{ job.experience }}</span
+          >
         </div>
 
-        <!-- Highlights Grid Box -->
-        <div class="row g-3 bg-secondary bg-opacity-10 rounded-4 p-3 my-3 border border-secondary border-opacity-25">
-          <div class="col-6 col-sm-4 col-md-2.4">
-            <div class="text-secondary-subtle small mb-1"><i class="bi bi-award me-1"></i>Experience</div>
-            <div class="fw-bold text-white">{{ job.experience }}</div>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2.4">
-            <div class="text-secondary-subtle small mb-1"><i class="bi bi-people me-1"></i>Openings</div>
-            <div class="fw-bold text-white">{{ job.openings }}</div>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2.4">
-            <div class="text-secondary-subtle small mb-1"><i class="bi bi-person-check me-1 text-info"></i>Applied</div>
-            <div class="fw-bold text-info">{{ job.applicants|default:0 }}</div>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2.4">
-            <div class="text-secondary-subtle small mb-1"><i class="bi bi-hourglass-split me-1 text-danger"></i>Remaining</div>
-            <div class="fw-bold text-danger">{{ job.remaining_openings|default:job.openings }}</div>
-          </div>
-          <div class="col-6 col-sm-4 col-md-2.4">
-            <div class="text-secondary-subtle small mb-1"><i class="bi bi-calendar-event me-1"></i>Deadline</div>
-            <div class="fw-bold text-white">{{ job.deadline }}</div>
+        <!-- Top Apply Button & Share Bar -->
+        <div class="d-flex align-items-center gap-4 mb-5 flex-wrap">
+          {% if already_applied %}
+          <button class="btn-applied" disabled>
+            <i class="fa-solid fa-circle-check text-success"></i> Already
+            Applied
+          </button>
+          {% else %}
+          <form
+            action="{% url 'apply_job' job.id %}"
+            method="POST"
+            class="d-inline"
+          >
+            {% csrf_token %}
+            <button type="submit" class="btn btn-lime">
+              <i class="fa-solid fa-paper-plane"></i> Apply Now
+            </button>
+          </form>
+          {% endif %}
+
+          <div class="d-flex align-items-center gap-3 ms-md-2">
+            <span class="text-secondary small fw-semibold"
+              ><i class="fa-solid fa-share-nodes me-1"></i> Share</span
+            >
+            <a href="#" class="share-btn"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
+            <a href="#" class="share-btn"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+            <a href="#" class="share-btn"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
           </div>
         </div>
 
-        <hr class="my-4 text-secondary opacity-50" />
+        <!-- Job Key Stats Grid Box -->
+        <div class="highlight-grid mb-5">
+          <div class="row g-3 text-center text-sm-start">
+            <div class="col-6 col-sm-3">
+              <div class="highlight-label">
+                <i class="fa-solid fa-sack-dollar me-1"></i> Salary
+              </div>
+              <div class="highlight-value text-success">{{ job.salary }}</div>
+            </div>
 
-        <!-- Description -->
-        <div class="mb-4">
-          <h5 class="fw-bold text-white mb-2">
-            <i class="bi bi-file-earmark-text text-primary me-2"></i>Description
-          </h5>
-          <p class="text-secondary-subtle lh-lg mb-0">{{ job.description }}</p>
-        </div>
+            <div class="col-6 col-sm-3">
+              <div class="highlight-label">
+                <i class="fa-solid fa-users me-1"></i> Remaining Openings
+              </div>
 
-        <!-- Responsibilities -->
-        <div class="mb-4">
-          <h5 class="fw-bold text-white mb-2">
-            <i class="bi bi-list-check text-primary me-2"></i>Responsibilities
-          </h5>
-          <p class="text-secondary-subtle lh-lg mb-0">{{ job.responsibilities }}</p>
-        </div>
+              {% if job.status == "Closed" or job.remaining_openings == 0 %}
+              <div class="highlight-value">
+                <span class="badge bg-danger px-3 py-2 fs-6">
+                  <i class="fa-solid fa-lock me-1"></i> Closed
+                </span>
+              </div>
+              {% else %}
+              <div class="highlight-value text-warning">
+                {{ job.remaining_openings }}
+              </div>
+              {% endif %}
+            </div>
 
-        <!-- Requirements -->
-        <div class="mb-4">
-          <h5 class="fw-bold text-white mb-2">
-            <i class="bi bi-card-checklist text-primary me-2"></i>Requirements
-          </h5>
-          <p class="text-secondary-subtle lh-lg mb-0">{{ job.requirements }}</p>
+            <div class="col-6 col-sm-3">
+              <div class="highlight-label">
+                <i class="fa-solid fa-user-check me-1"></i> Applied
+              </div>
+              <div class="highlight-value text-info">
+                {{ job.total_applicants }}
+              </div>
+            </div>
+
+            <div class="col-6 col-sm-3">
+              <div class="highlight-label">
+                <i class="fa-regular fa-calendar-check me-1"></i> Deadline
+              </div>
+              <div class="highlight-value">
+                {{ job.deadline|date:"M d, Y" }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Required Skills -->
-        <div class="mb-4">
-          <h5 class="fw-bold text-white mb-3">
-            <i class="bi bi-tools text-primary me-2"></i>Required Skills
-          </h5>
+        <div class="mb-5">
+          <div class="section-title">REQUIRED SKILLS</div>
           <div class="d-flex flex-wrap gap-2">
             {% for skill in job.skills.split %}
-              <span class="badge bg-primary bg-opacity-25 text-primary-emphasis border border-primary border-opacity-50 px-3 py-2 rounded-pill fw-medium">
-                {{ skill|cut:"," }}
-              </span>
+            <span class="skill-pill">{{ skill|cut:"," }}</span>
             {% endfor %}
           </div>
         </div>
 
-        <!-- Benefits -->
-        {% if job.benefits %}
-        <div class="mb-4">
-          <h5 class="fw-bold text-white mb-2">
-            <i class="bi bi-gift text-primary me-2"></i>Benefits
-          </h5>
-          <p class="text-secondary-subtle lh-lg mb-0">{{ job.benefits }}</p>
+        <!-- About The Role & Description -->
+        <div class="mb-5">
+          <div class="section-title">ABOUT THE ROLE</div>
+          <h4 class="sub-heading">Job Description</h4>
+          <p class="text-secondary-subtle lh-lg mb-0">{{ job.description }}</p>
+        </div>
+
+        <!-- Key Responsibilities -->
+        {% if job.requirements %}
+        <div class="mb-5">
+          <h4 class="sub-heading">Requirements & Qualifications</h4>
+          <p class="text-secondary-subtle lh-lg">
+            {{ job.requirements|linebreaks }}
+          </p>
         </div>
         {% endif %}
 
-        <hr class="my-4 text-secondary opacity-50" />
-
-        <!-- Action Button -->
-        <div>
-          <a href="{% url 'apply_job' job.id %}" class="btn btn-primary btn-lg px-5 py-3 rounded-3 shadow-sm fw-bold">
-            <i class="bi bi-send-fill me-2"></i>Apply Now
-          </a>
+        <!-- Requirements -->
+        {% if job.requirements %}
+        <div class="mb-5">
+          <h4 class="sub-heading">Requirements & Qualifications</h4>
+          <div class="text-secondary-subtle lh-lg">
+            {% if "\n" in job.requirements %}
+            <ul class="bullet-list">
+              {% for item in job.requirements.splitlines %} {% if item.strip %}
+              <li>{{ item }}</li>
+              {% endif %} {% endfor %}
+            </ul>
+            {% else %}
+            <p>{{ job.requirements }}</p>
+            {% endif %}
+          </div>
         </div>
+        {% endif %}
 
+        <!-- Benefits -->
+        {% if job.benefits %}
+        <div class="mb-5">
+          <h4 class="sub-heading">Benefits & Perks</h4>
+          <p class="text-secondary-subtle lh-lg">{{ job.benefits }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Bottom Full-width Apply Button -->
+        <div class="mt-5 pt-3 border-top border-secondary border-opacity-25">
+          {% if already_applied %}
+          <button class="btn-applied w-100 py-3 fs-6" disabled>
+            <i class="fa-solid fa-circle-check text-success"></i> Already
+            Applied for this position
+          </button>
+          {% else %}
+          <form action="{% url 'apply_job' job.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-lime w-100 py-3 fs-6">
+              <i class="fa-solid fa-paper-plane"></i> Apply for this position
+            </button>
+          </form>
+          {% endif %}
+        </div>
       </div>
     </div>
 
     <!-- RIGHT STICKY SIDEBAR -->
     <div class="col-lg-4 d-none d-lg-block">
-      <div class="card shadow border-secondary-subtle rounded-4 bg-dark text-light sticky-top overflow-hidden" style="top: 24px;">
-        
-        <div class="card-header bg-primary text-white p-3 border-0">
-          <h5 class="card-title mb-0 fw-bold fs-6">
-            <i class="bi bi-info-circle-fill me-2"></i>Job Summary
-          </h5>
+      <div class="summary-card p-4 sticky-top" style="top: 24px">
+        <h5 class="fw-bold mb-4 text-white fs-6">Job Overview</h5>
+
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25"
+        >
+          <span class="text-secondary small"
+            ><i class="fa-regular fa-building me-2"></i>Company</span
+          >
+          <span class="fw-semibold text-light small">{{ job.company }}</span>
         </div>
 
-        <div class="card-body p-4">
-          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
-            <span class="text-secondary-subtle"><i class="bi bi-building me-2"></i>Company</span>
-            <span class="fw-bold text-white">{{ job.company }}</span>
-          </div>
-          
-          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
-            <span class="text-secondary-subtle"><i class="bi bi-cash-stack me-2"></i>Salary</span>
-            <span class="fw-bold text-success">{{ job.salary }}</span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
-            <span class="text-secondary-subtle"><i class="bi bi-people me-2"></i>Total Openings</span>
-            <span class="fw-bold text-white">{{ job.openings }}</span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
-            <span class="text-secondary-subtle"><i class="bi bi-person-check me-2 text-info"></i>Total Applied</span>
-            <span class="fw-bold text-info">{{ job.applicants|default:0 }}</span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary border-opacity-25">
-            <span class="text-secondary-subtle"><i class="bi bi-hourglass-split me-2 text-danger"></i>Slots Left</span>
-            <span class="badge bg-danger-subtle text-danger fw-bold fs-6 px-2.5 py-1">
-              {{ job.remaining_openings|default:job.openings }}
-            </span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <span class="text-secondary-subtle"><i class="bi bi-activity me-2"></i>Status</span>
-            <span class="badge bg-success-subtle text-success fw-bold px-2.5 py-1.5">
-              {{ job.status|default:"Active" }}
-            </span>
-          </div>
-
-          <div class="d-grid">
-            <a href="{% url 'apply_job' job.id %}" class="btn btn-outline-primary btn-lg rounded-3 fw-bold">
-              Apply for this Position
-            </a>
-          </div>
-
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25"
+        >
+          <span class="text-secondary small"
+            ><i class="fa-solid fa-money-bill-wave me-2"></i>Salary</span
+          >
+          <span class="fw-bold text-success small">{{ job.salary }}</span>
         </div>
+
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25"
+        >
+          <span class="text-secondary small"
+            ><i class="fa-solid fa-users me-2"></i>Openings</span
+          >
+          <span class="fw-semibold text-light small">{{ job.openings }}</span>
+        </div>
+
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25"
+        >
+          <span class="text-secondary small">
+            <i class="fa-solid fa-hourglass-half me-2"></i>Slots Left
+          </span>
+
+          {% if job.status == "Closed" or job.remaining_openings == 0 %}
+          <span class="badge bg-danger px-3 py-2">
+            <i class="fa-solid fa-lock me-1"></i> Closed
+          </span>
+          {% else %}
+          <span class="badge bg-warning text-dark px-3 py-2">
+            {{ job.remaining_openings }}
+          </span>
+          {% endif %}
+        </div>
+
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25"
+        >
+          <span class="text-secondary small"
+            ><i class="fa-solid fa-user-check me-2"></i>Total Applied</span
+          >
+          <span class="fw-bold text-info small">
+            {{ job.total_applicants|default:0 }}
+          </span>
+        </div>
+
+        <!-- Sidebar Action Button -->
+        {% if job.remaining_openings == 0 %}
+        <button class="btn btn-danger w-100" disabled>
+          <i class="fa-solid fa-lock"></i> Job Closed
+        </button>
+
+        {% elif already_applied %}
+        <button class="btn-applied w-100" disabled>
+          <i class="fa-solid fa-circle-check"></i> Already Applied
+        </button>
+
+        {% else %}
+        <form action="{% url 'apply_job' job.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-lime w-100">Apply Now</button>
+        </form>
+        {% endif %}
       </div>
     </div>
-
   </div>
 </div>
-
 {% endblock %}

@@ -19,10 +19,7 @@ class JobForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "Company Name"
             }),
-            "company_logo": forms.ClearableFileInput(attrs={
-                "class": "form-control"
-            }),
-
+            
             "location": forms.TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "Ranchi, Jharkhand"

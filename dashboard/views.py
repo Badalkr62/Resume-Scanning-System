@@ -23,6 +23,7 @@ def dashboard(request):
     ).count()
 
     rejected = Application.objects.filter(status="Rejected").count()
+    shortlisted = Application.objects.filter(status="Shortlisted").count()
 
     online_users = live_users
 
@@ -34,7 +35,7 @@ def dashboard(request):
         interview_date__isnull=False
     ).order_by("-interview_date").first()
 
-    latest_job = Job.objects.order_by("-created_at").first()
+    latest_job = Job.objects.order_by("-id")
 
     top_candidates = Application.objects.order_by("-match_score")[:10]
 
@@ -58,7 +59,7 @@ def dashboard(request):
         "live_users": live_users,
         "online_users": online_users,
         "rejected": rejected,
-
+        "shortlisted": shortlisted,
         "latest_resume": latest_resume,
         "latest_application": latest_application,
         "latest_interview": latest_interview,
@@ -68,11 +69,6 @@ def dashboard(request):
         "applications_per_job": applications_per_job,
         "status_distribution": status_distribution,
         "monthly_applications": monthly_applications,
-
-        # "jobs_count_static": 10,
-        # "resumes": 45,
-        # "shortlisted": 15,
-        # "pending": 30,
     }
 
     return render(request, "recruiter/dashboard.html", context)

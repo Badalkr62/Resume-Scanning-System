@@ -68,38 +68,12 @@ class Interview(models.Model):
 
     def __str__(self):
         # Safer string formatting in case application or user is None
-        user_name = getattr(self.application.user, 'username', 'Unknown Candidate') if self.application else "No Application"
+        user_name = getattr(self.application.user, 'username',
+                            'Unknown Candidate') if self.application else "No Application"
         return f"Interview with {user_name} on {self.interview_date}"
 
 
 class RecruiterSettings(models.Model):
-
-    THEME_CHOICES = (
-        ("Light", "Light"),
-        ("Dark", "Dark"),
-        ("Blue", "Blue"),
-        ("Green", "Green"),
-    )
-
-    FONT_CHOICES = (
-        ("Small", "Small"),
-        ("Medium", "Medium"),
-        ("Large", "Large"),
-    )
-
-    SIDEBAR_CHOICES = (
-        ("Primary", "Primary"),
-        ("Dark", "Dark"),
-        ("Success", "Success"),
-        ("Danger", "Danger"),
-    )
-
-    DASHBOARD_CHOICES = (
-        ("Default", "Default"),
-        ("Blue", "Blue"),
-        ("Purple", "Purple"),
-        ("Green", "Green"),
-    )
 
     user = models.OneToOneField(
         User,
@@ -107,9 +81,6 @@ class RecruiterSettings(models.Model):
         related_name="recruiter_settings"
     )
 
-    # =====================
-    # Profile
-    # =====================
     profile_image = models.ImageField(
         upload_to="recruiter/profile/",
         blank=True,
@@ -126,9 +97,6 @@ class RecruiterSettings(models.Model):
         blank=True
     )
 
-    # =====================
-    # Company
-    # =====================
     company_name = models.CharField(
         max_length=200,
         blank=True
@@ -143,86 +111,13 @@ class RecruiterSettings(models.Model):
     website = models.URLField(blank=True)
     address = models.TextField(blank=True)
 
-    city = models.CharField(
-        max_length=100,
-        blank=True
-    )
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
 
-    state = models.CharField(
-        max_length=100,
-        blank=True
-    )
+    profile_completed = models.BooleanField(default=False)
 
-    country = models.CharField(
-        max_length=100,
-        blank=True
-    )
-
-    # =====================
-    # Notifications
-    # =====================
-    email_notification = models.BooleanField(default=True)
-    resume_notification = models.BooleanField(default=True)
-    interview_notification = models.BooleanField(default=True)
-    offer_notification = models.BooleanField(default=True)
-
-    # =====================
-    # AI Settings
-    # =====================
-    ai_enabled = models.BooleanField(default=True)
-    minimum_score = models.PositiveIntegerField(default=70)
-    default_skills = models.TextField(blank=True)
-
-    # Note: Controlled max_length added for API keys
-    gemini_api_key = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-
-    openai_api_key = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-
-    # =====================
-    # Appearance
-    # =====================
-    theme = models.CharField(
-        max_length=20,
-        choices=THEME_CHOICES,
-        default="Light"
-    )
-
-    sidebar_color = models.CharField(
-        max_length=20,
-        choices=SIDEBAR_CHOICES,
-        default="Primary"
-    )
-
-    dashboard_color = models.CharField(
-        max_length=20,
-        choices=DASHBOARD_CHOICES,
-        default="Default"
-    )
-
-    font_size = models.CharField(
-        max_length=20,
-        choices=FONT_CHOICES,
-        default="Medium"
-    )
-
-    # =====================
-    # Account
-    # =====================
-    profile_completed = models.BooleanField(
-        default=False
-    )
-
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Settings - {self.user.username}"

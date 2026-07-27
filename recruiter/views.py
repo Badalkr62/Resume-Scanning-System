@@ -1,3 +1,4 @@
+from django.shortcuts import render, get_object_or_404
 from applications.ai_match import calculate_match_score
 from applications.ai_parser import extract_resume_data
 from django.shortcuts import get_object_or_404, render
@@ -137,7 +138,7 @@ def recruiter_dashboard(request):
     )
 
     # Latest Job
-    latest_job = Job.objects.order_by("-created_at").first()
+    latest_job = Job.objects.order_by("-id")
 
     context = {
         "total_jobs": total_jobs,
@@ -169,7 +170,7 @@ def recruiter_dashboard(request):
 
 def recruiter_job_list(request):
 
-    jobs = Job.objects.all().order_by("-created_at")
+    jobs = Job.objects.all().order_by("-id")
 
     return render(
         request,
@@ -322,8 +323,26 @@ def application_list(request):
     )
 
 
-def application_detail(request, id):
-    return render(request, "recruiter/application_detail.html")
+def recruiter_job_detail(request, id):
+    job = get_object_or_404(Job, id=id)
+
+    applications = (
+        Application.objects
+        .filter(job=job)
+        .select_related("user")
+    )
+
+    context = {
+        "job": job,
+        "applications": applications,
+        "total_applications": applications.count(),
+    }
+
+    return render(
+        request,
+        "recruiter/job_detail.html",
+        context,
+    )
 
 
 def shortlisted_candidates(request):
@@ -444,9 +463,6 @@ def send_offer_letter(request, pk):
 def recruiter_messages(request):
     return render(request, "recruiter/messages.html")
 
-
-def reports(request):
-    return render(request, "recruiter/reports.html")
 
 
 @login_required
