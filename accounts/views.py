@@ -21,6 +21,13 @@ from django.utils import timezone
 from django.conf import settings
 
 
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.utils import timezone
+
+
 def register(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -67,13 +74,27 @@ def register(request):
         )
 
         # Send OTP Email
-        send_mail(
-            subject="Verification OTP",
-            message=f"Hello {username},\n\nYour OTP is: {otp}\n\nValid for 10 minutes.",
-            from_email=None,
-            recipient_list=[email],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                subject="Verification OTP",
+                message=f"Hello {username},\n\nYour OTP is: {otp}\n\nValid for 10 minutes.",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+
+        except Exception as e:
+            print("EMAIL ERROR:", e)
+
+            # Delete created records if email fails
+            profile.delete()
+            user.delete()
+
+            messages.error(
+                request,
+                "Unable to send OTP email. Please try again later."
+            )
+            return redirect("register")
 
         # Store user id in session
         request.session["user_id"] = user.id
@@ -136,6 +157,7 @@ def user_login(request):
 
     return render(request, "accounts/login.html")
 
+
 @login_required
 def choose_role(request):
     profile = UserProfile.objects.get(user=request.user)
@@ -149,6 +171,7 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logout Successfully")
     return redirect("home")
+
 
 def forgot_password(request):
 
