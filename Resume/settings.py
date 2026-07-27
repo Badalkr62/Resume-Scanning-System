@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Custom Local Apps
     'accounts',
     'home',
@@ -154,13 +154,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# Email Configuration (Updated for Cloud Deployment)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = 465               # <--- 587 ki jagah 465 karein
+EMAIL_USE_SSL = True           # <--- SSL True karein
+EMAIL_USE_TLS = False          # <--- TLS False karein
 
 EMAIL_HOST_USER = "badal454157@gmail.com"
-EMAIL_HOST_PASSWORD = "sbij vtmj wsqs drad"
+EMAIL_HOST_PASSWORD = "sbij vtmj wsqs drad"  # App Password
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_TIMEOUT = 10             # <--- Timeout add karein taaki worker infinite hang na ho
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    ".onrender.com",
+    "*"  # Mobile & testing domains allowed
+]

@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 import random
 from django.shortcuts import redirect, render
 from datetime import timedelta
@@ -122,21 +121,8 @@ def register(request):
         messages.success(request, "OTP sent successfully.")
         return redirect("verify_otp")
 
-    return render(request, "accounts/register.html")
+    return render(request, "accounts/register.html")    
 
-
-def test_email(request):
-    try:
-        send_mail(
-            "Test Email",
-            "Hello from Render",
-            settings.DEFAULT_FROM_EMAIL,
-            ["badal454157@gmail.com"],
-            fail_silently=False,
-        )
-        return HttpResponse("✅ Email Sent Successfully")
-    except Exception as e:
-        return HttpResponse(f"❌ Error: {e}")
 
 
 def user_login(request):
