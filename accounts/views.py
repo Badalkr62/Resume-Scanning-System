@@ -17,7 +17,7 @@ from .models import UserProfile
 from .utils import generateOTP
 
 # Environment variable se key read karein (Hardcode mat karein)
-resend.api_key = os.getenv("re_Tsvc3X1K_8RK8dzGpoqn6UEG6JBQVp6eo")
+resend.api_key = os.getenv("RESEND_API_KEY")
 
 
 def register(request):
