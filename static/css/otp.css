@@ -63,25 +63,6 @@ BACKGROUND
 OTP CARD
 =============================== */
 
-.otp-card {
-  width: 100%;
-  max-width: 500px;
-
-  background: rgba(17, 25, 40, 0.8);
-
-  backdrop-filter: blur(20px);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  border-radius: 25px;
-
-  padding: 45px;
-
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-
-  animation: fadeUp 0.8s;
-}
-
 /* ===============================
 ICON
 =============================== */
@@ -108,46 +89,6 @@ ICON
 /* ===============================
 OTP BOXES
 =============================== */
-
-.otp-wrapper {
-  display: flex;
-
-  justify-content: center;
-
-  gap: 12px;
-
-  margin-top: 30px;
-}
-
-.otp-box {
-  width: 60px;
-  height: 65px;
-
-  border: none;
-  outline: none;
-
-  border-radius: 15px;
-
-  background: #141d36;
-
-  color: #fff;
-
-  text-align: center;
-
-  font-size: 28px;
-
-  font-weight: 700;
-
-  transition: 0.3s;
-}
-
-.otp-box:focus {
-  border: 2px solid #6c4cff;
-
-  box-shadow: 0 0 20px #6c4cff;
-
-  transform: translateY(-4px);
-}
 
 /* ===============================
 BUTTON
@@ -271,25 +212,65 @@ ANIMATION
 /* ===============================
 MOBILE
 =============================== */
+/* ===============================
+OTP BOXES
+=============================== */
+
+.otp-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important; /* Forces all 6 boxes to stay in ONE row */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.otp-box {
+  width: 50px;
+  height: 60px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background: #141d36;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.otp-box:focus {
+  border: 2px solid #6c4cff;
+  box-shadow: 0 0 20px #6c4cff;
+  transform: translateY(-4px);
+}
+
+/* ===============================
+MOBILE RESPONSIVE FIX
+=============================== */
 
 @media (max-width: 576px) {
   .otp-card {
-    padding: 30px 20px;
+    padding: 30px 15px;
+    margin: 10px;
+  }
 
-    margin: 15px;
+  .otp-wrapper {
+    gap: 6px; /* Gap tightens on small screens */
   }
 
   .otp-box {
-    width: 48px;
-    height: 55px;
-
-    font-size: 22px;
+    width: 38px;  /* Fits perfectly on 320px-390px mobile screens */
+    height: 48px;
+    font-size: 18px;
+    border-radius: 8px;
   }
 
   .otp-icon {
-    width: 75px;
-    height: 75px;
-
-    font-size: 28px;
+    width: 65px;
+    height: 65px;
+    font-size: 24px;
   }
 }

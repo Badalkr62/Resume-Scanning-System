@@ -1,8 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block content %}
 <section class="otp-section">
   <div class="otp-card">
     <h2>OTP Verification</h2>
-
     <p>We have sent a 6 digit OTP to your email.</p>
 
     <form method="POST">
@@ -26,12 +28,17 @@
 
 <script>
   const inputs = document.querySelectorAll(".otp-box");
-
   const hidden = document.getElementById("finalOTP");
+
+  function updateHiddenOTP() {
+    let otp = "";
+    inputs.forEach((i) => (otp += i.value));
+    hidden.value = otp;
+  }
 
   inputs.forEach((input, index) => {
     input.addEventListener("keyup", function (e) {
-      if (this.value.length == 1 && index < inputs.length - 1) {
+      if (this.value.length === 1 && index < inputs.length - 1) {
         inputs[index + 1].focus();
       }
 
@@ -39,13 +46,21 @@
         inputs[index - 1].focus();
       }
 
-      let otp = "";
+      updateHiddenOTP();
+    });
 
-      inputs.forEach((i) => (otp += i.value));
-
-      hidden.value = otp;
+    // Handle Copy-Paste of 6-digit OTP
+    input.addEventListener("paste", function (e) {
+      e.preventDefault();
+      const pasteData = (e.clipboardData || window.clipboardData).getData("text").trim();
+      if (pasteData.length === 6 && !isNaN(pasteData)) {
+        pasteData.split("").forEach((char, i) => {
+          if (inputs[i]) inputs[i].value = char;
+        });
+        inputs[5].focus();
+        updateHiddenOTP();
+      }
     });
   });
 </script>
-
 {% endblock %}
