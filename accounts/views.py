@@ -28,6 +28,12 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 
 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.utils import timezone
+import traceback
+
+
 def register(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -55,7 +61,7 @@ def register(request):
         user = User.objects.create_user(
             username=username,
             email=email,
-            password=password
+            password=password,
         )
 
         # Generate OTP
@@ -73,8 +79,18 @@ def register(request):
             phone_verified=False,
         )
 
-        # Send OTP Email
         try:
+            # Debug values
+            print("=" * 50)
+            print("EMAIL_HOST =", settings.EMAIL_HOST)
+            print("EMAIL_PORT =", settings.EMAIL_PORT)
+            print("EMAIL_USE_TLS =", settings.EMAIL_USE_TLS)
+            print("EMAIL_HOST_USER =", settings.EMAIL_HOST_USER)
+            print("DEFAULT_FROM_EMAIL =", settings.DEFAULT_FROM_EMAIL)
+            print("PASSWORD EXISTS =", bool(settings.EMAIL_HOST_PASSWORD))
+            print("=" * 50)
+
+            # Send OTP Email
             send_mail(
                 subject="Verification OTP",
                 message=f"Hello {username},\n\nYour OTP is: {otp}\n\nValid for 10 minutes.",
@@ -83,10 +99,13 @@ def register(request):
                 fail_silently=False,
             )
 
-        except Exception as e:
-            print("EMAIL ERROR:", e)
+            print("✅ EMAIL SENT SUCCESSFULLY")
 
-            # Delete created records if email fails
+        except Exception as e:
+            print("❌ EMAIL ERROR:", str(e))
+            print(traceback.format_exc())
+
+            # Rollback
             profile.delete()
             user.delete()
 
@@ -102,7 +121,7 @@ def register(request):
         messages.success(request, "OTP sent successfully.")
         return redirect("verify_otp")
 
-    return render(request, "accounts/register.html")
+    return render(request, "accounts/register.html")    
 
 
 def user_login(request):
