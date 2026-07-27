@@ -126,7 +126,7 @@ import traceback
 import resend
 
 # Resend API Key setup
-resend.api_key = "re_YOUR_COPIED_KEY_HERE"  # <-- Apni key yahan paste karein
+resend.api_key = "re_Tsvc3X1K_8RK8dzGpoqn6UEG6JBQVp6eo"  # <-- Apni key yahan paste karein
 
 
 def register(request):
