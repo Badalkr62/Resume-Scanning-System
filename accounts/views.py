@@ -1,132 +1,23 @@
-import random
-from django.shortcuts import redirect, render
 from datetime import timedelta
-from django.shortcuts import render
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth import login
-from django.db.models import Q
-from django.utils import timezone
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+import os
+import random
+import traceback
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import UserProfile
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth import login
-from django.core.mail import send_mail
+from django.db.models import Q
+from django.shortcuts import redirect, render
+from django.utils import timezone
+import resend
 from .models import UserProfile
 from .utils import generateOTP
-from django.utils import timezone
-from django.conf import settings
 
-
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.utils import timezone
-
-
-from django.conf import settings
-from django.core.mail import send_mail
-from django.utils import timezone
-import traceback
-
-
-# def register(request):
-#     if request.method == "POST":
-#         username = request.POST.get("username")
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-#         role = request.POST.get("role", "candidate")
-#         phone = request.POST.get("phone")
-
-#         # Username Check
-#         if User.objects.filter(username=username).exists():
-#             messages.error(request, "Username already exists.")
-#             return redirect("register")
-
-#         # Email Check
-#         if User.objects.filter(email=email).exists():
-#             messages.error(request, "Email already exists.")
-#             return redirect("register")
-
-#         # Phone Check
-#         if phone and UserProfile.objects.filter(phone=phone).exists():
-#             messages.error(request, "Phone number already exists.")
-#             return redirect("register")
-
-#         # Create User
-#         user = User.objects.create_user(
-#             username=username,
-#             email=email,
-#             password=password,
-#         )
-
-#         # Generate OTP
-#         otp = generateOTP()
-
-#         # Create Profile
-#         profile = UserProfile.objects.create(
-#             user=user,
-#             role=role,
-#             phone=phone,
-#             otp=otp,
-#             otp_created=timezone.now(),
-#             is_verified=False,
-#             email_verified=False,
-#             phone_verified=False,
-#         )
-
-#         try:
-#             # Debug values
-#             print("=" * 50)
-#             print("EMAIL_HOST =", settings.EMAIL_HOST)
-#             print("EMAIL_PORT =", settings.EMAIL_PORT)
-#             print("EMAIL_USE_TLS =", settings.EMAIL_USE_TLS)
-#             print("EMAIL_HOST_USER =", settings.EMAIL_HOST_USER)
-#             print("DEFAULT_FROM_EMAIL =", settings.DEFAULT_FROM_EMAIL)
-#             print("PASSWORD EXISTS =", bool(settings.EMAIL_HOST_PASSWORD))
-#             print("=" * 50)
-
-#             # Send OTP Email
-#             send_mail(
-#                 subject="Verification OTP",
-#                 message=f"Hello {username},\n\nYour OTP is: {otp}\n\nValid for 10 minutes.",
-#                 from_email=settings.DEFAULT_FROM_EMAIL,
-#                 recipient_list=[email],
-#                 fail_silently=False,
-#             )
-
-#             print("✅ EMAIL SENT SUCCESSFULLY")
-
-#         except Exception as e:
-#             print("❌ EMAIL ERROR:", str(e))
-#             print(traceback.format_exc())
-
-#             # Rollback
-#             profile.delete()
-#             user.delete()
-
-#             messages.error(
-#                 request,
-#                 "Unable to send OTP email. Please try again later."
-#             )
-#             return redirect("register")
-
-#         # Store user id in session
-#         request.session["user_id"] = user.id
-
-#         messages.success(request, "OTP sent successfully.")
-#         return redirect("verify_otp")
-
-#     return render(request, "accounts/register.html")
-
-import resend
-
-# Resend API Key setup
-resend.api_key = "re_Tsvc3X1K_8RK8dzGpoqn6UEG6JBQVp6eo"  # <-- Apni key yahan paste karein
+# Environment variable se key read karein (Hardcode mat karein)
+resend.api_key = os.getenv("re_Tsvc3X1K_8RK8dzGpoqn6UEG6JBQVp6eo")
 
 
 def register(request):
@@ -172,7 +63,7 @@ def register(request):
         try:
             resend.Emails.send(
                 {
-                    "from": "Onboarding <onboarding@resend.dev>",  # Free testing sender
+                    "from": "Onboarding <onboarding@resend.dev>",
                     "to": [email],
                     "subject": "Verification OTP",
                     "html": f"<p>Hello <strong>{username}</strong>,</p><p>Your OTP for verification is: <strong>{otp}</strong></p><p>Valid for 10 minutes.</p>",
@@ -194,7 +85,6 @@ def register(request):
         return redirect("verify_otp")
 
     return render(request, "accounts/register.html")
-
 
 def user_login(request):
 
