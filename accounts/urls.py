@@ -5,7 +5,7 @@ urlpatterns = [
 
     path("register/", views.register, name="register"),
     # path("UserProfile/", views.UserProfile, name="UserProfile"),
-
+    path("test-email/", views.test_email),
 
     path("login/", views.user_login, name="login"),
 
