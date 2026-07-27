@@ -63,7 +63,7 @@ def register(request):
         try:
             resend.Emails.send(
                 {
-                    "from": "Onboarding <onboarding@resend.dev>",
+                    "from": "Job Portal <otp@jobportal.in>",  # Ya support@jobportal.in
                     "to": [email],
                     "subject": "Verification OTP",
                     "html": f"<p>Hello <strong>{username}</strong>,</p><p>Your OTP for verification is: <strong>{otp}</strong></p><p>Valid for 10 minutes.</p>",
@@ -85,6 +85,7 @@ def register(request):
         return redirect("verify_otp")
 
     return render(request, "accounts/register.html")
+
 
 def user_login(request):
 
