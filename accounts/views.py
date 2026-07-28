@@ -394,12 +394,11 @@ def send_otp_email(to_email, username, otp_code, subject="Smart Recruiter Access
 
     try:
         response = resend.Emails.send({
-            "from": "Smart Recruiter <otp@send.myjobportal.online>",
+            "from": "Smart Recruiter <otp@myjobportal.online>",
             "to": [to_email],
             "subject": subject,
             "html": html_content,
             "text": plain_text,
-            # X-Entity-Ref-ID header bataata hai ki ye transactional mail hai
             "headers": {
                 "X-Entity-Ref-ID": f"sec-{otp_code}"
             }

@@ -1,7 +1,4 @@
-{% extends 'base.html' %} 
-{% load static %} 
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <style>
   /* ===============================
      OTP SECTION & CARD STYLES
@@ -37,6 +34,28 @@
     color: #a0aec0;
     font-size: 14px;
     margin-bottom: 25px;
+  }
+
+  /* ===============================
+     MESSAGES ALERT STYLES
+  =============================== */
+  .alert {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .alert-danger,
+  .alert-error {
+    background-color: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+  }
+  .alert-success {
+    background-color: rgba(34, 197, 94, 0.2);
+    border: 1px solid #22c55e;
+    color: #86efac;
   }
 
   /* ===============================
@@ -93,6 +112,21 @@
     transform: translateY(-2px);
   }
 
+  .resend-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #3d7cff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+  .resend-link:hover {
+    color: #6c4cff;
+    text-decoration: underline;
+  }
+
   /* ===============================
      MOBILE RESPONSIVE
   =============================== */
@@ -111,24 +145,38 @@
 <section class="otp-section">
   <div class="otp-card">
     <h2>OTP Verification</h2>
-    <p>We have sent a 6 digit OTP to your email.</p>
+    <p>We have sent a 6-digit security code to your email.</p>
 
-    <form method="POST">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <form method="POST" id="otpForm">
       {% csrf_token %}
 
       <div class="otp-wrapper">
-        <input type="text" maxlength="1" class="otp-box" />
-        <input type="text" maxlength="1" class="otp-box" />
-        <input type="text" maxlength="1" class="otp-box" />
-        <input type="text" maxlength="1" class="otp-box" />
-        <input type="text" maxlength="1" class="otp-box" />
-        <input type="text" maxlength="1" class="otp-box" />
+        <input
+          type="text"
+          maxlength="1"
+          class="otp-box"
+          inputmode="numeric"
+          autofocus
+        />
+        <input type="text" maxlength="1" class="otp-box" inputmode="numeric" />
+        <input type="text" maxlength="1" class="otp-box" inputmode="numeric" />
+        <input type="text" maxlength="1" class="otp-box" inputmode="numeric" />
+        <input type="text" maxlength="1" class="otp-box" inputmode="numeric" />
+        <input type="text" maxlength="1" class="otp-box" inputmode="numeric" />
       </div>
 
       <input type="hidden" name="otp" id="finalOTP" />
 
       <button type="submit" class="verify-btn">Verify OTP</button>
     </form>
+
+    <a href="{% url 'resend_otp' %}" class="resend-link"
+      >Didn't receive code? Resend OTP</a
+    >
   </div>
 </section>
 
@@ -157,7 +205,9 @@
 
     input.addEventListener("paste", function (e) {
       e.preventDefault();
-      const pasteData = (e.clipboardData || window.clipboardData).getData("text").trim();
+      const pasteData = (e.clipboardData || window.clipboardData)
+        .getData("text")
+        .trim();
       if (pasteData.length === 6 && !isNaN(pasteData)) {
         pasteData.split("").forEach((char, i) => {
           if (inputs[i]) inputs[i].value = char;
