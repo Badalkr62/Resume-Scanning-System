@@ -377,8 +377,8 @@ def send_resend_email_async(subject, to_email, html_content):
     """Background Thread function for instant & reliable HTTP Resend API dispatch"""
     try:
         response = resend.Emails.send({
-            # Uses Resend's guaranteed testing/default domain if custom domain isn't fully active
-            "from": getattr(settings, 'DEFAULT_FROM_EMAIL', 'Job Portal <onboarding@resend.dev>'),
+            # Verified Custom Domain Email for Primary Inbox Delivery
+            "from": "Smart Job Portal <otp@myjobportal.online>",
             "to": [to_email],
             "subject": subject,
             "html": html_content,
