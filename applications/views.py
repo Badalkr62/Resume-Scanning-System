@@ -1,3 +1,4 @@
+import threading
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -233,6 +234,17 @@ def application_detail(request, pk):
 
 #     return redirect("application_detail", pk=pk)
 
+logger = logging.getLogger(__name__)
+
+
+def send_email_async(email):
+    """Background thread to send email instantly without blocking the response"""
+    try:
+        email.send(fail_silently=False)
+    except Exception as e:
+        logger.error(f"Async Email Error: {e}")
+
+
 def update_application_status(request, pk, status):
     application = get_object_or_404(Application, pk=pk)
 
@@ -262,13 +274,14 @@ def update_application_status(request, pk, status):
                     to=[application.user.email],
                 )
                 email.attach_alternative(html, "text/html")
-                email.send(fail_silently=False)
+
+                # Background thread so the page loads in 1 second
+                threading.Thread(target=send_email_async,
+                                 args=(email,)).start()
                 messages.success(
-                    request, "Candidate shortlisted & email sent successfully.")
+                    request, "Candidate shortlisted successfully!")
             except Exception as e:
-                logger.error(f"Shortlist Email Error: {e}")
-                messages.warning(
-                    request, f"Candidate shortlisted, but email failed: {e}")
+                logger.error(f"Shortlist Email Setup Error: {e}")
 
         elif status == "Rejected":
             try:
@@ -280,15 +293,16 @@ def update_application_status(request, pk, status):
                     to=[application.user.email],
                 )
                 email.attach_alternative(html, "text/html")
-                email.send(fail_silently=False)
-                messages.success(
-                    request, "Candidate rejected & email sent successfully.")
-            except Exception as e:
-                logger.error(f"Rejection Email Error: {e}")
-                messages.warning(
-                    request, f"Candidate rejected, but email failed: {e}")
 
-    # BADLAV: Candidate list page par redirect karein taaki Heavy Resume Parsing dobara na chale
+                # Background thread
+                threading.Thread(target=send_email_async,
+                                 args=(email,)).start()
+                messages.success(
+                    request, "Candidate status updated to Rejected.")
+            except Exception as e:
+                logger.error(f"Rejection Email Setup Error: {e}")
+
+    # Redirecting to application_list avoids running heavy resume parsers
     return redirect("application_list")
 
 
