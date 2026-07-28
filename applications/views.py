@@ -176,11 +176,67 @@ def application_detail(request, pk):
     )
 
 
+# def update_application_status(request, pk, status):
+#     application = get_object_or_404(Application, pk=pk)
+
+#     if application.status != status:
+
+#         application.status = status
+#         application.save(update_fields=["status"])
+
+
+#         context = {
+#             "candidate": application.user.username,
+#             "job": application.job.title,
+#             "company": application.job.company,
+#             "dashboard_link": "https://your-domain.com/dashboard",
+#             "careers_link": "https://your-domain.com/careers",
+#         }
+
+#         if status == "Shortlisted":
+
+#             html = render_to_string(
+#                 "emails/shortlisted_email.html",
+#                 context
+#             )
+
+#             email = EmailMultiAlternatives(
+#                 subject="🎉 Congratulations! You are Shortlisted",
+#                 body="Congratulations!",
+#                 from_email=settings.DEFAULT_FROM_EMAIL,
+#                 to=[application.user.email],
+#             )
+
+#             email.attach_alternative(html, "text/html")
+#             email.send(fail_silently=True)
+
+#             messages.success(request, "Candidate shortlisted successfully.")
+
+#         elif status == "Rejected":
+
+#             html = render_to_string(
+#                 "emails/rejected_email.html",
+#                 context
+#             )
+
+#             email = EmailMultiAlternatives(
+#                 subject="Application Status",
+#                 body="Application Update",
+#                 from_email=settings.DEFAULT_FROM_EMAIL,
+#                 to=[application.user.email],
+#             )
+
+#             email.attach_alternative(html, "text/html")
+#             email.send(fail_silently=True)
+
+#             messages.success(request, "Candidate rejected successfully.")
+
+#     return redirect("application_detail", pk=pk)
+
 def update_application_status(request, pk, status):
     application = get_object_or_404(Application, pk=pk)
 
     if application.status != status:
-
         application.status = status
         application.save(update_fields=["status"])
 
@@ -188,47 +244,47 @@ def update_application_status(request, pk, status):
             "candidate": application.user.username,
             "job": application.job.title,
             "company": application.job.company,
-            "dashboard_link": "https://your-domain.com/dashboard",
-            "careers_link": "https://your-domain.com/careers",
+            "dashboard_link": "https://resume-scanning-system.onrender.com/dashboard",
+            "careers_link": "https://resume-scanning-system.onrender.com/careers",
         }
 
         if status == "Shortlisted":
-
-            html = render_to_string(
-                "emails/shortlisted_email.html",
-                context
-            )
-
-            email = EmailMultiAlternatives(
-                subject="🎉 Congratulations! You are Shortlisted",
-                body="Congratulations!",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[application.user.email],
-            )
-
-            email.attach_alternative(html, "text/html")
-            email.send(fail_silently=True)
-
-            messages.success(request, "Candidate shortlisted successfully.")
+            try:
+                html = render_to_string(
+                    "emails/shortlisted_email.html", context)
+                email = EmailMultiAlternatives(
+                    subject="🎉 Congratulations! You are Shortlisted",
+                    body="Congratulations!",
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[application.user.email],
+                )
+                email.attach_alternative(html, "text/html")
+                # <-- Set to False to catch exceptions
+                email.send(fail_silently=False)
+                messages.success(
+                    request, "Candidate shortlisted & email sent successfully.")
+            except Exception as e:
+                logger.error(f"Shortlist Email Error: {e}")
+                messages.warning(
+                    request, f"Candidate shortlisted, but email failed to send.")
 
         elif status == "Rejected":
-
-            html = render_to_string(
-                "emails/rejected_email.html",
-                context
-            )
-
-            email = EmailMultiAlternatives(
-                subject="Application Status",
-                body="Application Update",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[application.user.email],
-            )
-
-            email.attach_alternative(html, "text/html")
-            email.send(fail_silently=True)
-
-            messages.success(request, "Candidate rejected successfully.")
+            try:
+                html = render_to_string("emails/rejected_email.html", context)
+                email = EmailMultiAlternatives(
+                    subject="Application Status Update",
+                    body="Application Update",
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[application.user.email],
+                )
+                email.attach_alternative(html, "text/html")
+                email.send(fail_silently=False)  # <-- Set to False
+                messages.success(
+                    request, "Candidate rejected & email sent successfully.")
+            except Exception as e:
+                logger.error(f"Rejection Email Error: {e}")
+                messages.warning(
+                    request, f"Candidate rejected, but email failed to send.")
 
     return redirect("application_detail", pk=pk)
 
