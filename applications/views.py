@@ -240,6 +240,10 @@ def update_application_status(request, pk, status):
         application.status = status
         application.save(update_fields=["status"])
 
+        # Fetch settings email safely
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL',
+                             'Job Portal <otp@myjobportal.online>')
+
         context = {
             "candidate": application.user.username,
             "job": application.job.title,
@@ -255,18 +259,17 @@ def update_application_status(request, pk, status):
                 email = EmailMultiAlternatives(
                     subject="🎉 Congratulations! You are Shortlisted",
                     body="Congratulations!",
-                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    from_email=from_email,
                     to=[application.user.email],
                 )
                 email.attach_alternative(html, "text/html")
-                # <-- Set to False to catch exceptions
                 email.send(fail_silently=False)
                 messages.success(
                     request, "Candidate shortlisted & email sent successfully.")
             except Exception as e:
                 logger.error(f"Shortlist Email Error: {e}")
                 messages.warning(
-                    request, f"Candidate shortlisted, but email failed to send.")
+                    request, f"Candidate shortlisted, but email failed: {e}")
 
         elif status == "Rejected":
             try:
@@ -274,17 +277,17 @@ def update_application_status(request, pk, status):
                 email = EmailMultiAlternatives(
                     subject="Application Status Update",
                     body="Application Update",
-                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    from_email=from_email,
                     to=[application.user.email],
                 )
                 email.attach_alternative(html, "text/html")
-                email.send(fail_silently=False)  # <-- Set to False
+                email.send(fail_silently=False)
                 messages.success(
-                    request, "Candidate rejected & email sent successfully.")
+                    request, "Candidate rejected & status updated.")
             except Exception as e:
                 logger.error(f"Rejection Email Error: {e}")
                 messages.warning(
-                    request, f"Candidate rejected, but email failed to send.")
+                    request, f"Candidate rejected, but email failed: {e}")
 
     return redirect("application_detail", pk=pk)
 
