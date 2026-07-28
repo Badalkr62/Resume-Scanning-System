@@ -394,7 +394,7 @@ def send_otp_email(to_email, username, otp_code, subject="Smart Recruiter Access
 
     try:
         response = resend.Emails.send({
-            "from": "Smart Recruiter <otp@myjobportal.online>",
+            "from": "Smart Recruiter <otp@send.myjobportal.online>",
             "to": [to_email],
             "subject": subject,
             "html": html_content,
