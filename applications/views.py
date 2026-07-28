@@ -240,7 +240,6 @@ def update_application_status(request, pk, status):
         application.status = status
         application.save(update_fields=["status"])
 
-        # Fetch settings email safely
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL',
                              'Job Portal <otp@myjobportal.online>')
 
@@ -283,13 +282,14 @@ def update_application_status(request, pk, status):
                 email.attach_alternative(html, "text/html")
                 email.send(fail_silently=False)
                 messages.success(
-                    request, "Candidate rejected & status updated.")
+                    request, "Candidate rejected & email sent successfully.")
             except Exception as e:
                 logger.error(f"Rejection Email Error: {e}")
                 messages.warning(
                     request, f"Candidate rejected, but email failed: {e}")
 
-    return redirect("application_detail", pk=pk)
+    # BADLAV: Candidate list page par redirect karein taaki Heavy Resume Parsing dobara na chale
+    return redirect("application_list")
 
 
 def schedule_interview(request, pk):
