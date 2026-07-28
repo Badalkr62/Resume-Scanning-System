@@ -362,27 +362,35 @@ logger = logging.getLogger(__name__)
 resend.api_key = os.getenv("RESEND_API_KEY")
 
 
-def send_otp_email(to_email, username, otp_code, subject="Your Verification Code"):
+def send_otp_email(to_email, username, otp_code, subject="Smart Recruiter Access Code"):
     """
-    Helper function to send professional, Primary Inbox friendly OTP emails via Resend.
+    Anti-Spam Optimized OTP Email Function
     """
     html_content = f"""
-    <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; color: #1f2937;">
-        <h2 style="color: #2563eb; margin-bottom: 8px;">Smart Recruiter</h2>
-        <p style="font-size: 15px;">Hello <strong>{username}</strong>,</p>
-        <p style="font-size: 14px; color: #4b5563;">Please use the following One-Time Password (OTP) to complete your verification:</p>
-        
-        <div style="background-color: #f3f4f6; padding: 15px; text-align: center; border-radius: 6px; margin: 20px 0;">
-            <span style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #1e40af;">{otp_code}</span>
-        </div>
-        
-        <p style="font-size: 13px; color: #6b7280;">This code is valid for 10 minutes. If you did not request this, please ignore this email.</p>
-        <hr style="border: none; border-top: 1px solid #f3f4f6; margin: 20px 0;" />
-        <p style="font-size: 11px; color: #9ca3af; text-align: center;">Sent securely by Smart Recruiter System</p>
-    </div>
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"></head>
+    <body style="font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; margin: 0;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 480px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 32px;">
+            <tr>
+                <td>
+                    <h2 style="color: #111827; font-size: 20px; margin-top: 0;">Smart Recruiter</h2>
+                    <p style="font-size: 15px; color: #374151;">Hi {username},</p>
+                    <p style="font-size: 14px; color: #4b5563;">Use the code below to complete your login or registration:</p>
+                    
+                    <div style="background-color: #f3f4f6; border-radius: 6px; padding: 16px; text-align: center; margin: 20px 0;">
+                        <span style="font-size: 32px; font-weight: 700; letter-spacing: 6px; color: #1d4ed8;">{otp_code}</span>
+                    </div>
+                    
+                    <p style="font-size: 13px; color: #6b7280;">This security code is valid for 10 minutes.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
     """
 
-    plain_text = f"Hello {username},\nYour OTP for verification is: {otp_code}\nThis code is valid for 10 minutes."
+    plain_text = f"Hi {username},\n\nYour Smart Recruiter code is: {otp_code}\nValid for 10 minutes."
 
     try:
         response = resend.Emails.send({
@@ -391,11 +399,15 @@ def send_otp_email(to_email, username, otp_code, subject="Your Verification Code
             "subject": subject,
             "html": html_content,
             "text": plain_text,
+            # X-Entity-Ref-ID header bataata hai ki ye transactional mail hai
+            "headers": {
+                "X-Entity-Ref-ID": f"sec-{otp_code}"
+            }
         })
-        logger.info(f"✅ OTP Email Sent Successfully via Resend: {response}")
+        logger.info(f"✅ User OTP Sent: {response}")
         return True
     except Exception as e:
-        logger.error(f"❌ Resend OTP Email Error: {e}")
+        logger.error(f"❌ User OTP Error: {e}")
         return False
 
 
