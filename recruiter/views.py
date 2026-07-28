@@ -248,9 +248,12 @@ def schedule_interview(request, pk):
     )
 
 
-def send_offer_letter(request, application_id):
+def send_offer_letter(request, pk=None, application_id=None):
+    # Dono URL styles (pk ya application_id) ko handle karega
+    app_id = pk or application_id
+
     # Fetch actual application object
-    application = get_object_or_404(Application, id=application_id)
+    application = get_object_or_404(Application, id=app_id)
 
     # Safely get candidate object (handles 'user' or 'applicant' model fields)
     candidate = getattr(application, "applicant", None) or getattr(
@@ -258,7 +261,7 @@ def send_offer_letter(request, application_id):
 
     if not candidate or not candidate.email:
         messages.error(request, "Candidate email address not found.")
-        return redirect("application_detail", id=application_id)
+        return redirect("application_detail", id=app_id)
 
     applicant_name = (
         candidate.first_name if hasattr(candidate, "first_name") and candidate.first_name
@@ -302,7 +305,7 @@ def send_offer_letter(request, application_id):
             "html": html_content,
             "text": plain_text,
             "headers": {
-                "X-Entity-Ref-ID": f"offer-{application_id}"
+                "X-Entity-Ref-ID": f"offer-{app_id}"
             }
         })
 
@@ -313,7 +316,11 @@ def send_offer_letter(request, application_id):
         logger.error(f"❌ Offer Letter Email Error: {e}")
         messages.error(request, f"Unable to send offer letter. Error: {e}")
 
-    return redirect("application_detail", id=application_id)
+    # Safety check for redirect URL name
+    try:
+        return redirect("application_detail", id=app_id)
+    except:
+        return redirect("application_detail", pk=app_id)
 
 
 def recruiter_messages(request):
