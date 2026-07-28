@@ -1,3 +1,5 @@
+from datetime import datetime
+import random
 import os
 import logging
 import resend
@@ -249,13 +251,10 @@ def schedule_interview(request, pk):
 
 
 def send_offer_letter(request, pk=None, application_id=None):
-    # Dono URL styles (pk ya application_id) ko handle karega
     app_id = pk or application_id
-
-    # Fetch actual application object
     application = get_object_or_404(Application, id=app_id)
 
-    # Safely get candidate object (handles 'user' or 'applicant' model fields)
+    # Candidate object safe fetching
     candidate = getattr(application, "applicant", None) or getattr(
         application, "user", None)
 
@@ -263,45 +262,143 @@ def send_offer_letter(request, pk=None, application_id=None):
         messages.error(request, "Candidate email address not found.")
         return redirect("application_detail", id=app_id)
 
-    applicant_name = (
-        candidate.first_name if hasattr(candidate, "first_name") and candidate.first_name
-        else getattr(candidate, "username", "Candidate")
-    )
-    job_title = getattr(application.job, "title", "the position")
+    # Data Extracting
+    applicant_name = candidate.get_full_name() if hasattr(candidate,
+                                                          'get_full_name') and candidate.get_full_name() else getattr(candidate, "username", "Candidate")
     applicant_email = candidate.email
+    mobile = getattr(candidate, "phone_number",
+                     getattr(candidate, "mobile", "N/A"))
+    if hasattr(candidate, 'userprofile') and hasattr(candidate.userprofile, 'phone'):
+        mobile = candidate.userprofile.phone
 
+    job = getattr(application, "job", None)
+    job_title = getattr(job, "title", "Software Developer")
+    company_name = getattr(job, "company_name", getattr(
+        job, "company", "TechNova Solutions Pvt. Ltd."))
+    location = getattr(job, "location", "Ranchi, Jharkhand")
+    salary = getattr(job, "salary", getattr(
+        job, "salary_range", "5 LPA - 8 LPA"))
+    department = getattr(job, "department", "Software Development")
+
+    # Dynamic Dates & IDs
+    today_date = datetime.now().strftime("%d %B %Y")
+    offer_no = f"ATS-{random.randint(10000, 99999)}"
+    candidate_id = f"ATS-{candidate.id if hasattr(candidate, 'id') else app_id}"
+    joining_date = (datetime.now() + timedelta(days=15)).strftime("%d %B %Y")
+
+    # EXACT HTML TEMPLATE matching your image
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {{ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #111; background-color: #f4f4f4; margin: 0; padding: 20px; }}
+            .container {{ max-width: 680px; margin: 0 auto; background: #ffffff; padding: 40px; border: 1px solid #ddd; border-radius: 4px; }}
+            .header {{ text-align: center; margin-bottom: 25px; }}
+            .header h2 {{ font-size: 22px; font-weight: bold; margin: 0 0 5px 0; color: #000; }}
+            .header h4 {{ font-size: 15px; font-weight: bold; margin: 0 0 15px 0; color: #333; }}
+            .address {{ font-size: 11px; color: #555; line-height: 1.4; border-bottom: 1px solid #ccc; padding-bottom: 15px; }}
+            .title {{ text-align: center; font-size: 16px; font-weight: bold; margin: 25px 0; letter-spacing: 1px; text-transform: uppercase; }}
+            .content {{ font-size: 13px; line-height: 1.6; color: #222; }}
+            .meta-info {{ margin: 15px 0; font-size: 13px; line-height: 1.7; }}
+            .meta-info strong {{ width: 140px; display: inline-block; }}
+            table {{ width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }}
+            table, th, td {{ border: 1px solid #888; }}
+            td {{ padding: 8px 12px; }}
+            td.label {{ background-color: #eaeaea; font-weight: bold; width: 35%; }}
+            .section-title {{ font-size: 15px; font-weight: bold; margin: 25px 0 10px 0; text-align: center; }}
+            .terms {{ font-size: 12px; line-height: 1.7; padding-left: 18px; margin-bottom: 30px; }}
+            .footer {{ margin-top: 40px; font-size: 13px; }}
+            .stamp {{ margin-top: 15px; display: inline-block; padding: 10px 15px; border: 2px dashed #1d4ed8; color: #1d4ed8; font-weight: bold; font-size: 11px; border-radius: 50%; text-align: center; text-transform: uppercase; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h2>Global Talent Solutions</h2>
+                <h4>Talent Acquisition Team</h4>
+                <div class="address">
+                    Smart Recruiter Technologies Pvt. Ltd.<br>
+                    Hazaribagh, Jharkhand - 825301<br>
+                    www.smartresumeats.com
+                </div>
+            </div>
+
+            <div class="title">OFFICIAL OFFER LETTER</div>
+
+            <div class="content">
+                <p><strong>Date :</strong> {today_date}</p>
+                <p>Dear <strong>{applicant_name}</strong>,</p>
+                <p>Congratulations! We are delighted to offer you employment with <strong>SMART RESUME ATS</strong>. Based on your interview performance, we are pleased to appoint you to the following position.</p>
+
+                <div class="meta-info">
+                    <div><strong>Offer No :</strong> {offer_no}</div>
+                    <div><strong>Candidate Name :</strong> {applicant_name}</div>
+                    <div><strong>Mobile :</strong> {mobile}</div>
+                    <div><strong>Email :</strong> {applicant_email}</div>
+                    <div><strong>Candidate ID :</strong> {candidate_id}</div>
+                </div>
+
+                <table>
+                    <tr>
+                        <td class="label">Position</td>
+                        <td>{job_title}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Company</td>
+                        <td>{company_name}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Department</td>
+                        <td>{department}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Location</td>
+                        <td>{location}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Salary</td>
+                        <td>{salary}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Joining Date</td>
+                        <td>{joining_date}</td>
+                    </tr>
+                </table>
+
+                <div class="section-title">Terms & Conditions</div>
+                <ol class="terms">
+                    <li>You will report to the HR Department on your joining date.</li>
+                    <li>Bring all original educational documents.</li>
+                    <li>Employment is subject to company policies.</li>
+                    <li>Company reserves the right to terminate employment as per company policy.</li>
+                </ol>
+
+                <p>We look forward to welcoming you to our team.</p>
+
+                <div class="footer">
+                    <strong>HR Manager</strong><br>
+                    SMART RESUME ATS<br>
+                    <div class="stamp">
+                        BADAL PRIVATE LIMITED<br>
+                        PVT. LTD.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    plain_text = f"Dear {applicant_name},\n\nOFFICIAL OFFER LETTER\n\nPosition: {job_title}\nCompany: {company_name}\nLocation: {location}\nSalary: {salary}\nJoining Date: {joining_date}\n\nCongratulations!"
+
+    # Send Email via Resend
     try:
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head><meta charset="utf-8"></head>
-        <body style="font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; margin: 0;">
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 520px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 32px;">
-                <tr>
-                    <td>
-                        <h2 style="color: #2563eb; font-size: 20px; margin-top: 0;">Smart Recruiter</h2>
-                        <p style="font-size: 15px; color: #374151;">Dear <strong>{applicant_name}</strong>,</p>
-                        <p style="font-size: 14px; color: #4b5563; line-height: 1.5;">
-                            We are pleased to extend an offer for the position of <strong>{job_title}</strong> at our company!
-                        </p>
-                        <p style="font-size: 14px; color: #4b5563; line-height: 1.5;">
-                            Please log in to your candidate portal to review the offer details and complete the next steps.
-                        </p>
-                        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-                        <p style="font-size: 12px; color: #6b7280; margin-bottom: 0;">Best regards,<br>Smart Recruiter Hiring Team</p>
-                    </td>
-                </tr>
-            </table>
-        </body>
-        </html>
-        """
-
-        plain_text = f"Dear {applicant_name},\n\nWe are pleased to offer you the position of {job_title}.\nPlease log in to your candidate portal for details.\n\nBest regards,\nSmart Recruiter Hiring Team"
-
         response = resend.Emails.send({
             "from": "Smart Recruiter <otp@myjobportal.online>",
             "to": [applicant_email],
-            "subject": f"Job Offer: {job_title}",
+            "subject": f"OFFICIAL OFFER LETTER - {applicant_name}",
             "html": html_content,
             "text": plain_text,
             "headers": {
@@ -309,19 +406,19 @@ def send_offer_letter(request, pk=None, application_id=None):
             }
         })
 
-        logger.info(f"✅ Offer letter sent via Resend: {response}")
-        messages.success(request, "Offer letter sent successfully!")
+        logger.info(f"✅ Offer letter sent successfully: {response}")
+        messages.success(
+            request, "Official Offer Letter sent successfully to Gmail!")
 
     except Exception as e:
         logger.error(f"❌ Offer Letter Email Error: {e}")
         messages.error(request, f"Unable to send offer letter. Error: {e}")
 
-    # Safety check for redirect URL name
     try:
         return redirect("application_detail", id=app_id)
-    except:
+    except Exception:
         return redirect("application_detail", pk=app_id)
-
+    
 
 def recruiter_messages(request):
     return render(request, "recruiter/messages.html")
